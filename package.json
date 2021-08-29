@@ -1,20 +1,29 @@
 {
-  "name": "discord-js-handler-template",
+  "name": "roleplay-bot",
   "version": "1.0.0",
-  "description": "Discord.js Command and Event Handler Template with example Command usages!",
+  "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
-  "author": "Tomato#6966 (author of this template)",
-  "license": "ISC",
   "dependencies": {
-    "ascii-table": "0.0.9",
-    "discord.js": "^12.5.1"
+    "discord.js": "^12.5.3"
   },
-  "devDependencies": {
-    "ascii-table": "0.0.9",
-    "colors": "^1.4.0"
-  }
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subtosharki/new-rp-bot-js.git"
+  },
+  "keywords": [
+    "roleplay",
+    "rp",
+    "gta",
+    "gtav"
+  ],
+  "author": "subtosharki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/subtosharki/new-rp-bot-js/issues"
+  },
+  "homepage": "https://github.com/subtosharki/new-rp-bot-js#readme"
 }
