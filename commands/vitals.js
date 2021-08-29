@@ -1,5 +1,5 @@
 module.exports = {
-    name: "checks-vitals",
+    name: "vitals",
     description: "checks the @ users vitals",
     execute(message, args) {
       const user = message.author;
@@ -10,4 +10,4 @@ module.exports = {
           }
 		message.channel.send(`${taggedUser}, ${user} Is checking your vitals please answer the following: \n What is your pulse? \n Do you have a clear airway? \n What is your Blood Pressure?`);
     },
-};
+};//embed

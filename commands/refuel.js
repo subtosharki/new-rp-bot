@@ -4,4 +4,4 @@ module.exports = {
     execute(message, args) {
 		message.reply(`You are refuelling your vehicle, please keep in mind that you have 90 minutes of fuel left.`);
     },
-};
+};//embed

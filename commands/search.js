@@ -10,4 +10,4 @@ module.exports = {
 			}
 			message.channel.send(`${taggedUser}, ${user} is searching you, what do they find on you?`);
 	},
-};
+};//embed

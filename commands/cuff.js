@@ -10,4 +10,4 @@ module.exports = {
           }
 		message.reply(`has cuffed ${taggedUser} succesfully.`);
     },
-};
+};//embed

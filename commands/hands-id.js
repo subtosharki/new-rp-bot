@@ -10,4 +10,4 @@ module.exports = {
           }
 		message.channel.send(`${taggedUser} ${user} has handed you their ID.`);
     },
-};
+};//embed

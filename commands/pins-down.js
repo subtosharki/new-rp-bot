@@ -10,4 +10,4 @@ module.exports = {
 			}
 			message.channel.send(`${taggedUser}, ${user} Has got you successfully pinned down`);
 	},
-};
+};//embed

@@ -1,6 +1,6 @@
 module.exports = {
     name: "help",
-    description: "shows a list of commands",
+    description: "Sends you a list of my commands",
     execute(message, args) {
         const data = [];
         const { commands } = message.client;
@@ -36,4 +36,4 @@ module.exports = {
 
         message.channel.send(data, { split: true });
     },
-};
+};//embed

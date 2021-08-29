@@ -4,4 +4,4 @@ module.exports = {
     execute(message, args) {
 		message.reply(`You have sucessfully turned off the vehicle.`);
     },
-};
+};//embed

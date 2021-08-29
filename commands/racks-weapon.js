@@ -5,4 +5,4 @@ module.exports = {
 		const user = message.author;
 			message.channel.send(`${user} You have successfully racked your weapon`);
 	},
-};
+};//embed
