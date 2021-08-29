@@ -3,6 +3,8 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	name: 'reads-id',
 	description: 'read someones id in discord',
+	aliases: ['read-id', 'read', 'reads'],
+	examples: ['!reads-id <@318203855365996544>'],
 	execute(message, args) {
 		const user = message.author;
 		const taggedUser = message.mentions.users.first();

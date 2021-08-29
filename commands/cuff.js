@@ -10,6 +10,8 @@ function sleep(milliseconds) {
 module.exports = {
     name: "cuff",
     description: "Applies handcuffs to a user",
+    aliases: ['cuffs'],
+    examples: ['!cuff <@318203855365996544>'],
     execute(message, args) {
       const user = message.author;
       const taggedUser = message.mentions.users.first();

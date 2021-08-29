@@ -3,6 +3,8 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "vitals",
     description: "checks the @ users vitals",
+    aliases: ['checks', 'check', 'vital'],
+    examples: ['!vitals'],
     execute(message, args) {
       const user = message.author;
       const taggedUser = message.mentions.users.first();

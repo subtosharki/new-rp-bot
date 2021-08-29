@@ -3,6 +3,8 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	name: 'search',
 	description: 'search someone in discord',
+	aliases: ['searches', 'pats', 'pats-down'],
+	examples: ['!search <@318203855365996544>'],
 	execute(message, args) {
 		const user = message.author;
 		const taggedUser = message.mentions.users.first();

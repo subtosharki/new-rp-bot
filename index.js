@@ -27,7 +27,6 @@ client.on('message', message => {
 		client.commands.get(command).execute(message, args);
 	} catch (error) {
 		console.error(error);
-		message.reply('there was an error trying to execute that command! Contact <@318203855365996544> for support...');
 	}
 });
 console.log("Command Handler Loaded!");

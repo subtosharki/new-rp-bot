@@ -3,6 +3,8 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	name: 'tackles',
 	description: 'tackle a person in discord',
+	aliases: ['tackle'],
+	examples: ['tackle <@318203855365996544>'],
 	execute(message, args) {
 		const user = message.author;
 		const taggedUser = message.mentions.users.first();
