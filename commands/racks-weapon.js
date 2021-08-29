@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
 	name: 'racks-weapon',
 	description: 'rack your weapon in a car in discord',

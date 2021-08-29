@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
 	name: 'uncuff',
 	description: 'uncuff a person in discord',

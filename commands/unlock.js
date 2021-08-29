@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
 	name: 'unlock',
 	description: 'unlock a vehicle in discord',

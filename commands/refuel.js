@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
     name: "refuel",
     description: "fills up your car in discord with a 30sec wait",

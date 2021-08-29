@@ -1,6 +1,15 @@
+const { MessageEmbed } = require('discord.js');
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
 module.exports = {
     name: "cuff",
-    description: "cuffs the person you @",
+    description: "Applies handcuffs to a user",
     execute(message, args) {
       const user = message.author;
       const taggedUser = message.mentions.users.first();
@@ -8,6 +17,22 @@ module.exports = {
             message.reply("Please mention someone");
             return;
           }
-		message.reply(`has cuffed ${taggedUser} succesfully.`);
+
+          const Embed = new MessageEmbed()
+          .setColor('0x004cff')
+          .setDescription("Applying Cuffs...")
+          .setTimestamp()
+
+
+          const Embed2 = new MessageEmbed()
+          .setColor('0x004cff')
+          .setDescription(`**${user}** cuffed **${taggedUser}**!`)
+          .setTimestamp()
+
+
+          message.channel.send(Embed).then(msg => { 
+            setTimeout(function(){ msg.edit(Embed2) }, 1000);
+            });
+            
     },
-};//embed
+};
