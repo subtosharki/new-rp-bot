@@ -49,9 +49,7 @@ for (const file of eventFiles) {
 }
 console.log("Event Handler Loaded!");
 
-client.on('ready', () => {
-  console.log("Online");
-});
+
 
 
 
