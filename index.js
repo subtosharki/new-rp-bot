@@ -1,9 +1,12 @@
 ﻿const fs = require('fs');
 const Discord = require('discord.js');
-const { prefix, token } = require('./config.json');
+require('dotenv').config();
+const prefix = process.env.PREFIX;
+const Intents = require('discord.js');
 
 
-const client = new Discord.Client();
+
+const client = new Discord.Client({ intents: [Intents.FLAGS.GUILDS] });
 client.commands = new Discord.Collection();
 
 console.log("Loading Command Handler...");
@@ -52,4 +55,4 @@ client.on('ready', () => {
 
 
 
-client.login(token);
+client.login();

@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "help",
     description: "Sends you a list of my commands",
-    aliases: ['commands', 'command'],
+    aliases: ['commands', 'command', 'h'],
     examples: ['!help search'],
     execute(message, args) {
         const data = [];
@@ -50,7 +50,7 @@ module.exports = {
 
         const embed2 = new MessageEmbed()
         .setColor('#0099ff')
-        .setDescription(`${data}`)
+        .setDescription(`${data.join(" ")}`)
         .setTimestamp()
         .setFooter('Command Lookup')
 
