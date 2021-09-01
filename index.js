@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 require('dotenv').config();
 const prefix = process.env.PREFIX;
-const Intents = require('discord.js');
+const { Client, Intents } = require('discord.js');
 
 
 
@@ -55,4 +55,4 @@ client.on('ready', () => {
 
 
 
-client.login();
+client.login(process.env.TOKEN);
