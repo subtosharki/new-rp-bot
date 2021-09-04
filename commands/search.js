@@ -1,17 +1,11 @@
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-	name: 'search',
-	description: 'search someone in discord',
-	aliases: ['searches', 'pats', 'pats-down'],
-	examples: ['!search <@318203855365996544>'],
-	execute(message, args) {
-		const user = message.author;
-		const taggedUser = message.mentions.users.first();
-		  if (taggedUser === undefined) {
-			  message.reply("Please mention someone");
-			  return;
-			}
-			message.channel.send(`${taggedUser}, ${user} is searching you, what do they find on you?`);
+	data: new SlashCommandBuilder()
+		.setName('search')
+		.setDescription('Search a user'),
+	async execute(interaction) {
+		await interaction.reply('');
 	},
-};//embed
+};

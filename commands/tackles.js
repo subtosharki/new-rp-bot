@@ -1,17 +1,11 @@
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-	name: 'tackles',
-	description: 'tackle a person in discord',
-	aliases: ['tackle'],
-	examples: ['tackle <@318203855365996544>'],
-	execute(message, args) {
-		const user = message.author;
-		const taggedUser = message.mentions.users.first();
-		  if (taggedUser === undefined) {
-			  message.reply("Please mention someone");
-			  return;
-			}
-			message.channel.send(`${taggedUser}, ${user} has tackled you down to the ground.`);
+	data: new SlashCommandBuilder()
+		.setName('tackles')
+		.setDescription('Tackles a member to the ground'),
+	async execute(interaction) {
+		await interaction.reply('');
 	},
-};//embed
+};

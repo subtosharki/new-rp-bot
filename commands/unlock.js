@@ -1,11 +1,11 @@
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-	name: 'unlock',
-	description: 'unlock a vehicle in discord',
-	aliases: ['unlocks', 'unlock-veh', 'unlocks-veh', 'unlock-car', 'unlocks-car'],
-	examples: ['!unlock'],
-	execute(message, args) {
-		message.reply(`You have successfully unlocked your vehicle`);
+	data: new SlashCommandBuilder()
+		.setName('unlock')
+		.setDescription('Unlocks your vehicle'),
+	async execute(interaction) {
+		await interaction.reply('');
 	},
-};//embed
+};

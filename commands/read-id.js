@@ -3,8 +3,8 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('lock')
-		.setDescription('Locks your vehicle'),
+		.setName('read-id')
+		.setDescription("Reads a civilian's ID"),
 	async execute(interaction) {
 		await interaction.reply('');
 	},

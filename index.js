@@ -1,55 +1,51 @@
-﻿const fs = require('fs');
-const Discord = require('discord.js');
-require('dotenv').config();
-const prefix = process.env.PREFIX;
-const { Client, Intents } = require('discord.js');
+const fs = require('fs');
+const { Client, Collection, Intents } = require('discord.js');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+client.commands = new Collection();
 
 
 
-const client = new Discord.Client({ intents: [Intents.FLAGS.GUILDS] });
-client.commands = new Discord.Collection();
 
-console.log("Loading Command Handler...");
+//command handler
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+    client.commands.set(command.data.name, command);
 }
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isCommand()) return;
 
-client.on('message', message => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
+	const command = client.commands.get(interaction.commandName);
 
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
-	const command = args.shift().toLowerCase();
-
-
-	if (!client.commands.has(command)) return;
+	if (!command) return;
 
 	try {
-		client.commands.get(command).execute(message, args);
+		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
+		return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
-console.log("Command Handler Loaded!");
+console.log("Command Handler Loaded!")
 
 
 
-console.log("Loading Event Handler...");
+
+
+//event handler
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args, client));
+		client.once(event.name, (...args) => event.execute(...args));
 	} else {
-		client.on(event.name, (...args) => event.execute(...args, client));
+		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
-console.log("Event Handler Loaded!");
-
-
+console.log("Event Handler Loaded!")
 
 
 

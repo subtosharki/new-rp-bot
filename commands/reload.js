@@ -1,10 +1,11 @@
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-	name: 'reload',
-	description: 'reload your gun in discord',
-	examples: ['!reload'],
-	execute(message, args) {
-		message.reply(`You have attempted to reload your weapon, you need to wait 5 seconds before the weapon is loaded.`);
+	data: new SlashCommandBuilder()
+		.setName('reload')
+		.setDescription('Reloads your weapon'),
+	async execute(interaction) {
+		await interaction.reply('');
 	},
-};//embed
+};

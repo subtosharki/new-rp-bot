@@ -1,10 +1,11 @@
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: "eng-on",
-    description: "turns on your engine in discord",
-    examples: ['!eng-on'],
-    execute(message, args) {
-		message.reply(`You have sucessfully turned on the vehicle.`);
-    },
-};//embed
+	data: new SlashCommandBuilder()
+		.setName('eng-on')
+		.setDescription('Turn on your vehicle engine'),
+	async execute(interaction) {
+		await interaction.reply('');
+	},
+};
