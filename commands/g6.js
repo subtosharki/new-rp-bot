@@ -3,14 +3,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('tackles')
-		.setDescription('Tackles a member to the ground')
-		.addUserOption((option) =>
-			option
-				.setName('user')
-				.setDescription('The user to tackle')
-				.setRequired(true)
-		),
+		.setName('g6')
+		.setDescription('Sends a gruppe sechs message'),
 	async execute(interaction) {
 		await interaction.reply('');
 	},

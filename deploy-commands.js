@@ -6,7 +6,7 @@ dotenv.config();
 
 const commands = [];
 const commandFiles = fs
-	.readdirSync('./commands')
+	.readdirSync(`./commands`)
 	.filter((file) => file.endsWith('.js'));
 
 for (const file of commandFiles) {

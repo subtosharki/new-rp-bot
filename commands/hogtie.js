@@ -3,12 +3,12 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('tackles')
-		.setDescription('Tackles a member to the ground')
+		.setName('hogtie')
+		.setDescription('Hogties someone')
 		.addUserOption((option) =>
 			option
 				.setName('user')
-				.setDescription('The user to tackle')
+				.setDescription('The user to hogtie')
 				.setRequired(true)
 		),
 	async execute(interaction) {
