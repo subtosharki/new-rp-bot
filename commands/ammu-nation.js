@@ -26,10 +26,7 @@ module.exports = {
 					'Tataviam Truckstop, in the Tataviam Mountains',
 					'Tataviam Truckstop, in the Tataviam Mountains'
 				)
-				.addChoice(
-					'Paleto Bay', 
-					'Paleto Bay'
-				)
+				.addChoice('Paleto Bay', 'Paleto Bay')
 				.addChoice(
 					'Algonquin Boulevard, Sandy Shores',
 					'Algonquin Boulevard, Sandy Shores'

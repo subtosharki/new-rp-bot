@@ -22,22 +22,10 @@ module.exports = {
 					'Clifton Avenue, Downtown Vinewood',
 					'Clifton Avenue, Downtown Vinewood'
 				)
-				.addChoice(
-					'Barbareno Road, Chumash', 
-					'Barbareno Road, Chumash'
-				)
-				.addChoice(
-					'Ineseno, Banham Canyon', 
-					'Ineseno, Banham Canyon'
-				)
-				.addChoice(
-					'Tataviam, Palomino Freeway', 
-					'Tataviam, Palomino Freeway'
-				)
-				.addChoice(
-					'Route 68, Harmony', 
-					'Route 68, Harmony'
-				)
+				.addChoice('Barbareno Road, Chumash', 'Barbareno Road, Chumash')
+				.addChoice('Ineseno, Banham Canyon', 'Ineseno, Banham Canyon')
+				.addChoice('Tataviam, Palomino Freeway', 'Tataviam, Palomino Freeway')
+				.addChoice('Route 68, Harmony', 'Route 68, Harmony')
 				.addChoice(
 					'Senora Freeway, Grand Senora Desert',
 					'Senora Freeway, Grand Senora Desert'
@@ -50,22 +38,13 @@ module.exports = {
 					'Vinewood Boulevard, Downtown Vinewood',
 					'Vinewood Boulevard, Downtown Vinewood'
 				)
-				.addChoice(
-					'Hawick Avenue, Alta', 
-					'Hawick Avenue, Alta'
-				)
+				.addChoice('Hawick Avenue, Alta', 'Hawick Avenue, Alta')
 				.addChoice(
 					'Vinewood Plaza, Spanish Avenue',
 					'Vinewood Plaza, Spanish Avenue'
 				)
-				.addChoice(
-					'Elgin Avenue, Hawick', 
-					'Elgin Avenue, Hawick'
-				)
-				.addChoice(
-					'Korean Plaza, Calais Avenue', 
-					'Korean Plaza, Calais Avenue'
-				)
+				.addChoice('Elgin Avenue, Hawick', 'Elgin Avenue, Hawick')
+				.addChoice('Korean Plaza, Calais Avenue', 'Korean Plaza, Calais Avenue')
 				.addChoice(
 					'Vespucci Boulevard, Little Seoul',
 					'Vespucci Boulevard, Little Seoul'
