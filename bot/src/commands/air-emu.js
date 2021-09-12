@@ -14,7 +14,7 @@ module.exports = {
 				.addChoice('Boarding', 'Boarding')
 				.addChoice('Landing', 'Landing')
 		)
-		.addStringOption((option) =>
+		.addNumberOption((option) =>
 			option
 				.setName('flight-number')
 				.setDescription('The flight number of your plane')
@@ -36,7 +36,7 @@ module.exports = {
 	async execute(interaction) {
 		const location = interaction.options.getString('location');
 		const status = interaction.options.getString('status');
-		const number = interaction.options.getString('flight-number');
+		const number = interaction.options.getNumber('flight-number');
 		const embed = new MessageEmbed()
 			.setColor('#dba31e')
 			.setTitle('Air-Emu')

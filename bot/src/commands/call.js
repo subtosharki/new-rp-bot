@@ -10,9 +10,8 @@ module.exports = {
 		),
 
 	async execute(interaction) {
-		let voiceChannel = interaction.member.voice.channelId;
 
-		if (!voiceChannel) {
+		if (!interaction.member.voice.channel) {
 			return interaction.reply({
 				content: 'Please join a voice channel before using this command.',
 				ephemeral: true,
