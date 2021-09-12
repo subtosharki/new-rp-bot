@@ -10,8 +10,9 @@ module.exports = {
 		),
 
 	async execute(interaction) {
+		let voiceChannel = interaction.member.voice.channelId;
 
-		if (!interaction.member.voice.channel) {
+		if (!voiceChannel) {
 			return interaction.reply({
 				content: 'Please join a voice channel before using this command.',
 				ephemeral: true,
@@ -34,10 +35,7 @@ module.exports = {
 		const Embed = new MessageEmbed()
 			.setColor('#004cff')
 			.setDescription(
-				`<a:telephone:858107183308603393> **${guildMember.nickname}** you are getting a call from **${interaction.member.nickname}** in ` +
-					'`' +
-					`${guildMember.voice.channel.name}` +
-					'`'
+				`<a:telephone:858107183308603393> **${guildMember.nickname}** you are getting a call from **${interaction.member.nickname}** in <#${interaction.member.voice.channelId}>\nPress **Accept** to join`
 			)
 			.setTimestamp();
 
