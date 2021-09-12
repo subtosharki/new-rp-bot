@@ -6,12 +6,14 @@ dotenv.config();
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.commands = new Collection();
 
+
+
 //command handler
-const commandFolders = fs.readdirSync('./commands');
+const commandFolders = fs.readdirSync('bot/src/commands');
 
 for (const folder of commandFolders) {
 	const commandFiles = fs
-		.readdirSync(`./commands`)
+		.readdirSync(`bot/src/commands`)
 		.filter((file) => file.endsWith('.js'));
 	for (const file of commandFiles) {
 		const command = require(`./commands/${file}`);
@@ -36,7 +38,7 @@ console.log('Command Handler Loaded!');
 
 //event handler
 const eventFiles = fs
-	.readdirSync('./events')
+	.readdirSync('bot/src/events')
 	.filter((file) => file.endsWith('.js'));
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
