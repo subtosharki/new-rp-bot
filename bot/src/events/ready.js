@@ -1,8 +1,9 @@
+const consola = require('consola')
 module.exports = {
 	name: 'ready',
 	once: true,
 	execute(client) {
-		console.log(`Ready! Logged in as ${client.user.tag}`);
+		consola.success(`Ready! Logged in as ${client.user.tag}`);
 		client.user.setActivity(`Developed by sharki#0001`);
 	},
 };

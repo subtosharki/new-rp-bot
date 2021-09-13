@@ -2,6 +2,7 @@ const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const dotenv = require('dotenv');
 dotenv.config();
+const consola = require('consola')
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS], intents: [Intents.FLAGS.GUILD_VOICE_STATES] });
 client.commands = new Collection();
@@ -27,14 +28,14 @@ client.on('interactionCreate', async (interaction) => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		console.error(error);
+		consola.error(error);
 		return interaction.reply({
 			content: 'There was an error while executing this command!',
 			ephemeral: true,
 		});
 	}
 });
-console.log('Command Handler Loaded!');
+consola.success('Command Handler Loaded!');
 
 //event handler
 const eventFiles = fs
@@ -48,6 +49,6 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
-console.log('Event Handler Loaded!');
+consola.success('Event Handler Loaded!');
 
 client.login(process.env.TOKEN);

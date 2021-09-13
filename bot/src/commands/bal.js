@@ -32,22 +32,35 @@ module.exports = {
 		else {
 			var avatar = interaction.options.getUser('user').avatar;
 		}
-
+		var guild = client.getGuild(guildID);
+		var bal = client.getUserBalance(guildID, userID);
+		var board = client.getGuildLeaderboard(guildID);
 		const Embed = new MessageEmbed()
 			.setColor('#03A8F4')
+			.setDescription(`Leaderboard Rank: ${(await board).rank}`)
 			.setAuthor(
 				`${author}`,
 				`https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`
 			)
 			.addFields(
-				{ name: 'Cash', value: `cash`, inline: true },
-				{ name: 'Bank', value: `bank`, inline: true },
-				{ name: 'Total', value: `total`, inline: true }
+				{
+					name: 'Cash: ',
+					value: `${(await guild).currencySymbol} ${(await bal).cash}`,
+					inline: true,
+				},
+				{
+					name: 'Bank: ',
+					value: `${(await guild).currencySymbol} ${(await bal).bank}`,
+					inline: true,
+				},
+				{
+					name: 'Total: ',
+					value: `${(await guild).currencySymbol} ${(await bal).total}`,
+					inline: true,
+				}
 			)
 			.setTimestamp();
 
-		client
-			.getUserBalance(guildID, userID)
-			.then((user) => interaction.reply({ embeds: [Embed] }));
+		interaction.reply({ embeds: [Embed] });
 	},
 };
