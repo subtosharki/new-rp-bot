@@ -7,10 +7,7 @@
     "start": "nodemon bot/src/index.js",
     "commands": "node bot/src/deploy-commands.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/subtosharki/new-rp-bot-js.git"
-  },
+  "repository": "git+https://github.com/subtosharki/new-rp-bot-js.git",
   "keywords": [
     "rp",
     "bot",
@@ -30,17 +27,15 @@
   "homepage": "https://github.com/subtosharki/new-rp-bot-js#readme",
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
-    "@discordjs/rest": "0.1.0-canary.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
     "consola": "^2.15.3",
-    "discord-api-types": "^0.22.0",
+    "discord-api-types": "^0.23.1",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.12",
-    "unb-api": "^1.2.3"
-  },
-  "devDependencies": {
-    "eslint": "^7.32.0",
-    "prettier": "2.3.2"
+    "prettier": "^2.4.0",
+    "unb-api": "^1.2.3",
+    "yarn": "^1.22.11"
   }
 }

@@ -11,6 +11,7 @@ module.exports = {
 
 	async execute(interaction) {
 		let voiceChannel = interaction.member.voice.channelId;
+		const guildMember = interaction.options.getMember('user');
 
 		if (!voiceChannel) {
 			return interaction.reply({
@@ -18,7 +19,6 @@ module.exports = {
 				ephemeral: true,
 			});
 		}
-		const guildMember = interaction.options.getMember('user');
 		const button = new MessageActionRow().addComponents(
 			new MessageButton()
 				.setCustomId('accept')
