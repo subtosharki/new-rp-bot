@@ -36,7 +36,7 @@ client.on('interactionCreate', async (interaction) => {
     } catch (error) {
         consola.error(error);
         return interaction.reply({
-            content: 'There was an error while executing this command!',
+            content: 'There was an error while executing this command! Contact the support team.',
             ephemeral: true,
         });
     }
