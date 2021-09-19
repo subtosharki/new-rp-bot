@@ -3,8 +3,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('xero')
-		.setDescription('Sends a xero gas station message'),
+		.setName('fleeca-bank')
+		.setDescription('Sends a Fleeca Bank message'),
 	async execute(interaction) {
 		await interaction.reply('');
 	},

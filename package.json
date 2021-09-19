@@ -4,8 +4,9 @@
   "description": "js rp bot",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon bot/src/index.js",
-    "commands": "node bot/src/deploy-commands.js"
+    "Start-Bot": "nodemon bot/src/index.js",
+    "Load-Commands": "node bot/src/DeployCommands.js",
+    "Website": "nodemon website/src/js/index.js"
   },
   "repository": "git+https://github.com/subtosharki/new-rp-bot-js.git",
   "keywords": [
@@ -30,9 +31,11 @@
     "@discordjs/rest": "^0.1.0-canary.0",
     "consola": "^2.15.3",
     "discord-api-types": "^0.23.1",
+    "discord-rpc": "^4.0.1",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "mongoose": "^6.0.6",
     "nodemon": "^2.0.12",
     "prettier": "^2.4.0",
     "unb-api": "^1.2.3",

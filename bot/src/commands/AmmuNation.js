@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('ammu-nation')
+		.setName('ammunation')
 		.setDescription('Sends a ammu-nation message')
 		.addStringOption((option) =>
 			option
@@ -51,7 +51,7 @@ module.exports = {
 		.addStringOption((option) =>
 			option
 				.setName('status')
-				.setDescription('Choose if the Ammu-nation is opened or closed')
+				.setDescription('Choose if the AmmuNation is opened or closed')
 				.setRequired(true)
 				.addChoice('Open', 'Open')
 				.addChoice('Closed', 'Closed')
@@ -61,11 +61,11 @@ module.exports = {
 		const status = interaction.options.getString('status');
 		const embed = new MessageEmbed()
 			.setColor('#840204')
-			.setTitle('Ammu-nation')
+			.setTitle('AmmuNation')
 			.setThumbnail('https://i.file.glass/d8j0i.jpg')
 			.setTimestamp()
 			.setDescription(
-				`The Ammu-nation in **${location}** is now **${status}**!`
+				`The AmmuNation in **${location}** is now **${status}**!`
 			);
 
 		await interaction.reply({ embeds: [embed] });

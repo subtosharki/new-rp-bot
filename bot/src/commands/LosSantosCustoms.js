@@ -3,8 +3,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('maze-bank-arena')
-		.setDescription('Sends a maze bank arena message'),
+		.setName('los-santos-customs')
+		.setDescription('Sends a Los Santos Customs message'),
 	async execute(interaction) {
 		await interaction.reply('');
 	},

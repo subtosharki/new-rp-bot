@@ -3,8 +3,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('lsdpw')
-		.setDescription('Sends a los santos department of power and water message'),
+		.setName('liquor-ace')
+		.setDescription('Sends a LiquorAce message'),
 	async execute(interaction) {
 		await interaction.reply('');
 	},

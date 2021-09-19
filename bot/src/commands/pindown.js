@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('pindown')
+		.setName('pin-down')
 		.setDescription('Pins a user down to the ground')
 		.addUserOption((option) =>
 			option

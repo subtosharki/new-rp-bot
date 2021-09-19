@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('rackweapon')
+		.setName('rack-weapon')
 		.setDescription('Racks your weapon'),
 	async execute(interaction) {
 		await interaction.reply('');

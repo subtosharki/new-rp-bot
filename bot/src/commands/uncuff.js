@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('uncuff')
+		.setName('un-cuff')
 		.setDescription('Removes handcuffs from a user')
 		.addUserOption((option) =>
 			option

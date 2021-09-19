@@ -7,7 +7,7 @@ dotenv.config();
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('bal')
+        .setName('balance')
         .setDescription('Checks the users unbelievaboat balance')
         .addUserOption((option) =>
             option.setName('user').setDescription('Users balance to check')

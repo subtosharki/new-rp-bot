@@ -3,8 +3,14 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('post-op')
-		.setDescription('Sends a post op message'),
+		.setName('text')
+		.setDescription('Texts the mentioned user')
+		.addUserOption((option) =>
+			option
+				.setName('user')
+				.setDescription('The user to text')
+				.setRequired(true)
+		),
 	async execute(interaction) {
 		await interaction.reply('');
 	},

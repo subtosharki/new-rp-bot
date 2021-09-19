@@ -3,8 +3,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('my-fly')
-		.setDescription('Sends a my fly message')
+		.setName('myfly')
+		.setDescription('Sends a MyFly message')
 		.addStringOption((option) =>
 			option
 				.setName('status')
@@ -43,7 +43,7 @@ module.exports = {
 			.setThumbnail('https://i.file.glass/b6dh3.png')
 			.setTimestamp()
 			.setDescription(
-				`Flight Number **${number}** in **${location}** is now **${status}**!`
+				`MyFly Flight Number **${number}** in **${location}** is now **${status}**!`
 			);
 
 		await interaction.reply({ embeds: [embed] });

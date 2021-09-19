@@ -3,8 +3,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('tor')
-		.setDescription('Sends a tor message'),
+		.setName('los-santos-transit')
+		.setDescription('Sends a Los Santos Transit message'),
 	async execute(interaction) {
 		await interaction.reply('');
 	},

@@ -3,8 +3,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('fly-us')
-		.setDescription('Sends a fly-us message')
+		.setName('airemu')
+		.setDescription('Sends a AirEmu message')
 		.addStringOption((option) =>
 			option
 				.setName('status')
@@ -38,12 +38,12 @@ module.exports = {
 		const status = interaction.options.getString('status');
 		const number = interaction.options.getNumber('flight-number');
 		const embed = new MessageEmbed()
-			.setColor('#085183')
-			.setTitle('Fly US')
-			.setThumbnail('https://i.file.glass/j3abd.png')
+			.setColor('#dba31e')
+			.setTitle('AirEmu')
+			.setThumbnail('https://i.file.glass/heh5h.png')
 			.setTimestamp()
 			.setDescription(
-				`Flight Number **${number}** in **${location}** is now **${status}**!`
+				`AirEmu Flight Number **${number}** in **${location}** is now **${status}**!`
 			);
 
 		await interaction.reply({ embeds: [embed] });
