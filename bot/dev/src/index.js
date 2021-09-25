@@ -16,11 +16,11 @@ const client = new Client({
 client.commands = new Collection();
 
 //command handler
-const commandFolders = fs.readdirSync('bot/src/commands');
+const commandFolders = fs.readdirSync('bot/dev/src/commands');
 
 for (const folder of commandFolders) {
     const commandFiles = fs
-        .readdirSync(`bot/src/commands`)
+        .readdirSync(`bot/dev/src/commands`)
         .filter((file) => file.endsWith('.js'));
     for (const file of commandFiles) {
         const command = require(`./commands/${file}`);
@@ -45,7 +45,7 @@ consola.success('Command Handler Loaded!');
 
 //event handler
 const eventFiles = fs
-    .readdirSync('bot/src/events')
+    .readdirSync('bot/dev/src/events')
     .filter((file) => file.endsWith('.js'));
 
 for (const file of eventFiles) {

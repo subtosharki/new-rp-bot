@@ -4,12 +4,12 @@
   "description": "js rp bot",
   "main": "index.js",
   "scripts": {
-    "Public-Bot": "services/Public-bot.bat",
-    "Dev-Bot": "services/Dev-Bot.bat",
-    "Public-Website": "services/Public-bot.bat",
-    "Dev-Website": "services/Dev-Website.bat",
-    "Load-Public-Commands": "services/Public-Commands.bat",
-    "Load-Dev-Commands": "services/Dev-Commands.bat"
+    "Public-Bot": "node ./bot/public/src/index.js",
+    "Dev-Bot": "nodemon ./bot/dev/src/index.js",
+    "Public-Website": "node ./website/public/src/js/index.js",
+    "Dev-Website": "nodemon ./website/dev/src/js/index.js",
+    "Load-Public-Commands": "node ./bot/public/src/DeployCommands.js",
+    "Load-Dev-Commands": "node ./bot/dev/src/DeployCommands.js"
   },
   "repository": "git+https://github.com/subtosharki/new-rp-bot-js.git",
   "keywords": [
