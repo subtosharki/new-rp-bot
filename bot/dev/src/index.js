@@ -3,6 +3,8 @@ const { Client, Collection, Intents } = require('discord.js');
 const dotenv = require('dotenv').config();
 const consola = require('consola');
 const mongoose = require('mongoose');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 
 mongoose.connect('mongodb://localhost/rp-dashboard');
 
@@ -58,5 +60,34 @@ for (const file of eventFiles) {
     }
 }
 consola.success('Event Handler Loaded!');
+
+//comand deployer
+const commands = [];
+const commandFiles = fs
+    .readdirSync(`bot/dev/src/commands`)
+    .filter((file) => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    commands.push(command.data.toJSON());
+}
+
+const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
+
+(async () => {
+    try {
+        await rest.put(
+            Routes.applicationGuildCommands(
+                process.env.CLIENTID,
+                process.env.GUILDID
+            ),
+            { body: commands }
+        );
+
+        consola.success('Successfully registered application commands.');
+    } catch (error) {
+        consola.error(error);
+    }
+})();
 
 client.login(process.env.TOKEN);
