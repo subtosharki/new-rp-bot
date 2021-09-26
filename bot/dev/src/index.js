@@ -82,7 +82,7 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
         await rest.put(
             Routes.applicationGuildCommands(
                 process.env.CLIENTID,
-                process.env.GUILDID
+                process.env.GUILDID //remove this line when putting in public so global commands take effect
             ),
             { body: commands }
         );
