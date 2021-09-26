@@ -2,12 +2,16 @@ const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const dotenv = require('dotenv').config();
 const consola = require('consola');
-const mongoose = require('mongoose');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const db = require('./database/ConnectDB.js');
+const event = require('./handlers/Event.js')
 
-mongoose.connect('mongodb://localhost/rp-dashboard');
+//database
+db.connect();
+consola.success('DB Loaded!');
 
+//intents
 const client = new Client({
     intents: [
         Intents.FLAGS.GUILDS,
@@ -15,9 +19,9 @@ const client = new Client({
         Intents.FLAGS.GUILD_VOICE_STATES,
     ],
 });
-client.commands = new Collection();
 
 //command handler
+client.commands = new Collection();
 const commandFolders = fs.readdirSync('bot/dev/src/commands');
 
 for (const folder of commandFolders) {

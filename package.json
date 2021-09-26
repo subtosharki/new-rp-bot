@@ -7,9 +7,7 @@
     "Public-Bot": "node ./bot/public/src/index.js",
     "Dev-Bot": "nodemon ./bot/dev/src/index.js",
     "Public-Website": "node ./website/public/src/js/index.js",
-    "Dev-Website": "nodemon ./website/dev/src/js/index.js",
-    "Load-Public-Commands": "node ./bot/public/src/DeployCommands.js",
-    "Load-Dev-Commands": "node ./bot/dev/src/DeployCommands.js"
+    "Dev-Website": "nodemon ./website/dev/src/js/index.js"
   },
   "repository": "git+https://github.com/subtosharki/new-rp-bot-js.git",
   "keywords": [
@@ -28,6 +26,7 @@
   "bugs": {
     "url": "https://github.com/subtosharki/new-rp-bot-js/issues"
   },
+  
   "homepage": "https://github.com/subtosharki/new-rp-bot-js#readme",
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
@@ -44,4 +43,5 @@
     "unb-api": "^1.2.3",
     "yarn": "^1.22.11"
   }
+  
 }
