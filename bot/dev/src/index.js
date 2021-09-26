@@ -5,7 +5,6 @@ const consola = require('consola');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const db = require('./database/ConnectDB.js');
-const event = require('./handlers/Event.js')
 
 //database
 db.connect();
