@@ -7,6 +7,7 @@ const rpc = new DiscordRPC.Client({ transport: 'ipc' });
 const startTimestamp = new Date();
 const app = express();
 const port = process.env.PORT || '3000';
+const db = require('../database/ConnectDB.js');
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../html/index.html'));
