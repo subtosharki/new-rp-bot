@@ -74,13 +74,13 @@ for (const file of commandFiles) {
     commands.push(command.data.toJSON());
 }
 
-const rest = new REST({ version: '9' }).setToken(process.env.DEV_TOKEN);
+const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
 (async () => {
     try {
         await rest.put(
             Routes.applicationGuildCommands(
-                process.env.DEV_CLIENTID,
+                process.env.CLIENTID,
                 process.env.GUILDID //remove this line when putting in public so global commands take effect
             ),
             { body: commands }
@@ -92,4 +92,4 @@ const rest = new REST({ version: '9' }).setToken(process.env.DEV_TOKEN);
     }
 })();
 
-client.login(process.env.DEV_TOKEN);
+client.login(process.env.TOKEN);

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const { Client } = require('unb-api');
-const client = new Client(process.env.UNB_DEV_TOKEN);
+const client = new Client(process.env.UNB_TOKEN);
 const dotenv = require('dotenv');
 dotenv.config();
 

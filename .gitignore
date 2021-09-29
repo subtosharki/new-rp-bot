@@ -1,4 +1,6 @@
 node_modules
 .env
 /bot/dev/src/database/connectdb.js
+/bot/dev/src/database/connectdb.js
+/website/dev/src/database/connectdb.js
 /website/dev/src/database/connectdb.js
