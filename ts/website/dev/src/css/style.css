@@ -1,0 +1,20 @@
+.avatar {
+	margin-top: auto;
+	margin-bottom: auto;
+	margin: 8%;
+	color: gray;
+}
+.margin {
+	margin-top: auto;
+	margin-bottom: auto;
+	margin: 8%;
+	color: gray;
+}
+img {
+	border-radius: 50%;
+}
+.login {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
