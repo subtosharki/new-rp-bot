@@ -8,21 +8,18 @@ const startTimestamp = new Date();
 const app = express();
 const port = process.env.PORT || '3000';
 const db = require('../database/ConnectDB.js');
+app.use('/api/discord', require('../api/discord'));
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../html/index.html'));
 });
 
 app.get('/invite', function (req, res) {
-    res.sendFile(path.join(__dirname, '../html/invite.html'));
-});
-
-app.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname, '../html/login.html'));
+    res.redirect('https://discord.com/api/oauth2/authorize?client_id=872568430253981786&permissions=8&scope=bot%20applications.commands');
 });
 
 app.get('/support', function (req, res) {
-    res.sendFile(path.join(__dirname, '../html/support.html'));
+    res.redirect('https://discord.gg/PjemhcxcpM');
 });
 
 async function setActivity() {
@@ -51,7 +48,7 @@ rpc.on('ready', () => {
 rpc.login({ clientId }).catch(console.error);
 
 db.connect();
-console.log('Connected to Database')
+console.log('Connected to Database');
 
 app.listen(port, () => {
     console.log(`Listening to requests on http://localhost:${port}`);
