@@ -4,10 +4,6 @@ const dotenv = require('dotenv').config();
 const consola = require('consola');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const db = require('./database/ConnectDB.js');
-
-//database
-db.connect();
 
 //intents
 const client = new Client({
@@ -20,11 +16,11 @@ const client = new Client({
 
 //command handler
 client.commands = new Collection();
-const commandFolders = fs.readdirSync('js/bot/dev/src/commands');
+const commandFolders = fs.readdirSync('src/commands');
 
 for (const folder of commandFolders) {
     const commandFiles = fs
-        .readdirSync(`js/bot/dev/src/commands`)
+        .readdirSync(`src/commands`)
         .filter((file) => file.endsWith('.js'));
     for (const file of commandFiles) {
         const command = require(`./commands/${file}`);
@@ -50,7 +46,7 @@ consola.success('Command Handler Loaded!');
 
 //event handler
 const eventFiles = fs
-    .readdirSync('./js/bot/dev/src/events')
+    .readdirSync('./src/events')
     .filter((file) => file.endsWith('.js'));
 
 for (const file of eventFiles) {
@@ -66,7 +62,7 @@ consola.success('Event Handler Loaded!');
 //comand deployer
 const commands = [];
 const commandFiles = fs
-    .readdirSync(`js/bot/dev/src/commands`)
+    .readdirSync(`src/commands`)
     .filter((file) => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -81,7 +77,7 @@ const rest = new REST({ version: '9' }).setToken(process.env.DEV_TOKEN);
         await rest.put(
             Routes.applicationGuildCommands(
                 process.env.DEV_CLIENTID,
-                process.env.GUILDID //remove this line when putting in public so global commands take effect
+                process.env.GUILDID //remove this line when done dev
             ),
             { body: commands }
         );

@@ -4,10 +4,7 @@
   "description": "js rp bot",
   "main": "index.js",
   "scripts": {
-    "Public-Bot": "node ./js/bot/public/src/index.js",
-    "Dev-Bot": "nodemon ./js/bot/dev/src/index.js",
-    "Public-Website": "node ./js/website/public/src/js/index.js",
-    "Dev-Website": "nodemon ./js/website/dev/src/js/index.js"
+    "Bot": "node ./src/index.js"
   },
   "repository": "git+https://github.com/subtosharki/new-rp-bot-js.git",
   "keywords": [
@@ -26,22 +23,18 @@
   "bugs": {
     "url": "https://github.com/subtosharki/new-rp-bot-js/issues"
   },
-  
   "homepage": "https://github.com/subtosharki/new-rp-bot-js#readme",
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "consola": "^2.15.3",
     "discord-api-types": "^0.23.1",
-    "discord-rpc": "^4.0.1",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "mongoose": "^6.0.6",
     "nodemon": "^2.0.12",
     "prettier": "^2.4.0",
     "unb-api": "^1.2.3",
     "yarn": "^1.22.11"
   }
-  
 }

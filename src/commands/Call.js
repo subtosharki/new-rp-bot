@@ -48,3 +48,5 @@ module.exports = {
         await interaction.reply({ embeds: [Embed], components: [button] });
     },
 };
+
+//add if statement for nickname so it dosnt say null if they dont have one
