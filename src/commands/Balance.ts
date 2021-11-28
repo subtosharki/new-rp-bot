@@ -31,12 +31,24 @@ export = {
         }
 
         if (!interaction.options.getUser('user')) {
-            let avatar = interaction.member.user.avatar;
+            avatar = interaction.member.user.avatar;
         } else {
-            let avatar = interaction.options.getUser('user').avatar;
+            avatar = interaction.options.getUser('user').avatar;
         }
         let guild = client.getGuild(guildID);
         let bal = client.getUserBalance(guildID, userID);
+        function x(bal:number) {
+            return bal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        }
+        let bank:any = (await bal).bank
+        let cash:any = (await bal).cash
+        let total:any = (await bal).total
+        let sym:string = (await guild).currencySymbol
+
+        bank = x(bank)
+        cash = x(cash)
+        total = x(total)
+
         const Embed = new MessageEmbed()
             .setColor('#03A8F4')
             .setAuthor(
@@ -46,19 +58,17 @@ export = {
             .addFields(
                 {
                     name: 'Cash: ',
-                    value: `${(await guild).currencySymbol}${(await bal).cash}`,
+                    value: sym + cash,
                     inline: true,
                 },
                 {
                     name: 'Bank: ',
-                    value: `${(await guild).currencySymbol}${(await bal).bank}`,
+                    value: sym + bank,
                     inline: true,
                 },
                 {
                     name: 'Total: ',
-                    value: `${(await guild).currencySymbol}${
-                        (await bal).total
-                    }`,
+                    value: sym + total,
                     inline: true,
                 }
             )

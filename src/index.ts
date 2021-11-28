@@ -7,13 +7,8 @@ import { Routes } from 'discord-api-types/v9'
 dotenv.config();
 
 //intents
-const client:any = new Client({
-    intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_VOICE_STATES,
-    ],
-});
+const intents:any = new Intents(32767);
+const client:any = new Client({ intents });
 
 //command handler
 client.commands = new Collection();
@@ -70,7 +65,7 @@ for (const file of commandFiles) {
     const command:any = require(`./commands/${file}`);
     commands.push(command.data.toJSON());
 }
-
+export = commands
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN!);
 
 (async () => {
@@ -90,3 +85,5 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN!);
 })();
 
 client.login(process.env.TOKEN!);
+
+//fix where when i export commands it dosnt come empty for some reason smh
