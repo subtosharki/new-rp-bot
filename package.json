@@ -31,8 +31,6 @@
     "discord-api-types": "^0.23.1",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "nodemon": "^2.0.12",
     "prettier": "^2.4.0",
     "unb-api": "^1.2.3",
     "yarn": "^1.22.11"
