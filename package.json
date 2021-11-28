@@ -6,7 +6,7 @@
   "scripts": {
     "Bot": "node ./dist/index.js"
   },
-  "repository": "git+https://github.com/subtosharki/new-rp-bot-js.git",
+  "repository": "git+https://github.com/subtosharki/new-rp-bot.git",
   "keywords": [
     "rp",
     "bot",
@@ -21,9 +21,9 @@
   "author": "subtosharki",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/subtosharki/new-rp-bot-js/issues"
+    "url": "https://github.com/subtosharki/new-rp-bot/issues"
   },
-  "homepage": "https://github.com/subtosharki/new-rp-bot-js#readme",
+  "homepage": "https://github.com/subtosharki/new-rp-bot#readme",
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
