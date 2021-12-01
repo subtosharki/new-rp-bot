@@ -3,8 +3,14 @@ import consola from 'consola';
 export = {
     name: 'ready',
     once: 'true',
-    execute(client: { guilds: { cache: any[]; }; user: { setActivity: (arg0: string, arg1: { type: string; }) => void; tag: any; }; }) {
-        let f:number = client.guilds.cache.reduce(
+    execute(client: {
+        guilds: { cache: any[] };
+        user: {
+            setActivity: (arg0: string, arg1: { type: string }) => void;
+            tag: any;
+        };
+    }) {
+        let f: number = client.guilds.cache.reduce(
             (acc, guild) => acc + guild.memberCount,
             0
         );

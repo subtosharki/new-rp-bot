@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders'
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 export = {
     data: new SlashCommandBuilder()
@@ -66,10 +66,13 @@ export = {
                 .addChoice('Closed', 'Closed')
         ),
 
-    async execute(interaction: { options: { getString: (arg0: string) => any; }; reply: (arg0: { embeds: MessageEmbed[]; }) => any; }) {
-        const location:string = interaction.options.getString('location');
-        const status:string = interaction.options.getString('status');
-        const embed:any = new MessageEmbed()
+    async execute(interaction: {
+        options: { getString: (arg0: string) => any };
+        reply: (arg0: { embeds: MessageEmbed[] }) => any;
+    }) {
+        const location: string = interaction.options.getString('location');
+        const status: string = interaction.options.getString('status');
+        const embed: any = new MessageEmbed()
             .setColor('#0db14b')
             .setTitle('24/7')
             .setThumbnail('https://i.file.glass/0eg7f.png')
