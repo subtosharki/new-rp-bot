@@ -15,14 +15,20 @@ export = {
         ),
 
     async execute(interaction: {
-        member: { voice: { channelId: any } };
+        member: { voice: { channelId: string } };
         reply: (arg0: {
             content?: string;
             ephemeral?: boolean;
-            embeds?: MessageEmbed[];
-            components?: MessageActionRow[];
+            embeds?: any[];
+            components?: any[];
         }) => any;
         options: { getMember: (arg0: string) => any };
+        channel: {
+            createMessageComponentCollector: (arg0: {
+                filter: (i: any) => boolean;
+                time: number;
+            }) => any;
+        };
     }) {
         const voiceChannel: string = interaction.member.voice.channelId;
 
@@ -66,5 +72,32 @@ export = {
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed], components: [button] });
+        const filter = (i: { customId: string; user: { id: string } }) =>
+            i.customId === 'accept' &&
+            i.user.id === interaction.options.getMember('user').id;
+
+        const collector = interaction.channel.createMessageComponentCollector({
+            filter,
+            time: 15000,
+        });
+
+        collector.on(
+            'collect',
+            async (i: {
+                customId: string;
+                update: (arg0: { content: string; components: never[] }) => any;
+            }) => {
+                if (i.customId === 'accept') {
+                    await i.update({
+                        content: 'click',
+                        components: [],
+                    });
+                }
+            }
+        );
+
+        collector.on('end', (collected: { size: any }) =>
+            console.log(`Collected ${collected.size}`)
+        );
     },
 };

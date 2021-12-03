@@ -92,6 +92,6 @@ export = {
             )
             .setTimestamp();
 
-        interaction.reply({ embeds: [Embed] });
+        await interaction.reply({ embeds: [Embed] });
     },
 };

@@ -63,16 +63,10 @@ for (const file of eventFiles) {
 consola.success('Event Handler Loaded!');
 
 //comand deployer
-const commands: any = [];
-const commandFiles: any = fs
+export const commands: any = fs
     .readdirSync(`dist/commands`)
-    .filter((file) => file.endsWith('.js'));
-
-for (const file of commandFiles) {
-    const command: any = require(`./commands/${file}`);
-    commands.push(command.data.toJSON());
-}
-export = commands;
+    .filter((file) => file.endsWith('.js'))
+    .map((file) => require(`./commands/${file}`).data.toJSON());
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN!);
 
 (async () => {
@@ -92,5 +86,5 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN!);
 })();
 
 client.login(process.env.TOKEN!);
-
+console.log(commands);
 //fix where when i export commands it dosnt come empty for some reason smh
