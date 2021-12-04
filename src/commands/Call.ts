@@ -158,25 +158,23 @@ export = {
             }
         );
 
-        let i = collector.on('end', (collected: { size: any }) => {
-            return collected.size;
-        });
-
-        let g = collector2.on('end', (collected: { size: any }) => {
-            return collected.size;
-        });
-
-        collector2.on(
+        collector.on(
             'end',
-            async (f: {
-                update: (arg0: { embeds: any[]; ephemeral: boolean }) => any;
-            }) => {
-                if (i === 0 && g === 0) {
-                    console.log('t');
-                    await f.update({
-                        embeds: [declined],
-                        ephemeral: true,
-                    });
+            async (
+                collected: { size: number },
+                i: {
+                    update: (arg0: {
+                        compontents: any[];
+                        embeds: any[];
+                        ephemeral: boolean;
+                    }) => any;
+                }
+            ) => {
+                console.log('end');
+                if (collected.size === 0) {
+                    console.log(true)
+                } else {
+                    console.log(false);
                 }
             }
         );
