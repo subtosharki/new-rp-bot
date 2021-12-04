@@ -86,5 +86,3 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN!);
 })();
 
 client.login(process.env.TOKEN!);
-console.log(commands);
-//fix where when i export commands it dosnt come empty for some reason smh
