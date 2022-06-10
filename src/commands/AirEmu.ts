@@ -1,5 +1,6 @@
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { AirEmu } from '../templates/Embeds';
 
 export = {
     data: new SlashCommandBuilder()
@@ -36,25 +37,19 @@ export = {
                     'Fort Zancudo Military Base'
                 )
         ),
-    async execute(interaction: {
-        options: {
-            getString: (arg0: string) => any;
-            getNumber: (arg0: string) => any;
-        };
-        reply: (arg0: { embeds: MessageEmbed[] }) => any;
-    }) {
-        const location: string = interaction.options.getString('location');
-        const status: string = interaction.options.getString('status');
-        const number: number = interaction.options.getNumber('flight-number');
-        const embed: any = new MessageEmbed()
-            .setColor('#dba31e')
-            .setTitle('AirEmu')
-            .setThumbnail('https://i.file.glass/heh5h.png')
-            .setTimestamp()
-            .setDescription(
-                `AirEmu Flight Number **${number}** in **${location}** is now **${status}**!`
-            );
+    async execute(interaction: CommandInteraction) {
+        const location: string | null =
+            interaction.options.getString('location');
+        const status: string | null = interaction.options.getString('status');
+        const number: number | null =
+            interaction.options.getNumber('flight-number');
 
-        await interaction.reply({ embeds: [embed] });
+        await interaction.reply({
+            embeds: [
+                AirEmu.setDescription(
+                    `AirEmu Flight Number **${number}** in **${location}** is now **${status}**!`
+                ),
+            ],
+        });
     },
 };

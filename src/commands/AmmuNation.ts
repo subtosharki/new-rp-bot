@@ -1,5 +1,6 @@
-import { MessageEmbed } from 'discord.js';
+import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { AmmuNation } from '../templates/Embeds';
 
 export = {
     data: new SlashCommandBuilder()
@@ -56,21 +57,17 @@ export = {
                 .addChoice('Open', 'Open')
                 .addChoice('Closed', 'Closed')
         ),
-    async execute(interaction: {
-        options: { getString: (arg0: string) => any };
-        reply: (arg0: { embeds: MessageEmbed[] }) => any;
-    }) {
-        const location: string = interaction.options.getString('location');
-        const status: string = interaction.options.getString('status');
-        const embed: any = new MessageEmbed()
-            .setColor('#840204')
-            .setTitle('AmmuNation')
-            .setThumbnail('https://i.file.glass/d8j0i.jpg')
-            .setTimestamp()
-            .setDescription(
-                `The AmmuNation in **${location}** is now **${status}**!`
-            );
+    async execute(interaction: CommandInteraction) {
+        const location: string | null =
+            interaction.options.getString('location');
+        const status: string | null = interaction.options.getString('status');
 
-        await interaction.reply({ embeds: [embed] });
+        await interaction.reply({
+            embeds: [
+                AmmuNation.setDescription(
+                    `The AmmuNation in **${location}** is now **${status}**!`
+                ),
+            ],
+        });
     },
 };

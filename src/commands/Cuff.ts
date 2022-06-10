@@ -1,5 +1,7 @@
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { Cuffed, Cuffing } from '../templates/Embeds';
+import { setTimeout } from 'node:timers/promises';
 
 export = {
     data: new SlashCommandBuilder()
@@ -11,7 +13,17 @@ export = {
                 .setDescription('The user to cuff')
                 .setRequired(true)
         ),
-    async execute(interaction: { reply: (arg0: string) => any }) {
-        await interaction.reply('');
+    async execute(interaction: CommandInteraction) {
+        await interaction.reply({ embeds: [Cuffing] });
+        await setTimeout(1500);
+        await interaction.editReply({
+            embeds: [
+                Cuffed.setDescription(
+                    `**${
+                        interaction.member
+                    }** cuffed **${interaction.options.getMember('user')}**!`
+                ),
+            ],
+        });
     },
 };

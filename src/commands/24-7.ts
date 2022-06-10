@@ -1,5 +1,6 @@
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { TwentyFourSeven } from '../templates/Embeds';
 
 export = {
     data: new SlashCommandBuilder()
@@ -66,21 +67,16 @@ export = {
                 .addChoice('Closed', 'Closed')
         ),
 
-    async execute(interaction: {
-        options: { getString: (arg0: string) => any };
-        reply: (arg0: { embeds: MessageEmbed[] }) => any;
-    }) {
-        const location: string = interaction.options.getString('location');
-        const status: string = interaction.options.getString('status');
-        const embed: any = new MessageEmbed()
-            .setColor('#0db14b')
-            .setTitle('24/7')
-            .setThumbnail('https://i.file.glass/0eg7f.png')
-            .setTimestamp()
-            .setDescription(
-                `The 24/7 in **${location}** is now **${status}**!`
-            );
-
-        await interaction.reply({ embeds: [embed] });
+    async execute(interaction: CommandInteraction) {
+        const location: string | null =
+            interaction.options.getString('location');
+        const status: string | null = interaction.options.getString('status');
+        await interaction.reply({
+            embeds: [
+                TwentyFourSeven.setDescription(
+                    `The 24/7 in **${location}** is now **${status}**!`
+                ),
+            ],
+        });
     },
 };

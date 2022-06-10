@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 export = {
@@ -11,7 +11,7 @@ export = {
                 .setDescription('The user you are going to email')
                 .setRequired(true)
         ),
-    async execute(interaction: { reply: (arg0: string) => any }) {
+    async execute(interaction: CommandInteraction) {
         await interaction.reply('');
     },
 };

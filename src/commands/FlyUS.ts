@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 export = {
@@ -36,16 +36,12 @@ export = {
                     'Fort Zancudo Military Base'
                 )
         ),
-    async execute(interaction: {
-        options: {
-            getString: (arg0: string) => any;
-            getNumber: (arg0: string) => any;
-        };
-        reply: (arg0: { embeds: MessageEmbed[] }) => any;
-    }) {
-        const location: string = interaction.options.getString('location');
-        const status: string = interaction.options.getString('status');
-        const number: number = interaction.options.getNumber('flight-number');
+    async execute(interaction: CommandInteraction) {
+        const location: string | null =
+            interaction.options.getString('location');
+        const status: string | null = interaction.options.getString('status');
+        const number: number | null =
+            interaction.options.getNumber('flight-number');
         const embed: any = new MessageEmbed()
             .setColor('#085183')
             .setTitle('FlyUS')
