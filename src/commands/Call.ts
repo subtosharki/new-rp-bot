@@ -9,6 +9,7 @@ export = {
         .setDescription(
             'Calls a user and shows your voice chat for them to join.'
         )
+        .setDMPermission(false)
         .addUserOption((option) =>
             option
                 .setName('user')

@@ -5,6 +5,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('myfly')
         .setDescription('Sends a MyFly message')
+        .setDMPermission(false)
         .addStringOption((option) =>
             option
                 .setName('status')

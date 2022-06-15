@@ -6,6 +6,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('24-7')
         .setDescription('Sends a 24/7 message')
+        .setDMPermission(false)
         .addStringOption((option) =>
             option
                 .setName('location')

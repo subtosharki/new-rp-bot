@@ -5,6 +5,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('ping')
         .setDescription('Share your location with another user')
+        .setDMPermission(false)
         .addUserOption((option) =>
             option
                 .setName('user')

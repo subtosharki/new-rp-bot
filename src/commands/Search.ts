@@ -5,6 +5,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('search')
         .setDescription('Search a user')
+        .setDMPermission(false)
         .addUserOption((option) =>
             option
                 .setName('user')

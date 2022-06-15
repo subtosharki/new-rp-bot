@@ -6,6 +6,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('bug-stars')
         .setDescription('Sends a BugStars message')
+        .setDMPermission(false)
         .addStringOption((option) =>
             option
                 .setName('status')

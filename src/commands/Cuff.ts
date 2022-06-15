@@ -7,6 +7,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('cuff')
         .setDescription('Applies handcuffs to a user')
+        .setDMPermission(false)
         .addUserOption((option) =>
             option
                 .setName('user')

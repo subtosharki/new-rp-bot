@@ -5,6 +5,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('email')
         .setDescription('Emails the mentioned user')
+        .setDMPermission(false)
         .addUserOption((option) =>
             option
                 .setName('user')

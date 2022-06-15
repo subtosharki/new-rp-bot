@@ -1,11 +1,13 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { AirEmu } from '../templates/Embeds';
+
 
 export = {
     data: new SlashCommandBuilder()
         .setName('airemu')
         .setDescription('Sends a AirEmu message')
+        .setDMPermission(false)
         .addStringOption((option) =>
             option
                 .setName('status')

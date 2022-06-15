@@ -5,6 +5,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('life-invader')
         .setDescription('Sends a LifeInvader message')
+        .setDMPermission(false)
         .addSubcommand((subcommand) =>
             subcommand
                 .setName('register')

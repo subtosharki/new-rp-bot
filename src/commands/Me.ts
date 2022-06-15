@@ -6,6 +6,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('me')
         .setDescription('Do a custom action')
+        .setDMPermission(false)
         .addStringOption((option) =>
             option
                 .setName('action')

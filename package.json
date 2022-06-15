@@ -27,15 +27,15 @@
     },
     "homepage": "https://github.com/subtosharki/new-rp-bot#readme",
     "dependencies": {
-        "@discordjs/builders": "^0.6.0",
-        "@discordjs/rest": "^0.1.0-canary.0",
-        "@discordjs/voice": "^0.7.5",
-        "@types/node": "^17.0.23",
+        "@discordjs/builders": "^0.15.0",
+        "@discordjs/rest": "^0.5.0",
+        "@discordjs/voice": "^0.10.0",
+        "@types/node": "^17.0.44",
         "consola": "^2.15.3",
-        "discord-api-types": "^0.23.1",
+        "discord-api-types": "^0.34.0",
         "discord.js": "^13.8.0",
-        "nodemon": "^2.0.15",
-        "prettier": "^2.4.0",
-        "yarn": "^1.22.11"
+        "nodemon": "^2.0.16",
+        "prettier": "^2.7.0",
+        "yarn": "^1.22.19"
     }
 }

@@ -5,6 +5,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('flyus')
         .setDescription('Sends a FlyUS message')
+        .setDMPermission(false)
         .addStringOption((option) =>
             option
                 .setName('status')

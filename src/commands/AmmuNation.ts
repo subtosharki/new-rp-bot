@@ -6,6 +6,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('ammunation')
         .setDescription('Sends a ammu-nation message')
+        .setDMPermission(false)
         .addStringOption((option) =>
             option
                 .setName('location')

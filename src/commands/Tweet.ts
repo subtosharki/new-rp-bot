@@ -5,7 +5,8 @@ import { Tweet } from '../templates/Modals';
 export = {
     data: new SlashCommandBuilder()
         .setName('twitter')
-        .setDescription('Sends a twitter like message'),
+        .setDescription('Sends a twitter like message')
+        .setDMPermission(false),
     async execute(interaction: CommandInteraction) {
         await interaction.showModal(Tweet);
         if (!interaction.isModalSubmit()) return;

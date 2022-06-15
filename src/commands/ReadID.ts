@@ -5,6 +5,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('read-id')
         .setDescription("Reads a civilian's ID")
+        .setDMPermission(false)
         .addUserOption((option) =>
             option
                 .setName('user')
