@@ -64,3 +64,12 @@ export const Tweet: MessageEmbed = new MessageEmbed()
     .setTitle('<:twitter:858110570087972884> TWOTTER')
     .setTimestamp();
 
+export const Tor: MessageEmbed = new MessageEmbed()
+    .setColor('#7D4698')
+    .setAuthor({
+        name: 'Anonymous',
+        iconURL:
+            'https://archive.flossmanuals.net/tech-tools-for-activism/_booki/tech-tools-for-activism/static/anon_logo.png',
+    })
+    .setTitle('<:tor:869045322704371806> Tor Project')
+    .setTimestamp();

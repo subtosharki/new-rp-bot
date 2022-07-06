@@ -1,5 +1,5 @@
 import type { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { bold, SlashCommandBuilder } from '@discordjs/builders';
 import { AirEmu } from '../components/Embeds';
 
 export = {
@@ -58,7 +58,11 @@ export = {
         await interaction.reply({
             embeds: [
                 AirEmu.setDescription(
-                    `AirEmu Flight Number **${number}** in **${location}** is now **${status}**!`
+                    `AirEmu Flight Number ${bold(
+                        number as unknown as string
+                    )} in ${bold(location as string)} is now ${bold(
+                        status as string
+                    )}!`
                 ),
             ],
         });

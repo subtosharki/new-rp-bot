@@ -1,5 +1,5 @@
 import type { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { bold, SlashCommandBuilder } from '@discordjs/builders';
 import { TwentyFourSeven } from '../components/Embeds';
 
 export = {
@@ -98,7 +98,9 @@ export = {
         await interaction.reply({
             embeds: [
                 TwentyFourSeven.setDescription(
-                    `The 24/7 in **${location}** is now **${status}**!`
+                    `The 24/7 in ${bold(location as string)} is now ${bold(
+                        status as string
+                    )}!`
                 ),
             ],
         });

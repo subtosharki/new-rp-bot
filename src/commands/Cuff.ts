@@ -1,5 +1,5 @@
 import type { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { bold, SlashCommandBuilder } from '@discordjs/builders';
 import { Cuffed, Cuffing } from '../components/Embeds';
 import { setTimeout } from 'node:timers/promises';
 
@@ -20,9 +20,13 @@ export = {
         await interaction.editReply({
             embeds: [
                 Cuffed.setDescription(
-                    `**${
-                        interaction.member
-                    }** cuffed **${interaction.options.getMember('user')}**!`
+                    `${bold(
+                        interaction.member as unknown as string
+                    )} cuffed ${bold(
+                        interaction.options.getMember(
+                            'user'
+                        ) as unknown as string
+                    )}!`
                 ),
             ],
         });

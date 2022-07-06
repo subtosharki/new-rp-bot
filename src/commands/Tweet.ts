@@ -1,4 +1,4 @@
-import { CommandInteraction } from 'discord.js';
+import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Tweet } from '../components/Embeds';
 
@@ -21,11 +21,13 @@ export = {
         ),
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getAttachment('image'))
-            Tweet.setImage(`${interaction.options.getAttachment('image')?.proxyURL}`);
-            if(interaction.user.id === '318203855365996544') {
-                Tweet.setTitle('<:verified:869045206857711657> TWOTTER')
-            }
-            await interaction.reply({
+            Tweet.setImage(
+                `${interaction.options.getAttachment('image')?.proxyURL}`
+            );
+        if (interaction.user.id === '318203855365996544') {
+            Tweet.setTitle('<:verified:869045206857711657> TWOTTER');
+        }
+        await interaction.reply({
             embeds: [
                 Tweet.setDescription(
                     `${interaction.options.getString('content')}`

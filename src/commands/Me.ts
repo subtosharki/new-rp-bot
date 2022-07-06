@@ -1,5 +1,5 @@
-import { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import type { CommandInteraction } from 'discord.js';
+import { italic, SlashCommandBuilder } from '@discordjs/builders';
 import { Me } from '../components/Embeds';
 
 export = {
@@ -17,7 +17,9 @@ export = {
         await interaction.reply({
             embeds: [
                 Me.setDescription(
-                    `${interaction.options.getString('action')}`
+                    `${italic(
+                        interaction.options.getString('action') as string
+                    )}`
                 ).setAuthor({
                     //@ts-ignore
                     name: `${interaction.member?.nickname}`,

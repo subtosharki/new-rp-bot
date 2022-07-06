@@ -1,5 +1,5 @@
 import type { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { bold, channelMention, SlashCommandBuilder } from '@discordjs/builders';
 import { Calling, Declined } from '../components/Embeds';
 import { CallButtons } from '../components/Buttons';
 
@@ -27,8 +27,12 @@ export = {
                     'Please join a voice channel before using this command.',
                 ephemeral: true,
             });
-        } //@ts-ignore
-        if (interaction.options.getMember('user') === interaction.member || interaction.options.getMember('user')?.id === '881241382184972351') {
+        }
+        if (
+            interaction.options.getMember('user') === interaction.member ||
+            //@ts-ignore
+            interaction.options.getMember('user')?.id === '881241382184972351'
+        ) {
             return interaction.reply({
                 embeds: [Declined],
                 ephemeral: true,
@@ -38,17 +42,21 @@ export = {
         await interaction.reply({
             embeds: [
                 Calling.setDescription(
-                    `<a:telephone:858107183308603393> **${interaction.options.getMember(
-                        'user'
-                    )}** you are getting a call from **${
-                        interaction.member
-                    }** in <#${
+                    `<a:telephone:858107183308603393> ${bold(
+                        interaction.options.getMember(
+                            'user'
+                        ) as unknown as string
+                    )} you are getting a call from ${bold(
+                        interaction.member as unknown as string
+                    )} in ${channelMention(
                         //@ts-ignore
                         interaction.member?.voice.channelId
-                    }>\nPress **Accept** to join`
+                    )}\nPress ${bold('Accept')} to join`
                 ),
             ],
             components: [CallButtons],
         });
+        //@ts-ignore
+        // interaction.member.voice.setChannel(`${interaction.options.getMember('user').voice.id}`) maybe this will work
     },
-}; 
+};

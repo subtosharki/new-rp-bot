@@ -1,5 +1,5 @@
 import type { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { bold, SlashCommandBuilder } from '@discordjs/builders';
 import { AmmuNation } from '../components/Embeds';
 
 export = {
@@ -73,7 +73,9 @@ export = {
         await interaction.reply({
             embeds: [
                 AmmuNation.setDescription(
-                    `The AmmuNation in **${location}** is now **${status}**!`
+                    `The AmmuNation in ${bold(
+                        location as string
+                    )} is now ${bold(status as string)}!`
                 ),
             ],
         });

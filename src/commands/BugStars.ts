@@ -1,5 +1,5 @@
 import type { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { bold, SlashCommandBuilder } from '@discordjs/builders';
 import { BugStars } from '../components/Embeds';
 
 export = {
@@ -23,7 +23,11 @@ export = {
     async execute(interaction: CommandInteraction) {
         const status: string | null = interaction.options.getString('status');
         await interaction.reply({
-            embeds: [BugStars.setDescription(`BugStars is now **${status}**!`)],
+            embeds: [
+                BugStars.setDescription(
+                    `BugStars is now ${bold(status as string)}!`
+                ),
+            ],
         });
     },
 };

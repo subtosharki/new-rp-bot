@@ -1,5 +1,6 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { MessageEmbed } from 'discord.js';
+import type { CommandInteraction } from 'discord.js';
+import { bold, SlashCommandBuilder } from '@discordjs/builders';
 
 export = {
     data: new SlashCommandBuilder()
@@ -59,7 +60,11 @@ export = {
             .setThumbnail('https://i.file.glass/j3abd.png')
             .setTimestamp()
             .setDescription(
-                `FlyUS Flight Number **${number}** in **${location}** is now **${status}**!`
+                `FlyUS Flight Number ${bold(
+                    number as unknown as string
+                )} in ${bold(location as string)} is now ${bold(
+                    status as string
+                )}!`
             );
 
         await interaction.reply({ embeds: [embed] });
