@@ -19,12 +19,18 @@ export = {
 
     async execute(interaction: CommandInteraction) {
         //@ts-ignore
-        const voiceChannel: string | null = interaction.member?.voice.channelId;
-
-        if (!voiceChannel) {
-            return interaction.reply({
+        if (!interaction.member?.voice.channelId) {
+            return await interaction.reply({
                 content:
                     'Please join a voice channel before using this command.',
+                ephemeral: true,
+            });
+        }
+        //@ts-ignore
+        if(!interaction.options.getMember('user').voice) {
+            return await interaction.reply({
+                content:
+                    'Both users must be in a voice channel before using this command.',
                 ephemeral: true,
             });
         }
@@ -33,7 +39,7 @@ export = {
             //@ts-ignore
             interaction.options.getMember('user')?.id === '881241382184972351'
         ) {
-            return interaction.reply({
+            return await interaction.reply({
                 embeds: [Declined],
                 ephemeral: true,
             });
@@ -56,7 +62,45 @@ export = {
             ],
             components: [CallButtons],
         });
-        //@ts-ignore
-        // interaction.member.voice.setChannel(`${interaction.options.getMember('user').voice.id}`) maybe this will work
+        const collector = interaction.channel?.createMessageComponentCollector({
+            componentType: 'BUTTON',
+            time: 15000,
+        });
+
+        collector?.on('collect', (i) => {
+            if (i.customId === 'accept') {
+                if (
+                    i.user.id ===
+                    //@ts-ignore
+                    (interaction.options.getMember('user').id as unknown as string)
+                ) {
+                    //@ts-ignore
+                    if(interaction.options.getMember('user').voice) {
+                        //@ts-ignore
+                        if(interaction.options.getMember('user').voice.channelId === interaction.member.voice.channelId)
+                        //@ts-ignore
+                        interaction.member?.voice.setChannel(
+                            //@ts-ignore
+                            `${interaction.options.getMember('user').voice.id}`
+                        );
+                    }
+                }
+            } else {
+                if (
+                    i.user.id ===
+                    (interaction.options.getMember('user') as unknown as string)
+                ) {
+                    //@ts-ignore
+                    interaction.editReply({ embeds: Declined });
+                }
+            }
+        });
+
+        collector?.on('end', (collected) => {
+            if (collected.size === 0) {
+                //@ts-ignore
+                interaction.editReply({ embeds: Declined });
+            }
+        });
     },
 };

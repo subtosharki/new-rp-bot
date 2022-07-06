@@ -78,4 +78,4 @@ export const FlyUS: MessageEmbed = new MessageEmbed()
     .setColor('#085183')
     .setTitle('FlyUS')
     .setThumbnail('https://i.file.glass/j3abd.png')
-    .setTimestamp()
+    .setTimestamp();

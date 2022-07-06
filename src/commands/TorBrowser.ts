@@ -4,7 +4,7 @@ import { Tor } from '../components/Embeds';
 
 export = {
     data: new SlashCommandBuilder()
-        .setName('tor-browser')
+        .setName('tor')
         .setDescription('Sends a tor message')
         .setDMPermission(false)
         .addStringOption((option) =>
@@ -24,12 +24,13 @@ export = {
             Tor.setImage(
                 `${interaction.options.getAttachment('image')?.proxyURL}`
             );
-        await interaction.reply({
+        await interaction.channel?.send({
             embeds: [
                 Tor.setDescription(
                     `${interaction.options.getString('content')}`
                 ),
             ],
         });
+        await interaction.reply({ content: 'Sent!', ephemeral: true });
     },
 };
