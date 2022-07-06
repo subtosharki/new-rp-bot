@@ -16,11 +16,14 @@ export = {
     async execute(interaction: CommandInteraction) {
         await interaction.reply({
             embeds: [
-                Me.setDescription(`${interaction.options.getString('action')}`)
+                Me.setDescription(
+                    `${interaction.options.getString('action')}`
+                ).setAuthor({
                     //@ts-ignore
-                    .setAuthor({name: `${interaction.member?.nickname}`,
+                    name: `${interaction.member?.nickname}`,
                     //@ts-ignore
-                iconURL: `https://cdn.discordapp.com/avatars/${interaction.member?.id}/${interaction.member?.user.avatar}.webp?size=256`}),
+                    iconURL: `https://cdn.discordapp.com/avatars/${interaction.member?.id}/${interaction.member?.user.avatar}.webp?size=256`,
+                }),
             ],
         });
     },

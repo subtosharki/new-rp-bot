@@ -1,4 +1,4 @@
-import { CommandInteraction } from 'discord.js';
+import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { BugStars } from '../templates/Embeds';
 
@@ -12,8 +12,13 @@ export = {
                 .setName('status')
                 .setDescription('Choose if BugStars is opened or closed')
                 .setRequired(true)
-                .addChoice('Open', 'Open')
-                .addChoice('Closed', 'Closed')
+                .addChoices(
+                    {
+                        name: 'Open',
+                        value: 'Open',
+                    },
+                    { name: 'Closed', value: 'Closed' }
+                )
         ),
     async execute(interaction: CommandInteraction) {
         const status: string | null = interaction.options.getString('status');

@@ -12,42 +12,44 @@ export = {
                 .setName('location')
                 .setDescription('Location of the Ammu-nation')
                 .setRequired(true)
-                .addChoice(
-                    "Adam's Apple Boulevard and Elgin Avenue in Downtown Los Santos",
-                    "Adam's Apple Boulevard and Elgin Avenue in Downtown Los Santos"
-                )
-                .addChoice(
-                    'Lindsay Circus and Palomino Avenue in Little Seoul',
-                    'Lindsay Circus and Palomino Avenue in Little Seoul'
-                )
-                .addChoice(
-                    'Popular Street in Cypress Flats, East Los Santos',
-                    'Popular Street in Cypress Flats, East Los Santos'
-                )
-                .addChoice(
-                    'Tataviam Truckstop, in the Tataviam Mountains',
-                    'Tataviam Truckstop, in the Tataviam Mountains'
-                )
-                .addChoice('Paleto Bay', 'Paleto Bay')
-                .addChoice(
-                    'Algonquin Boulevard, Sandy Shores',
-                    'Algonquin Boulevard, Sandy Shores'
-                )
-                .addChoice(
-                    'Boulevard Del Perro, Morningwood',
-                    'Boulevard Del Perro, Morningwood'
-                )
-                .addChoice(
-                    'Vinewood Plaza, Spanish Avenue, Hawick',
-                    'Vinewood Plaza, Spanish Avenue, Hawick'
-                )
-                .addChoice(
-                    '325 Vespucci Boulevard in Mission Row',
-                    '325 Vespucci Boulevard in Mission Row'
-                )
-                .addChoice(
-                    'Chumash Plaza, Great Ocean Highway, Chumash',
-                    'Chumash Plaza, Great Ocean Highway, Chumash'
+                .addChoices(
+                    {
+                        name: "Adam's Apple Boulevard and Elgin Avenue in Downtown Los Santos",
+                        value: "Adam's Apple Boulevard and Elgin Avenue in Downtown Los Santos",
+                    },
+                    {
+                        name: 'Lindsay Circus and Palomino Avenue in Little Seoul',
+                        value: 'Lindsay Circus and Palomino Avenue in Little Seoul',
+                    },
+                    {
+                        name: 'Popular Street in Cypress Flats, East Los Santos',
+                        value: 'Popular Street in Cypress Flats, East Los Santos',
+                    },
+                    {
+                        name: 'Tataviam Truckstop, in the Tataviam Mountains',
+                        value: 'Tataviam Truckstop, in the Tataviam Mountains',
+                    },
+                    { name: 'Paleto Bay', value: 'Paleto Bay' },
+                    {
+                        name: 'Algonquin Boulevard, Sandy Shores',
+                        value: 'Algonquin Boulevard, Sandy Shores',
+                    },
+                    {
+                        name: 'Boulevard Del Perro, Morningwood',
+                        value: 'Boulevard Del Perro, Morningwood',
+                    },
+                    {
+                        name: 'Vinewood Plaza, Spanish Avenue, Hawick',
+                        value: 'Vinewood Plaza, Spanish Avenue, Hawick',
+                    },
+                    {
+                        name: '325 Vespucci Boulevard in Mission Row',
+                        value: '325 Vespucci Boulevard in Mission Row',
+                    },
+                    {
+                        name: 'Chumash Plaza, Great Ocean Highway, Chumash',
+                        value: 'Chumash Plaza, Great Ocean Highway, Chumash',
+                    }
                 )
         )
         .addStringOption((option) =>
@@ -55,8 +57,13 @@ export = {
                 .setName('status')
                 .setDescription('Choose if the AmmuNation is opened or closed')
                 .setRequired(true)
-                .addChoice('Open', 'Open')
-                .addChoice('Closed', 'Closed')
+                .addChoices(
+                    {
+                        name: 'Open',
+                        value: 'Open',
+                    },
+                    { name: 'Closed', value: 'Closed' }
+                )
         ),
     async execute(interaction: CommandInteraction) {
         const location: string | null =

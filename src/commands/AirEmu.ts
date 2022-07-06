@@ -1,7 +1,6 @@
-import { CommandInteraction } from 'discord.js';
+import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { AirEmu } from '../templates/Embeds';
-
 
 export = {
     data: new SlashCommandBuilder()
@@ -13,9 +12,14 @@ export = {
                 .setName('status')
                 .setDescription('The status of your plane')
                 .setRequired(true)
-                .addChoice('Taking Off', 'Taking Off')
-                .addChoice('Boarding', 'Boarding')
-                .addChoice('Landing', 'Landing')
+                .addChoices(
+                    {
+                        name: 'Taking Off',
+                        value: 'Taking Off',
+                    },
+                    { name: 'Boarding', value: 'Boarding' },
+                    { name: 'Landing', value: 'Landing' }
+                )
         )
         .addNumberOption((option) =>
             option
@@ -28,15 +32,20 @@ export = {
                 .setName('location')
                 .setDescription('The location of the plane')
                 .setRequired(true)
-                .addChoice(
-                    'Los Santos International Airport',
-                    'Los Santos International Airport'
-                )
-                .addChoice('McKenzie Airfield', 'McKenzie Airfield')
-                .addChoice('Sandy Shores Airfield', 'Sandy Shores Airfield')
-                .addChoice(
-                    'Fort Zancudo Military Base',
-                    'Fort Zancudo Military Base'
+                .addChoices(
+                    {
+                        name: 'Los Santos International Airport',
+                        value: 'Los Santos International Airport',
+                    },
+                    { name: 'McKenzie Airfield', value: 'McKenzie Airfield' },
+                    {
+                        name: 'Sandy Shores Airfield',
+                        value: 'Sandy Shores Airfield',
+                    },
+                    {
+                        name: 'Fort Zancudo Military Base',
+                        value: 'Fort Zancudo Military Base',
+                    }
                 )
         ),
     async execute(interaction: CommandInteraction) {

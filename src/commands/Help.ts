@@ -23,33 +23,30 @@ export = {
             .setColor('#004cff')
             .setAuthor({
                 name: `${author}`,
-                iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`
-            }
-            )
+                iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`,
+            })
             .setTitle('Command List')
-            .setFooter({text: 'Page 1/3'})
+            .setFooter({ text: 'Page 1/3' })
             .setTimestamp();
 
         const main2 = new MessageEmbed()
             .setColor('#004cff')
             .setAuthor({
                 name: `${author}`,
-                iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`
-            }
-            )
+                iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`,
+            })
             .setTitle('Command List')
-            .setFooter({text: 'Page 2/3'})
+            .setFooter({ text: 'Page 2/3' })
             .setTimestamp();
 
         const main3 = new MessageEmbed()
             .setColor('#004cff')
             .setAuthor({
                 name: `${author}`,
-                iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`
-            }
-            )
+                iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`,
+            })
             .setTitle('Command List')
-            .setFooter({text: 'Page 3/3'})
+            .setFooter({ text: 'Page 3/3' })
             .setTimestamp();
 
         for (let i = 0; i < commands.length; i++) {
@@ -68,22 +65,20 @@ export = {
                 .setColor('#004cff')
                 .setAuthor({
                     name: `${author}`,
-                    iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`
-                }
-                )
+                    iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`,
+                })
                 .addField(command.name, command.description, true)
-                .setFooter({text: 'Command Search'})
+                .setFooter({ text: 'Command Search' })
                 .setTimestamp();
 
             const err: any = new MessageEmbed()
                 .setColor('#ff0000')
                 .setAuthor({
                     name: `${author}`,
-                    iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`
-                }
-                )
+                    iconURL: `https://cdn.discordapp.com/avatars/${userID}/${avatar}.webp?size=256`,
+                })
                 .setTitle(`Command name ${cmdsearch} not found.`)
-                .setFooter({text: 'Command Search'})
+                .setFooter({ text: 'Command Search' })
                 .setTimestamp();
 
             if (!command) {

@@ -1,11 +1,9 @@
-type envFile = {
+const env: {
     TOKEN: string;
     GUILDID: string;
     CLIENTID: string;
     UNB_TOKEN: string;
-};
-
-const env: envFile = {
+} = {
     TOKEN: '',
     GUILDID: '',
     CLIENTID: '',

@@ -1,4 +1,4 @@
-import { CommandInteraction } from 'discord.js';
+import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Calling, Declined } from '../templates/Embeds';
 import { CallButtons } from '../templates/Buttons';
@@ -27,8 +27,8 @@ export = {
                     'Please join a voice channel before using this command.',
                 ephemeral: true,
             });
-        }
-        if (interaction.options.getMember('user') === interaction.member) {
+        } //@ts-ignore
+        if (interaction.options.getMember('user') === interaction.member || interaction.options.getMember('user')?.id === '881241382184972351') {
             return interaction.reply({
                 embeds: [Declined],
                 ephemeral: true,
@@ -51,4 +51,4 @@ export = {
             components: [CallButtons],
         });
     },
-};
+}; 

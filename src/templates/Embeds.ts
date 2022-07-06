@@ -1,4 +1,6 @@
-import { MessageEmbed } from 'discord.js';
+import { ColorResolvable, MessageEmbed } from 'discord.js';
+
+const normal: ColorResolvable = '#004cff';
 
 export const TwentyFourSeven: MessageEmbed = new MessageEmbed()
     .setColor('#0db14b')
@@ -31,7 +33,7 @@ export const Cab: MessageEmbed = new MessageEmbed()
     .setTimestamp();
 
 export const Calling: MessageEmbed = new MessageEmbed()
-    .setColor('#004cff')
+    .setColor(normal)
     .setTimestamp();
 
 export const Accepted: MessageEmbed = new MessageEmbed()
@@ -45,7 +47,7 @@ export const Declined: MessageEmbed = new MessageEmbed()
     .setTimestamp();
 
 export const Cuffing: MessageEmbed = new MessageEmbed()
-    .setColor('#004cff')
+    .setColor(normal)
     .setTimestamp()
     .setDescription(`Applying cuffs...`);
 
@@ -54,5 +56,11 @@ export const Cuffed: MessageEmbed = new MessageEmbed()
     .setTimestamp();
 
 export const Me: MessageEmbed = new MessageEmbed()
-    .setColor('#004cff')
+    .setColor(normal)
     .setTimestamp();
+
+export const Tweet: MessageEmbed = new MessageEmbed()
+    .setColor('#1d36f2')
+    .setTitle('<:twitter:858110570087972884> TWOTTER')
+    .setTimestamp();
+

@@ -1,71 +1,94 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { TwentyFourSeven } from '../templates/Embeds';
 
 export = {
     data: new SlashCommandBuilder()
         .setName('24-7')
-        .setDescription('Sends a 24/7 message')
+        .setDescription('Sends a 24/7 advertisement')
         .setDMPermission(false)
         .addStringOption((option) =>
             option
                 .setName('location')
                 .setDescription('Location of the 24/7')
                 .setRequired(true)
-                .addChoice(
-                    'Alhambra Drive, Sandy Shores',
-                    'Alhambra Drive, Sandy Shores'
+
+                .addChoices(
+                    {
+                        name: 'Alhambra Drive, Sandy Shores',
+                        value: 'Alhambra Drive, Sandy Shores',
+                    },
+                    {
+                        name: 'Innocence Boulevard, Strawberry',
+                        value: 'Innocence Boulevard, Strawberry',
+                    },
+                    {
+                        name: 'Clifton Avenue, Downtown Vinewood',
+                        value: 'Clifton Avenue, Downtown Vinewood',
+                    },
+                    {
+                        name: 'Barbareno Road, Chumash',
+                        value: 'Barbareno Road, Chumash',
+                    },
+                    {
+                        name: 'Ineseno, Banham Canyon',
+                        value: 'Ineseno, Banham Canyon',
+                    },
+                    {
+                        name: 'Tataviam, Palomino Freeway',
+                        value: 'Tataviam, Palomino Freeway',
+                    },
+                    { name: 'Route 68, Harmony', value: 'Route 68, Harmony' },
+                    {
+                        name: 'Senora Freeway, Grand Senora Desert',
+                        value: 'Senora Freeway, Grand Senora Desert',
+                    },
+                    {
+                        name: 'Senora Freeway, Mount Chiliad',
+                        value: 'Senora Freeway, Mount Chiliad',
+                    },
+                    {
+                        name: 'Vinewood Boulevard, Downtown Vinewood',
+                        value: 'Vinewood Boulevard, Downtown Vinewood',
+                    },
+                    {
+                        name: 'Hawick Avenue, Alta',
+                        value: 'Hawick Avenue, Alta',
+                    },
+                    {
+                        name: 'Vinewood Plaza, Spanish Avenue',
+                        value: 'Vinewood Plaza, Spanish Avenue',
+                    },
+                    {
+                        name: 'Elgin Avenue, Hawick',
+                        value: 'Elgin Avenue, Hawick',
+                    },
+                    {
+                        name: 'Korean Plaza, Calais Avenue',
+                        value: 'Korean Plaza, Calais Avenue',
+                    },
+                    {
+                        name: 'Vespucci Boulevard, Little Seoul',
+                        value: 'Vespucci Boulevard, Little Seoul',
+                    },
+                    {
+                        name: 'Route 68, Lago Zancudo',
+                        value: 'Route 68, Lago Zancudo',
+                    }
                 )
-                .addChoice(
-                    'Innocence Boulevard, Strawberry',
-                    'Innocence Boulevard, Strawberry'
-                )
-                .addChoice(
-                    'Clifton Avenue, Downtown Vinewood',
-                    'Clifton Avenue, Downtown Vinewood'
-                )
-                .addChoice('Barbareno Road, Chumash', 'Barbareno Road, Chumash')
-                .addChoice('Ineseno, Banham Canyon', 'Ineseno, Banham Canyon')
-                .addChoice(
-                    'Tataviam, Palomino Freeway',
-                    'Tataviam, Palomino Freeway'
-                )
-                .addChoice('Route 68, Harmony', 'Route 68, Harmony')
-                .addChoice(
-                    'Senora Freeway, Grand Senora Desert',
-                    'Senora Freeway, Grand Senora Desert'
-                )
-                .addChoice(
-                    'Senora Freeway, Mount Chiliad',
-                    'Senora Freeway, Mount Chiliad'
-                )
-                .addChoice(
-                    'Vinewood Boulevard, Downtown Vinewood',
-                    'Vinewood Boulevard, Downtown Vinewood'
-                )
-                .addChoice('Hawick Avenue, Alta', 'Hawick Avenue, Alta')
-                .addChoice(
-                    'Vinewood Plaza, Spanish Avenue',
-                    'Vinewood Plaza, Spanish Avenue'
-                )
-                .addChoice('Elgin Avenue, Hawick', 'Elgin Avenue, Hawick')
-                .addChoice(
-                    'Korean Plaza, Calais Avenue',
-                    'Korean Plaza, Calais Avenue'
-                )
-                .addChoice(
-                    'Vespucci Boulevard, Little Seoul',
-                    'Vespucci Boulevard, Little Seoul'
-                )
-                .addChoice('Route 68, Lago Zancudo', 'Route 68, Lago Zancudo')
         )
         .addStringOption((option) =>
             option
                 .setName('status')
                 .setDescription('Choose if the 24/7 is opened or closed')
                 .setRequired(true)
-                .addChoice('Open', 'Open')
-                .addChoice('Closed', 'Closed')
+                .addChoices(
+                    {
+                        name: 'Open',
+                        value: 'Open',
+                    },
+                    { name: 'Closed', value: 'Closed' }
+                )
         ),
 
     async execute(interaction: CommandInteraction) {
