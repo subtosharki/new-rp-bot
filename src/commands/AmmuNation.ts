@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { AmmuNation } from '../templates/Embeds';
+import { AmmuNation } from '../components/Embeds';
 
 export = {
     data: new SlashCommandBuilder()

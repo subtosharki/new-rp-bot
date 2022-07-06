@@ -1,7 +1,7 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Calling, Declined } from '../templates/Embeds';
-import { CallButtons } from '../templates/Buttons';
+import { Calling, Declined } from '../components/Embeds';
+import { CallButtons } from '../components/Buttons';
 
 export = {
     data: new SlashCommandBuilder()
