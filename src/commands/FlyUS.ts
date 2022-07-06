@@ -1,6 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import type { CommandInteraction } from 'discord.js';
 import { bold, SlashCommandBuilder } from '@discordjs/builders';
+import { FlyUS } from '../components/Embeds';
 
 export = {
     data: new SlashCommandBuilder()
@@ -54,19 +55,13 @@ export = {
         const status: string | null = interaction.options.getString('status');
         const number: number | null =
             interaction.options.getNumber('flight-number');
-        const embed: any = new MessageEmbed()
-            .setColor('#085183')
-            .setTitle('FlyUS')
-            .setThumbnail('https://i.file.glass/j3abd.png')
-            .setTimestamp()
-            .setDescription(
-                `FlyUS Flight Number ${bold(
-                    number as unknown as string
-                )} in ${bold(location as string)} is now ${bold(
-                    status as string
-                )}!`
-            );
 
-        await interaction.reply({ embeds: [embed] });
+        await interaction.reply({ embeds: [FlyUS.setDescription(
+            `FlyUS Flight Number ${bold(
+                number as unknown as string
+            )} in ${bold(location as string)} is now ${bold(
+                status as string
+            )}!`
+        )] });
     },
 };

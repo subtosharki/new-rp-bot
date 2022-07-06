@@ -73,3 +73,9 @@ export const Tor: MessageEmbed = new MessageEmbed()
     })
     .setTitle('<:tor:869045322704371806> Tor Project')
     .setTimestamp();
+
+export const FlyUS: MessageEmbed = new MessageEmbed()
+    .setColor('#085183')
+    .setTitle('FlyUS')
+    .setThumbnail('https://i.file.glass/j3abd.png')
+    .setTimestamp()
