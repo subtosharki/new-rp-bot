@@ -1,4 +1,3 @@
-import { MessageEmbed } from 'discord.js';
 import type { CommandInteraction } from 'discord.js';
 import { bold, SlashCommandBuilder } from '@discordjs/builders';
 import { FlyUS } from '../components/Embeds';
