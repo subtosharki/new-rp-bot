@@ -2,18 +2,6 @@ import { ColorResolvable, MessageEmbed } from 'discord.js';
 
 const normal: ColorResolvable = '#004cff';
 
-export const TwentyFourSeven: MessageEmbed = new MessageEmbed()
-    .setColor('#0db14b')
-    .setTitle('24/7')
-    .setThumbnail('https://i.file.glass/0eg7f.png')
-    .setTimestamp();
-
-export const AirEmu: MessageEmbed = new MessageEmbed()
-    .setColor('#dba31e')
-    .setTitle('AirEmu')
-    .setThumbnail('https://i.file.glass/heh5h.png')
-    .setTimestamp();
-
 export const AmmuNation: MessageEmbed = new MessageEmbed()
     .setColor('#840204')
     .setTitle('AmmuNation')

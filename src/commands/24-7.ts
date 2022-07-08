@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
 import { bold, SlashCommandBuilder } from '@discordjs/builders';
-import { TwentyFourSeven } from '../components/Embeds';
+import TwentyFourSeven from '../components/TwentyFourSeven';
 
 export = {
     data: new SlashCommandBuilder()
