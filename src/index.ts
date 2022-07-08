@@ -3,11 +3,16 @@ import { Client, Collection, Intents, Interaction } from 'discord.js';
 import consola from 'consola';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
+import { connect } from 'mongoose';
 import env from './env';
+
+async function main() {
+    await connect(`${env.DB_URL}`);
+}
 
 //intents
 const intents: Intents = new Intents(32767);
-const client: any = new Client({ intents });
+const client: Client | any = new Client({ intents });
 
 //command handler
 client.commands = new Collection();
@@ -74,4 +79,6 @@ const rest: REST = new REST({ version: '9' }).setToken(env.TOKEN!);
     }
 })();
 
-client.login(env.TOKEN!);
+client.login(env.TOKEN);
+
+main().catch((err) => console.log(err));

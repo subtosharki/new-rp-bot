@@ -27,7 +27,7 @@ export = {
             });
         }
         //@ts-ignore
-        if(!interaction.options.getMember('user').voice) {
+        if (!interaction.options.getMember('user').voice) {
             return await interaction.reply({
                 content:
                     'Both users must be in a voice channel before using this command.',
@@ -72,17 +72,29 @@ export = {
                 if (
                     i.user.id ===
                     //@ts-ignore
-                    (interaction.options.getMember('user').id as unknown as string)
+                    (interaction.options.getMember('user')
+                    //@ts-ignore
+                        .id as unknown as string)
                 ) {
                     //@ts-ignore
-                    if(interaction.options.getMember('user').voice) {
+                    if (interaction.options.getMember('user').voice) {
                         //@ts-ignore
-                        if(interaction.options.getMember('user').voice.channelId === interaction.member.voice.channelId)
-                        //@ts-ignore
-                        interaction.member?.voice.setChannel(
+                        if (
                             //@ts-ignore
-                            `${interaction.options.getMember('user').voice.id}`
-                        );
+                            interaction.options.getMember('user').voice
+                                .channelId ===
+                                //@ts-ignore
+                            interaction.member.voice.channelId
+                        )
+                            //@ts-ignore
+                            interaction.member?.voice.setChannel(
+                                //@ts-ignore
+                                `${
+                                    //@ts-ignore
+                                    interaction.options.getMember('user').voice
+                                        .id
+                                }`
+                            );
                     }
                 }
             } else {
