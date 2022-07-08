@@ -43,7 +43,6 @@ export = {
         if(interaction.options.getSubcommand() === 'text') {
             Phone.find({number: `${interaction.options.getString('number')}`}, 'discordId number', (err, data) => {
                 if(err) console.log(err);
-                console.log(data)
                 data.forEach(async (phone) => {
                     if(phone.discordId === interaction.member?.user.id) {
                         Text.setDescription(`${interaction.options.getString('text')}`);
@@ -58,6 +57,7 @@ export = {
                             )}
                         //@ts-ignore
                         await interaction.client.users.cache.get(phone.discordId).send({embeds: [Text]});
+                        await interaction.reply({content: 'Text Sent!', ephemeral: true});
                     }
                 },
                 )
