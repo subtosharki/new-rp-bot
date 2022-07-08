@@ -7,6 +7,7 @@ export = {
     data: new SlashCommandBuilder()
         .setName('help')
         .setDescription('Shows a list of commands')
+        .setDMPermission(true)
         .addStringOption((option) =>
             option
                 .setName('command')
@@ -62,7 +63,7 @@ export = {
         if (interaction.options.getString('command')) {
             const cmdsearch = interaction.options.getString('command');
             const command = commands.find((c: any) => cmdsearch == c.name);
-            const search: any = new MessageEmbed()
+            const search: MessageEmbed = new MessageEmbed()
                 .setColor('#004cff')
                 .setAuthor({
                     name: `${author}`,
@@ -72,7 +73,7 @@ export = {
                 .setFooter({ text: 'Command Search' })
                 .setTimestamp();
 
-            const err: any = new MessageEmbed()
+            const err: MessageEmbed = new MessageEmbed()
                 .setColor('#ff0000')
                 .setAuthor({
                     name: `${author}`,

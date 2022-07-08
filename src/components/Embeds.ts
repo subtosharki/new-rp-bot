@@ -79,3 +79,8 @@ export const FlyUS: MessageEmbed = new MessageEmbed()
     .setTitle('FlyUS')
     .setThumbnail('https://i.file.glass/j3abd.png')
     .setTimestamp();
+
+export const Text: MessageEmbed = new MessageEmbed()
+    .setColor('#00FF00')
+    .setTitle('<:phone:868642237293142077> New Text Message')
+    .setTimestamp();

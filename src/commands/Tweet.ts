@@ -6,7 +6,7 @@ import Profile from '../models/Profile';
 export = {
     data: new SlashCommandBuilder()
         .setName('twitter')
-        .setDescription('Sends a twitter like message')
+        .setDescription('Twitter')
         .setDMPermission(false)
         .addSubcommand((subcommand) =>
             subcommand
@@ -49,20 +49,20 @@ export = {
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'post') {
             Profile.find(
-                { id: `${interaction.member?.user.id}` },
+                { discordId: `${interaction.member?.user.id}` },
                 'username pfp discordId',
                 (err, data) => {
                     if (err) console.log(err);
                     data.forEach(async (profile) => {
                         if (profile.discordId === interaction.member?.user.id) {
-                            if (interaction.options.getAttachment('image'))
+                            if (interaction.options.getAttachment('image')) {
                                 Tweet.setImage(
                                     `${
                                         interaction.options.getAttachment(
                                             'image'
                                         )?.proxyURL
                                     }`
-                                );
+                                )}
                             if (interaction.user.id === '318203855365996544') {
                                 Tweet.setTitle(
                                     '<:verified:869045206857711657> TWOTTER'
