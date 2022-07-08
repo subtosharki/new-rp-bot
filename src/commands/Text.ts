@@ -55,8 +55,7 @@ export = {
                                     )?.proxyURL
                                 }`
                             )}
-                        //@ts-ignore
-                        await interaction.client.users.cache.get(phone.discordId).send({embeds: [Text]});
+                        await interaction.client.users.cache.get(phone.discordId)?.send({embeds: [Text]});
                         await interaction.reply({content: 'Text Sent!', ephemeral: true});
                     }
                 },
