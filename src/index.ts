@@ -11,11 +11,9 @@ connection.once('open', () => {
     consola.success('Connected to Database!');
 });
 
-//intents
 const intents: Intents = new Intents(32767);
 const client: Client | any = new Client({ intents });
 
-//command handler
 client.commands = new Collection();
 const commandFolders: any = fs.readdirSync('dist/commands');
 
@@ -28,6 +26,7 @@ for (const _folder of commandFolders) {
         client.commands.set(command.data.name, command);
     }
 }
+
 client.on('interactionCreate', async (interaction: Interaction) => {
     if (!interaction.isCommand()) return;
     const command: any = client.commands.get(interaction.commandName);
@@ -45,7 +44,6 @@ client.on('interactionCreate', async (interaction: Interaction) => {
 });
 consola.success('Command Handler Loaded!');
 
-//event handler
 const eventFiles: any = fs
     .readdirSync('./dist/events')
     .filter((file) => file.endsWith('.js'));
@@ -60,7 +58,6 @@ for (const file of eventFiles) {
 }
 consola.success('Event Handler Loaded!');
 
-//comand deployer
 export const commands: any = fs
     .readdirSync(`dist/commands`)
     .filter((file) => file.endsWith('.js'))

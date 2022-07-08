@@ -70,9 +70,8 @@ export = {
         collector?.on('collect', (i) => {
             if (i.customId === 'accept') {
                 if (
-                    i.user.id === //@ts-ignore //@ts-ignore
-                    (interaction.options.getMember('user')
-                        .id as unknown as string)
+                    i.user.id === //@ts-ignore
+                    (interaction.options.getMember('user').id as string)
                 ) {
                     //@ts-ignore
                     if (interaction.options.getMember('user').voice) {
@@ -86,10 +85,9 @@ export = {
                         )
                             //@ts-ignore
                             interaction.member?.voice.setChannel(
-                                //@ts-ignore
                                 `${
                                     //@ts-ignore
-                                    interaction.options.getMember('user').voice
+                                    interaction.options.getMember('user')?.voice
                                         .id
                                 }`
                             );
