@@ -3,12 +3,13 @@ import { Client, Collection, Intents, Interaction } from 'discord.js';
 import consola from 'consola';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
-import { connect } from 'mongoose';
+import { connect, connection } from 'mongoose';
 import env from './env';
 
-async function main() {
-    await connect(`${env.DB_URL}`);
-}
+connect(`${env.DB_URL}`);
+connection.once('open', () => {
+    consola.success('Connected to Database!');
+});
 
 //intents
 const intents: Intents = new Intents(32767);
@@ -80,5 +81,3 @@ const rest: REST = new REST({ version: '9' }).setToken(env.TOKEN!);
 })();
 
 client.login(env.TOKEN);
-
-main().catch((err) => console.log(err));

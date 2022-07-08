@@ -3,4 +3,4 @@ export default {
     GUILDID: '',
     CLIENTID: '',
     DB_URL: '',
-}
+};
