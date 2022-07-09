@@ -19,18 +19,16 @@ export = {
         await setTimeout(3000);
         await interaction.editReply({
             embeds: [
-                unCuffed
-                    .setDescription(
-                        `${bold(
-                            interaction.member as unknown as string
-                        )} uncuffed ${bold(
-                            interaction.options.getMember(
-                                'user'
-                            ) as unknown as string
-                        )}!`
-                    )
+                unCuffed.setDescription(
+                    `${bold(
+                        interaction.member as unknown as string
+                    )} uncuffed ${bold(
+                        interaction.options.getMember(
+                            'user'
+                        ) as unknown as string
+                    )}!`
+                ),
             ],
         });
-    }
+    },
 };
-

@@ -8,6 +8,6 @@ export = {
         .setDescription('Turn on your vehicle engine')
         .setDMPermission(false),
     async execute(interaction: CommandInteraction) {
-        await interaction.reply({embeds: [EngineOn]});
+        await interaction.reply({ embeds: [EngineOn] });
     },
 };

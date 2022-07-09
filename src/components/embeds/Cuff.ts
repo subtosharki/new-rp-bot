@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { MessageEmbed } from 'discord.js';
 
 export const Cuffing: MessageEmbed = new MessageEmbed()
     .setColor('#004cff')
