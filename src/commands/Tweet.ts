@@ -80,7 +80,6 @@ export = {
                             }),
                         ],
                     });
-                    //sends mentioned user if tagged
                     if (
                         interaction.options.getString('content')?.includes('<@')
                     ) {

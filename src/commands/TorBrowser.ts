@@ -31,6 +31,18 @@ export = {
                 ),
             ],
         });
+        if (
+            interaction.options.getString('content')?.includes('<@')
+        ) {
+            interaction.options
+                .getString('content')
+                ?.split(' ')
+                .forEach((val) => {
+                    /<@!?(\d+)>/.test(val)
+                        ? interaction.channel?.send(`${val}`)
+                        : null;
+                });
+        }
         await interaction.reply({ content: 'Sent!', ephemeral: true });
     },
 };

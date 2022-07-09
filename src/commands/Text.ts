@@ -66,6 +66,18 @@ export = {
                     await interaction.client.users.cache
                         .get(phone[0].discordId)
                         ?.send({ embeds: [Text] });
+                        if (
+                            interaction.options.getString('content')?.includes('<@')
+                        ) {
+                            interaction.options
+                                .getString('content')
+                                ?.split(' ')
+                                .forEach((val) => {
+                                    /<@!?(\d+)>/.test(val)
+                                        ? interaction.channel?.send(`${val}`)
+                                        : null;
+                                });
+                        }
                     await interaction.reply({
                         content: 'Text Sent!',
                         ephemeral: true,
