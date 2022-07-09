@@ -50,7 +50,7 @@ export = {
         if (interaction.options.getSubcommand() === 'post') {
             Profile.find(
                 { discordId: `${interaction.member?.user.id}` },
-                'username pfp discordId',
+                'username pfp discordId verifiedServers',
                 async (err, profile) => {
                     if (err) console.log(err);
                     if (interaction.options.getAttachment('image')) {
@@ -66,6 +66,14 @@ export = {
                             '<:verified:869045206857711657> TWOTTER'
                         );
                     }
+                    profile[0].verifiedServers.forEach((server) => {
+                        if (server === interaction?.guildId) {
+                            Tweet.setTitle(
+                                `<:verified:869045206857711657> TWOTTER`
+                            );
+                        }
+                    }
+                    );
                     await interaction.channel?.send({
                         embeds: [
                             Tweet.setDescription(
