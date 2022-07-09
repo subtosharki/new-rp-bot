@@ -51,10 +51,8 @@ export = {
             Profile.find(
                 { id: `${interaction.member?.user.id}` },
                 'username pfp discordId',
-                (err, data) => {
+                async (err, profile) => {
                     if (err) console.log(err);
-                    data.forEach(async (profile) => {
-                        if (profile.discordId === interaction.member?.user.id) {
                             if (interaction.options.getAttachment('image'))
                                 Tweet.setImage(
                                     `${
@@ -76,10 +74,10 @@ export = {
                                         )}`
                                     ).setAuthor({
                                         name:
-                                            profile.username ||
+                                            profile[0].username ||
                                             interaction.user.username,
                                         iconURL:
-                                            profile.pfp ||
+                                            profile[0].pfp ||
                                             //@ts-ignore
                                             `https://cdn.discordapp.com/avatars/${interaction.member?.id}/${interaction.member?.user.avatar}.webp?size=256`,
                                     }),
@@ -89,21 +87,15 @@ export = {
                                 content: 'Sent!',
                                 ephemeral: true,
                             });
-                        }
-                    });
                 }
             );
         } else {
             Profile.find(
                 { id: `${interaction.member?.user.id}` },
                 'username pfp discordId',
-                async (err, db) => {
-                    db.forEach(async (profileData) => {
+                async (err, profileData) => {
                         if (err) console.log(err);
-                        if (
-                            profileData.discordId ===
-                            interaction.member?.user.id
-                        ) {
+
                             Profile.findOneAndRemove(
                                 { discordId: `${interaction.member?.user.id}` },
                                 null,
@@ -113,15 +105,15 @@ export = {
                             );
                             const profile = new Profile({
                                 discordId:
-                                    profileData.discordId ||
+                                    profileData[0].discordId ||
                                     `${interaction.member?.user.id}`,
                                 username:
                                     interaction.options.getString('username') ||
-                                    profileData.username,
+                                    profileData[0].username,
                                 pfp:
                                     interaction.options.getAttachment(
                                         'profile-picture'
-                                    )?.proxyURL || profileData.pfp,
+                                    )?.proxyURL || profileData[0].pfp,
                             });
                             profile.save((err) => {
                                 if (err) console.log(err);
@@ -130,8 +122,6 @@ export = {
                                 content: 'Profile Set!',
                                 ephemeral: true,
                             });
-                        }
-                    });
                 }
             );
         }
