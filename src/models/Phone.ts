@@ -5,5 +5,11 @@ export default model(
     new Schema({
         discordId: { type: String, required: true },
         number: { type: String, required: true },
+        contacts: [
+            {
+                name: { type: String, required: true },
+                number: { type: String, required: true },
+            },
+        ],
     })
 );

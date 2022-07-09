@@ -53,9 +53,11 @@ export = {
                     Gmail.setDescription(
                         `${interaction.options.getString('content')}`
                     );
-                    Gmail.setAuthor({
-                        name: email[0].email,
-                    });
+                    //@ts-ignore
+                    Email.find({ discordId: `${interaction.member?.id}` }, 'email', async (err, email) => {
+                        if (err) console.log(err);
+                        Gmail.setAuthor(`${email[0].email}`);
+                    })
                     if (interaction.options.getAttachment('image')) {
                         Gmail.setImage(
                             `${
