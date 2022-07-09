@@ -45,11 +45,35 @@ export = {
                         )
                         .setRequired(false)
                 )
-        ),
+        )
+        .addSubcommand((subcommand) =>
+            subcommand
+                .setName('verify-profile')
+                .setDescription('Verify a Profile in your server')
+                .addUserOption((option) =>
+                            
+                    option
+                        .setName('user')
+                        .setDescription('The user you want to verify')
+                        .setRequired(true)
+                )
+        )
+        .addSubcommand((subcommand) =>
+            subcommand
+                .setName('unverify-profile')
+                .setDescription('Unverify a Profile in your server')
+                .addUserOption((option) =>
+                            
+                    option
+                        .setName('user')
+                        .setDescription('The user you want to unverify')
+                        .setRequired(true)
+                )
+        ),                  
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'post') {
             Profile.find(
-                { id: `${interaction.member?.user.id}` },
+                { discordId: `${interaction.member?.user.id}` },
                 'username pfp discordId verifiedServers',
                 async (err, profile) => {
                     if (err) console.log(err);
@@ -99,11 +123,20 @@ export = {
                     });
                 }
             );
-        } else {
+        } else if(interaction.options.getSubcommand() === 'set-profile') {
             Profile.find(
                 { id: `${interaction.member?.user.id}` },
                 'username pfp discordId',
                 async (err, profileData) => {
+                    if(profileData.length === 0) {
+                        Profile.create({
+                            id: `${interaction.member?.user.id}`,
+                            username: interaction.options.getString('username') || interaction.user.username,
+                            //@ts-ignore
+                            pfp: interaction.options.getAttachment('profile-picture') || `https://cdn.discordapp.com/avatars/${interaction.member?.id}/${interaction.member?.user.avatar}.webp?size=256`,
+                            verifiedServers: [],
+                        });
+                    } 
                     if (err) console.log(err);
 
                     Profile.findOneAndRemove(
@@ -115,7 +148,6 @@ export = {
                     );
                     const profile = new Profile({
                         discordId:
-                            profileData[0].discordId ||
                             `${interaction.member?.user.id}`,
                         username:
                             interaction.options.getString('username') ||
@@ -133,6 +165,71 @@ export = {
                     });
                 }
             );
+        } else if(interaction.options.getSubcommand() === 'verify-profile') {
+            //@ts-ignore
+            if(interaction.member?.permissions.bitfield === 2199023255551n) {
+            Profile.find(
+                { id: `${interaction.options.getUser('user')?.id}` },
+                'username pfp discordId verifiedServers',
+                async (err, profileData) => {
+                    if (err) console.log(err);
+                    if(profileData[0]?.verifiedServers.includes(interaction.guild?.id as string)) {
+                        await interaction.reply({
+                            content: 'Already Verified!',
+                            ephemeral: true,
+                        });
+                    } else {
+                        Profile.findOneAndUpdate(
+                            { discordId: `${interaction.member?.user.id}` },
+                            { $push: { verifiedServers: interaction.guild?.id as string } },
+                            (err: any) => {
+                                if (err) console.log(err);
+                            }
+                        );
+                        await interaction.reply({
+                            content: 'Verified!',
+                            ephemeral: true,
+                        });
+                    }
+                }
+            );
+            } else await interaction.reply({
+                content: 'You do not have permission to do that!',
+                ephemeral: true,
+            });
+
+        } else if(interaction.options.getSubcommand() === 'unverify-profile') {
+            //@ts-ignore
+            if(interaction.member?.permissions.bitfield === 2199023255551n) {
+            Profile.find(
+                { id: `${interaction.options.getUser('user')?.id}` },
+                'username pfp discordId verifiedServers',
+                async (err, profileData) => {
+                    if (err) console.log(err);
+                    if(!profileData[0]?.verifiedServers.includes(interaction.guild?.id as string)) {
+                        await interaction.reply({
+                            content: 'Not Verified!',
+                            ephemeral: true,
+                        });
+                    } else {
+                        Profile.findOneAndUpdate(
+                            { discordId: `${interaction.member?.user.id}` },
+                            { $pull: { verifiedServers: interaction.guild?.id as string } },
+                            (err: any) => {
+                                if (err) console.log(err);
+                            }
+                        );
+                        await interaction.reply({
+                            content: 'Un-verified!',
+                            ephemeral: true,
+                        });
+                    }
+                }
+            );
+            } else await interaction.reply({
+                content: 'You do not have permission to do that!',
+                ephemeral: true,
+            });
         }
     },
 };
