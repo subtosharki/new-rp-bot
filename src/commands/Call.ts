@@ -1,7 +1,7 @@
 import type { CommandInteraction } from 'discord.js';
 import { bold, channelMention, SlashCommandBuilder } from '@discordjs/builders';
-import { Calling, Declined } from '../components/Embeds';
-import { CallButtons } from '../components/Buttons';
+import { Calling, Declined } from '../components/embeds/Call';
+import * as CallButtons from '../components/buttons/Call';
 
 export = {
     data: new SlashCommandBuilder()
@@ -27,7 +27,7 @@ export = {
             });
         }
         //@ts-ignore
-        if(!interaction.options.getMember('user').voice) {
+        if (!interaction.options.getMember('user').voice) {
             return await interaction.reply({
                 content:
                     'Both users must be in a voice channel before using this command.',
@@ -60,7 +60,7 @@ export = {
                     )}\nPress ${bold('Accept')} to join`
                 ),
             ],
-            components: [CallButtons],
+            components: [CallButtons.default],
         });
         const collector = interaction.channel?.createMessageComponentCollector({
             componentType: 'BUTTON',
@@ -70,19 +70,27 @@ export = {
         collector?.on('collect', (i) => {
             if (i.customId === 'accept') {
                 if (
-                    i.user.id ===
-                    //@ts-ignore
-                    (interaction.options.getMember('user').id as unknown as string)
+                    i.user.id === //@ts-ignore
+                    (interaction.options.getMember('user').id as string)
                 ) {
                     //@ts-ignore
-                    if(interaction.options.getMember('user').voice) {
+                    if (interaction.options.getMember('user').voice) {
                         //@ts-ignore
-                        if(interaction.options.getMember('user').voice.channelId === interaction.member.voice.channelId)
-                        //@ts-ignore
-                        interaction.member?.voice.setChannel(
+                        if (
                             //@ts-ignore
-                            `${interaction.options.getMember('user').voice.id}`
-                        );
+                            interaction.options.getMember('user').voice
+                                .channelId ===
+                            //@ts-ignore
+                            interaction.member.voice.channelId
+                        )
+                            //@ts-ignore
+                            interaction.member?.voice.setChannel(
+                                `${
+                                    //@ts-ignore
+                                    interaction.options.getMember('user')?.voice
+                                        .id
+                                }`
+                            );
                     }
                 }
             } else {

@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
 import { bold, SlashCommandBuilder } from '@discordjs/builders';
-import { Cuffed, Cuffing } from '../components/Embeds';
+import { Cuffed, Cuffing } from '../components/embeds/Cuff';
 import { setTimeout } from 'node:timers/promises';
 
 export = {

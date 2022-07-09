@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
 import { bold, SlashCommandBuilder } from '@discordjs/builders';
-import { BugStars } from '../components/Embeds';
+import BugStars from '../components/embeds/BugStars';
 
 export = {
     data: new SlashCommandBuilder()

@@ -1,11 +1,6 @@
-const env: {
-    TOKEN: string;
-    GUILDID: string;
-    CLIENTID: string;
-} = {
+export default {
     TOKEN: '',
     GUILDID: '',
     CLIENTID: '',
+    DB_URL: '',
 };
-
-export default env;
