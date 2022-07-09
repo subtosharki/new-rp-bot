@@ -6,5 +6,6 @@ export default model(
         discordId: { type: String, required: true },
         username: { type: String, required: false },
         pfp: { type: String, required: false },
+        verifiedServers: [String]
     })
 );
