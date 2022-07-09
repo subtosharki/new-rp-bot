@@ -36,6 +36,22 @@ export = {
                                 .setRequired(false)
                         )
                 )
+                
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('new-number')
+                        .setDescription('Get a new phone number')
+                )
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('remove-number')
+                        .setDescription('Remove your phone number')
+                )
+        )
+        .addSubcommandGroup((subcommandGroup) =>
+            subcommandGroup
+                .setName('contacts')
+                .setDescription('Contacts Commands')
                 .addSubcommand((subcommand) =>
                     subcommand
                         .setName('add-contact')
@@ -55,15 +71,22 @@ export = {
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('new-number')
-                        .setDescription('Get a new phone number')
+                        .setName('remove-contact')
+                        .setDescription('Remove a contact')
+                        .addStringOption((option) =>
+                            option
+                                .setName('number')
+                                .setDescription('The number of the contact')
+                                .setRequired(true)
+                        )
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('remove-number')
-                        .setDescription('Remove your phone number')
+                        .setName('list-contacts')
+                        .setDescription('List your contacts')
                 )
         ),
+                
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'text') {
             Phone.find(
@@ -152,6 +175,47 @@ export = {
                         ephemeral: true,
                     });
                 }
+            );
+        } else if(interaction.options.getSubcommand() === 'remove-contact') {
+            Phone.find(
+                { discordId: `${interaction.member?.user.id}` },
+                'contacts',
+                async (err, phone) => {
+                    if (err) console.log(err);
+                    //@ts-ignore
+                    const contact = phone[0].contacts.find(contact => contact.number === interaction.options.getString('number'));
+                    //@ts-ignore
+                    phone[0].contacts.splice(phone[0].contacts.indexOf(contact), 1);
+                    await phone[0].save();
+                    await interaction.reply({
+                        content: `Contact removed!`,
+                        ephemeral: true,
+                    });
+                }
+            );
+        } else if(interaction.options.getSubcommand() === 'list-contacts') {
+            Phone.find(
+                { discordId: `${interaction.member?.user.id}` },
+                'contacts',
+                async (err, phone) => {
+                    if (err) console.log(err);
+                    let contacts = '';
+                    if(phone[0].contacts.length > 0) {
+
+                    phone[0].contacts.forEach(contact => {
+                        contacts += `${contact.name}: ${contact.number}\n`;
+                    });
+                    await interaction.reply({
+                        content: `${contacts}`,
+                        ephemeral: true,
+                    });
+                } else {
+                    await interaction.reply({
+                        content: `You have no contacts!`,
+                        ephemeral: true,
+                    });
+                }
+            }
             );
         }
     },
