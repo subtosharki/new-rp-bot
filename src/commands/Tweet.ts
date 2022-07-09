@@ -31,54 +31,55 @@ export = {
                 .setName('settings')
                 .setDescription('Profile Settings')
 
-        .addSubcommand((subcommand) =>
-            subcommand
-                .setName('set-profile')
-                .setDescription('Set your Twitter Profile Details')
-                .addStringOption((option) =>
-                    option
-                        .setName('username')
-                        .setDescription(
-                            'The username you want to appear on twitter'
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('set-profile')
+                        .setDescription('Set your Twitter Profile Details')
+                        .addStringOption((option) =>
+                            option
+                                .setName('username')
+                                .setDescription(
+                                    'The username you want to appear on twitter'
+                                )
+                                .setRequired(false)
                         )
-                        .setRequired(false)
-                )
-                .addAttachmentOption((option) =>
-                    option
-                        .setName('profile-picture')
-                        .setDescription(
-                            'The picture you want to appear on twitter'
+                        .addAttachmentOption((option) =>
+                            option
+                                .setName('profile-picture')
+                                .setDescription(
+                                    'The picture you want to appear on twitter'
+                                )
+                                .setRequired(false)
                         )
-                        .setRequired(false)
                 )
         )
-        ).addSubcommandGroup((subcommandGroup) =>
+        .addSubcommandGroup((subcommandGroup) =>
             subcommandGroup
                 .setName('server-settings')
                 .setDescription('Server Settings')
 
-        .addSubcommand((subcommand) =>
-            subcommand
-                .setName('verify-profile')
-                .setDescription('Verify a Profile in your server')
-                .addUserOption((option) =>
-                    option
-                        .setName('user')
-                        .setDescription('The user you want to verify')
-                        .setRequired(true)
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('verify-profile')
+                        .setDescription('Verify a Profile in your server')
+                        .addUserOption((option) =>
+                            option
+                                .setName('user')
+                                .setDescription('The user you want to verify')
+                                .setRequired(true)
+                        )
                 )
-        )
-        .addSubcommand((subcommand) =>
-            subcommand
-                .setName('unverify-profile')
-                .setDescription('Unverify a Profile in your server')
-                .addUserOption((option) =>
-                    option
-                        .setName('user')
-                        .setDescription('The user you want to unverify')
-                        .setRequired(true)
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('unverify-profile')
+                        .setDescription('Unverify a Profile in your server')
+                        .addUserOption((option) =>
+                            option
+                                .setName('user')
+                                .setDescription('The user you want to unverify')
+                                .setRequired(true)
+                        )
                 )
-        )
         ),
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'post') {
@@ -209,7 +210,9 @@ export = {
                                     )
                                 ) {
                                     Profile.findOneAndUpdate(
-                                        { discordId: `${interaction.member?.user.id}` },
+                                        {
+                                            discordId: `${interaction.member?.user.id}`,
+                                        },
                                         {
                                             $push: {
                                                 verifiedServers:
@@ -261,7 +264,9 @@ export = {
                                     )
                                 ) {
                                     Profile.findOneAndUpdate(
-                                        { discordId: `${interaction.member?.user.id}` },
+                                        {
+                                            discordId: `${interaction.member?.user.id}`,
+                                        },
                                         {
                                             $pull: {
                                                 verifiedServers:
@@ -289,5 +294,5 @@ export = {
                 }
             );
         }
-    }
-}
+    },
+};

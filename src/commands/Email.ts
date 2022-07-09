@@ -60,7 +60,7 @@ export = {
                         'email',
                         async (err, email) => {
                             if (err) console.log(err);
-                            Gmail.setAuthor({name: `${email[0].email}`});
+                            Gmail.setAuthor({ name: `${email[0].email}` });
                         }
                     );
                     if (interaction.options.getAttachment('image')) {

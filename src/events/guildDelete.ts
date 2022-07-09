@@ -1,5 +1,5 @@
-import { Guild } from "discord.js";
-import Server from "../models/Server";
+import { Guild } from 'discord.js';
+import Server from '../models/Server';
 
 export = {
     name: 'guildDelete',
@@ -9,10 +9,8 @@ export = {
             if (server[0]) {
                 Server.deleteOne({ serverId: guild.id }, (err: any) => {
                     if (err) console.log(err);
-                }
-                );
+                });
             }
-        }
-        );
-    }
-}
+        });
+    },
+};

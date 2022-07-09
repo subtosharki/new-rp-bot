@@ -1,5 +1,5 @@
-import { Guild } from "discord.js";
-import Server from "../models/Server";
+import { Guild } from 'discord.js';
+import Server from '../models/Server';
 
 export = {
     name: 'guildCreate',
@@ -10,11 +10,9 @@ export = {
                 const newServer = new Server({
                     serverId: guild.id,
                     managerRoleId: guild.roles.highest.id,
-
                 });
                 newServer.save();
             }
-        }
-        );
-    }
-}
+        });
+    },
+};

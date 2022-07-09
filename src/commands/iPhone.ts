@@ -36,7 +36,7 @@ export = {
                                 .setRequired(false)
                         )
                 )
-                
+
                 .addSubcommand((subcommand) =>
                     subcommand
                         .setName('new-number')
@@ -86,7 +86,7 @@ export = {
                         .setDescription('List your contacts')
                 )
         ),
-                
+
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'text') {
             Phone.find(
@@ -176,16 +176,23 @@ export = {
                     });
                 }
             );
-        } else if(interaction.options.getSubcommand() === 'remove-contact') {
+        } else if (interaction.options.getSubcommand() === 'remove-contact') {
             Phone.find(
                 { discordId: `${interaction.member?.user.id}` },
                 'contacts',
                 async (err, phone) => {
                     if (err) console.log(err);
                     //@ts-ignore
-                    const contact = phone[0].contacts.find(contact => contact.number === interaction.options.getString('number'));
+                    const contact = phone[0].contacts.find(
+                        (contact) =>
+                            contact.number ===
+                            interaction.options.getString('number')
+                    );
                     //@ts-ignore
-                    phone[0].contacts.splice(phone[0].contacts.indexOf(contact), 1);
+                    phone[0].contacts.splice(
+                        phone[0].contacts.indexOf(contact),
+                        1
+                    );
                     await phone[0].save();
                     await interaction.reply({
                         content: `Contact removed!`,
@@ -193,29 +200,28 @@ export = {
                     });
                 }
             );
-        } else if(interaction.options.getSubcommand() === 'list-contacts') {
+        } else if (interaction.options.getSubcommand() === 'list-contacts') {
             Phone.find(
                 { discordId: `${interaction.member?.user.id}` },
                 'contacts',
                 async (err, phone) => {
                     if (err) console.log(err);
                     let contacts = '';
-                    if(phone[0].contacts.length > 0) {
-
-                    phone[0].contacts.forEach(contact => {
-                        contacts += `${contact.name}: ${contact.number}\n`;
-                    });
-                    await interaction.reply({
-                        content: `${contacts}`,
-                        ephemeral: true,
-                    });
-                } else {
-                    await interaction.reply({
-                        content: `You have no contacts!`,
-                        ephemeral: true,
-                    });
+                    if (phone[0].contacts.length > 0) {
+                        phone[0].contacts.forEach((contact) => {
+                            contacts += `${contact.name}: ${contact.number}\n`;
+                        });
+                        await interaction.reply({
+                            content: `${contacts}`,
+                            ephemeral: true,
+                        });
+                    } else {
+                        await interaction.reply({
+                            content: `You have no contacts!`,
+                            ephemeral: true,
+                        });
+                    }
                 }
-            }
             );
         }
     },

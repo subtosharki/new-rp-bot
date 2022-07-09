@@ -13,7 +13,9 @@ export = {
                 .addSubcommand((subcommand) =>
                     subcommand
                         .setName('set-manager-role')
-                        .setDescription('Set the role that can manage the bot settings (Defaults to the highest role)')
+                        .setDescription(
+                            'Set the role that can manage the bot settings (Defaults to the highest role)'
+                        )
                         .addRoleOption((option) =>
                             option
                                 .setName('role')
@@ -22,7 +24,6 @@ export = {
                         )
                 )
         ),
-                
 
     async execute(interaction: CommandInteraction) {
         await interaction.reply('Pong!');
