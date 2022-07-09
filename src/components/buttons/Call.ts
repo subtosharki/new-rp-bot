@@ -1,7 +1,6 @@
 import { MessageActionRow, MessageButton } from 'discord.js';
 
-export const CallButtons: MessageActionRow =
-    new MessageActionRow().addComponents(
+export default new MessageActionRow().addComponents(
         new MessageButton()
             .setCustomId('accept')
             .setLabel('Accept')

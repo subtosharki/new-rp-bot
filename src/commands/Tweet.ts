@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Tweet } from '../components/Embeds';
+import Tweet from '../components/embeds/Tweet';
 import Profile from '../models/Profile';
 
 export = {

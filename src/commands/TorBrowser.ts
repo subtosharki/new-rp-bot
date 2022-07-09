@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Tor } from '../components/Embeds';
+import Tor from '../components/embeds/Tor';
 
 export = {
     data: new SlashCommandBuilder()
