@@ -7,7 +7,7 @@ import Server from '../models/Server';
 export = {
     data: new SlashCommandBuilder()
         .setName('twitter')
-        .setDescription('Sends a twitter like message')
+        .setDescription('Twitter App Command')
         .setDMPermission(false)
         .addSubcommand((subcommand) =>
             subcommand
