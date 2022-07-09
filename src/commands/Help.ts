@@ -7,7 +7,6 @@ export = {
     data: new SlashCommandBuilder()
         .setName('help')
         .setDescription('Shows a list of commands')
-        .setDMPermission(true)
         .addStringOption((option) =>
             option
                 .setName('command')
@@ -21,7 +20,7 @@ export = {
         //@ts-ignore
         let author: string | null = interaction.member?.user.tag;
 
-        const main = new MessageEmbed()
+        const main: MessageEmbed = new MessageEmbed()
             .setColor('#004cff')
             .setAuthor({
                 name: `${author}`,
@@ -31,7 +30,7 @@ export = {
             .setFooter({ text: 'Page 1/3' })
             .setTimestamp();
 
-        const main2 = new MessageEmbed()
+        const main2: MessageEmbed = new MessageEmbed()
             .setColor('#004cff')
             .setAuthor({
                 name: `${author}`,
@@ -41,7 +40,7 @@ export = {
             .setFooter({ text: 'Page 2/3' })
             .setTimestamp();
 
-        const main3 = new MessageEmbed()
+        const main3: MessageEmbed = new MessageEmbed()
             .setColor('#004cff')
             .setAuthor({
                 name: `${author}`,
@@ -63,7 +62,7 @@ export = {
         if (interaction.options.getString('command')) {
             const cmdsearch = interaction.options.getString('command');
             const command = commands.find((c: any) => cmdsearch == c.name);
-            const search: MessageEmbed = new MessageEmbed()
+            const Search: MessageEmbed = new MessageEmbed()
                 .setColor('#004cff')
                 .setAuthor({
                     name: `${author}`,
@@ -73,7 +72,7 @@ export = {
                 .setFooter({ text: 'Command Search' })
                 .setTimestamp();
 
-            const err: MessageEmbed = new MessageEmbed()
+            const Error: MessageEmbed = new MessageEmbed()
                 .setColor('#ff0000')
                 .setAuthor({
                     name: `${author}`,
@@ -84,9 +83,9 @@ export = {
                 .setTimestamp();
 
             if (!command) {
-                await interaction.reply({ embeds: [err], ephemeral: true });
+                await interaction.reply({ embeds: [Error], ephemeral: true });
             } else {
-                await interaction.reply({ embeds: [search], ephemeral: true });
+                await interaction.reply({ embeds: [Search], ephemeral: true });
             }
         } else {
             await interaction.reply({

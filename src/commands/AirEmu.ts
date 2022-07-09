@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
 import { bold, SlashCommandBuilder } from '@discordjs/builders';
-import { AirEmu } from '../components/Embeds';
+import AirEmu from '../components/embeds/AirEmu';
 
 export = {
     data: new SlashCommandBuilder()

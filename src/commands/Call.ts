@@ -1,7 +1,7 @@
 import type { CommandInteraction } from 'discord.js';
 import { bold, channelMention, SlashCommandBuilder } from '@discordjs/builders';
-import { Calling, Declined } from '../components/Embeds';
-import { CallButtons } from '../components/Buttons';
+import { Calling, Declined } from '../components/embeds/Call';
+import * as CallButtons from '../components/buttons/Call';
 
 export = {
     data: new SlashCommandBuilder()
@@ -60,7 +60,7 @@ export = {
                     )}\nPress ${bold('Accept')} to join`
                 ),
             ],
-            components: [CallButtons],
+            components: [CallButtons.default],
         });
         const collector = interaction.channel?.createMessageComponentCollector({
             componentType: 'BUTTON',

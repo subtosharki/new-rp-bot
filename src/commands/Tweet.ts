@@ -1,12 +1,12 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { Tweet } from '../components/Embeds';
+import Tweet from '../components/embeds/Tweet';
 import Profile from '../models/Profile';
 
 export = {
     data: new SlashCommandBuilder()
         .setName('twitter')
-        .setDescription('Twitter')
+        .setDescription('Sends a twitter like message')
         .setDMPermission(false)
         .addSubcommand((subcommand) =>
             subcommand
@@ -49,49 +49,47 @@ export = {
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'post') {
             Profile.find(
-                { discordId: `${interaction.member?.user.id}` },
-                'username pfp discordId verifiedServers',
-                async (err, profile) => {
+                { id: `${interaction.member?.user.id}` },
+                'username pfp discordId',
+                (err, data) => {
                     if (err) console.log(err);
-                    if (interaction.options.getAttachment('image')) {
-                        Tweet.setImage(
-                            `${
-                                interaction.options.getAttachment('image')
-                                    ?.proxyURL
-                            }`
-                        );
-                    }
-                    if (interaction.user.id === '318203855365996544') {
-                        Tweet.setTitle(
-                            '<:verified:869045206857711657> TWOTTER'
-                        );
-                    }
-                    profile[0].verifiedServers.forEach((server) => {
-                        if (server === interaction?.guildId) {
-                            Tweet.setTitle(
-                                `<:verified:869045206857711657> TWOTTER`
-                            );
+                    data.forEach(async (profile) => {
+                        if (profile.discordId === interaction.member?.user.id) {
+                            if (interaction.options.getAttachment('image'))
+                                Tweet.setImage(
+                                    `${
+                                        interaction.options.getAttachment(
+                                            'image'
+                                        )?.proxyURL
+                                    }`
+                                );
+                            if (interaction.user.id === '318203855365996544') {
+                                Tweet.setTitle(
+                                    '<:verified:869045206857711657> TWOTTER'
+                                );
+                            }
+                            await interaction.channel?.send({
+                                embeds: [
+                                    Tweet.setDescription(
+                                        `${interaction.options.getString(
+                                            'content'
+                                        )}`
+                                    ).setAuthor({
+                                        name:
+                                            profile.username ||
+                                            interaction.user.username,
+                                        iconURL:
+                                            profile.pfp ||
+                                            //@ts-ignore
+                                            `https://cdn.discordapp.com/avatars/${interaction.member?.id}/${interaction.member?.user.avatar}.webp?size=256`,
+                                    }),
+                                ],
+                            });
+                            await interaction.reply({
+                                content: 'Sent!',
+                                ephemeral: true,
+                            });
                         }
-                    }
-                    );
-                    await interaction.channel?.send({
-                        embeds: [
-                            Tweet.setDescription(
-                                `${interaction.options.getString('content')}`
-                            ).setAuthor({
-                                name:
-                                    profile[0].username ||
-                                    interaction.user.username,
-                                iconURL:
-                                    profile[0].pfp ||
-                                    //@ts-ignore
-                                    `https://cdn.discordapp.com/avatars/${interaction.member?.id}/${interaction.member?.user.avatar}.webp?size=256`,
-                            }),
-                        ],
-                    });
-                    await interaction.reply({
-                        content: 'Sent!',
-                        ephemeral: true,
                     });
                 }
             );
@@ -99,32 +97,40 @@ export = {
             Profile.find(
                 { id: `${interaction.member?.user.id}` },
                 'username pfp discordId',
-                async (err, profileData) => {
-                    if (err) console.log(err);
-                    Profile.findOneAndRemove(
-                        { discordId: `${interaction.member?.user.id}` },
-                        null,
-                        (err) => {
-                            if (err) console.log(err);
-                        }
-                    );
-                    const profile = new Profile({
-                        discordId:
-                            profileData[0].discordId ||
-                            `${interaction.member?.user.id}`,
-                        username:
-                            interaction.options.getString('username') ||
-                            profileData[0].username,
-                        pfp:
-                            interaction.options.getAttachment('profile-picture')
-                                ?.proxyURL || profileData[0].pfp,
-                    });
-                    profile.save((err) => {
+                async (err, db) => {
+                    db.forEach(async (profileData) => {
                         if (err) console.log(err);
-                    });
-                    await interaction.reply({
-                        content: 'Profile Set!',
-                        ephemeral: true,
+                        if (
+                            profileData.discordId ===
+                            interaction.member?.user.id
+                        ) {
+                            Profile.findOneAndRemove(
+                                { discordId: `${interaction.member?.user.id}` },
+                                null,
+                                (err) => {
+                                    if (err) console.log(err);
+                                }
+                            );
+                            const profile = new Profile({
+                                discordId:
+                                    profileData.discordId ||
+                                    `${interaction.member?.user.id}`,
+                                username:
+                                    interaction.options.getString('username') ||
+                                    profileData.username,
+                                pfp:
+                                    interaction.options.getAttachment(
+                                        'profile-picture'
+                                    )?.proxyURL || profileData.pfp,
+                            });
+                            profile.save((err) => {
+                                if (err) console.log(err);
+                            });
+                            await interaction.reply({
+                                content: 'Profile Set!',
+                                ephemeral: true,
+                            });
+                        }
                     });
                 }
             );
