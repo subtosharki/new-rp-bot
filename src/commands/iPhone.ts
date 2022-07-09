@@ -14,58 +14,56 @@ export = {
                 .setName('messages')
                 .setDescription('Messages Commands')
                 .addSubcommand((subcommand) =>
-                subcommand
-                    .setName('text')
-                    .setDescription('Text a number')
-                    .addStringOption((option) =>
-                        option
-                            .setName('number')
-                            .setDescription('The number you want to text')
-                            .setRequired(true)
-                    )
-                    .addStringOption((option) =>
-                        option
-                            .setName('text')
-                            .setDescription('The text you want to send')
-                            .setRequired(true)
-                    )
-                    .addAttachmentOption((option) =>
-                        option
-                            .setName('image')
-                            .setDescription('An image you want to send')
-                            .setRequired(false)
-                    )
-            )
-            .addSubcommand((subcommand) =>
-                subcommand
-                    .setName('add-contact')
-                    .setDescription('Add a contact')
-                    .addStringOption((option) =>
-                        option
-                            .setName('name')
-                            .setDescription('The name of the contact')
-                            .setRequired(true)
-                    )
-                    .addStringOption((option) =>
-                        option
-                            .setName('number')
-                            .setDescription('The number of the contact')
-                            .setRequired(true)
-                    )
-            )
-            .addSubcommand((subcommand) =>
-                subcommand
-                    .setName('new-number')
-                    .setDescription('Get a new phone number')
-            )
-            .addSubcommand((subcommand) =>
-                subcommand
-                    .setName('remove-number')
-                    .setDescription('Remove your phone number')
-            )
-
-        )
-        ,
+                    subcommand
+                        .setName('text')
+                        .setDescription('Text a number')
+                        .addStringOption((option) =>
+                            option
+                                .setName('number')
+                                .setDescription('The number you want to text')
+                                .setRequired(true)
+                        )
+                        .addStringOption((option) =>
+                            option
+                                .setName('text')
+                                .setDescription('The text you want to send')
+                                .setRequired(true)
+                        )
+                        .addAttachmentOption((option) =>
+                            option
+                                .setName('image')
+                                .setDescription('An image you want to send')
+                                .setRequired(false)
+                        )
+                )
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('add-contact')
+                        .setDescription('Add a contact')
+                        .addStringOption((option) =>
+                            option
+                                .setName('name')
+                                .setDescription('The name of the contact')
+                                .setRequired(true)
+                        )
+                        .addStringOption((option) =>
+                            option
+                                .setName('number')
+                                .setDescription('The number of the contact')
+                                .setRequired(true)
+                        )
+                )
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('new-number')
+                        .setDescription('Get a new phone number')
+                )
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('remove-number')
+                        .setDescription('Remove your phone number')
+                )
+        ),
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'text') {
             Phone.find(
@@ -87,7 +85,7 @@ export = {
                             }`
                         );
                     }
-                    
+
                     await interaction.client.users.cache
                         .get(phone[0].discordId)
                         ?.send({ embeds: [Text] });
@@ -109,8 +107,7 @@ export = {
                             content: 'You already have a phone number!',
                             ephemeral: true,
                         });
-                    }
-                    else {
+                    } else {
                         const number = createMobilePhoneNumber();
                         const newPhone = new Phone({
                             //@ts-ignore
@@ -125,7 +122,7 @@ export = {
                     }
                 }
             );
-        } else if(interaction.options.getSubcommand() === 'remove-number') {
+        } else if (interaction.options.getSubcommand() === 'remove-number') {
             Phone.findOneAndRemove(
                 { discordId: `${interaction.member?.user.id}` },
                 null,
@@ -137,7 +134,7 @@ export = {
                 content: `Your phone number has been removed`,
                 ephemeral: true,
             });
-        } else if(interaction.options.getSubcommand() === 'add-contact') {
+        } else if (interaction.options.getSubcommand() === 'add-contact') {
             Phone.find(
                 { discordId: `${interaction.member?.user.id}` },
                 'contacts',
@@ -147,6 +144,7 @@ export = {
                         name: interaction.options.getString('name'),
                         number: interaction.options.getString('number'),
                     };
+                    //@ts-ignore
                     phone[0].contacts.push(newContact);
                     await phone[0].save();
                     await interaction.reply({

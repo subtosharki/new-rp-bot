@@ -54,10 +54,15 @@ export = {
                         `${interaction.options.getString('content')}`
                     );
                     //@ts-ignore
-                    Email.find({ discordId: `${interaction.member?.id}` }, 'email', async (err, email) => {
-                        if (err) console.log(err);
-                        Gmail.setAuthor(`${email[0].email}`);
-                    })
+                    Email.find(
+                        //@ts-ignore
+                        { discordId: `${interaction.member?.id}` },
+                        'email',
+                        async (err, email) => {
+                            if (err) console.log(err);
+                            Gmail.setAuthor({name: `${email[0].email}`});
+                        }
+                    );
                     if (interaction.options.getAttachment('image')) {
                         Gmail.setImage(
                             `${

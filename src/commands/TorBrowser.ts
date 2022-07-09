@@ -31,9 +31,7 @@ export = {
                 ),
             ],
         });
-        if (
-            interaction.options.getString('content')?.includes('<@')
-        ) {
+        if (interaction.options.getString('content')?.includes('<@')) {
             interaction.options
                 .getString('content')
                 ?.split(' ')

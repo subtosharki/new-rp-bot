@@ -2,6 +2,7 @@ import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Tweet from '../components/embeds/Tweet';
 import Profile from '../models/Profile';
+import Server from '../models/Server';
 
 export = {
     data: new SlashCommandBuilder()
@@ -25,6 +26,11 @@ export = {
                         .setRequired(false)
                 )
         )
+        .addSubcommandGroup((subcommandGroup) =>
+            subcommandGroup
+                .setName('settings')
+                .setDescription('Profile Settings')
+
         .addSubcommand((subcommand) =>
             subcommand
                 .setName('set-profile')
@@ -46,12 +52,16 @@ export = {
                         .setRequired(false)
                 )
         )
+        ).addSubcommandGroup((subcommandGroup) =>
+            subcommandGroup
+                .setName('server-settings')
+                .setDescription('Server Settings')
+
         .addSubcommand((subcommand) =>
             subcommand
                 .setName('verify-profile')
                 .setDescription('Verify a Profile in your server')
                 .addUserOption((option) =>
-                            
                     option
                         .setName('user')
                         .setDescription('The user you want to verify')
@@ -63,13 +73,13 @@ export = {
                 .setName('unverify-profile')
                 .setDescription('Unverify a Profile in your server')
                 .addUserOption((option) =>
-                            
                     option
                         .setName('user')
                         .setDescription('The user you want to unverify')
                         .setRequired(true)
                 )
-        ),                  
+        )
+        ),
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'post') {
             Profile.find(
@@ -84,7 +94,11 @@ export = {
                                     ?.proxyURL
                             }`
                         );
-                    if(profile[0]?.verifiedServers.includes(interaction.guild?.id as string)) {
+                    if (
+                        profile[0]?.verifiedServers.includes(
+                            interaction.guild?.id as string
+                        )
+                    ) {
                         Tweet.setTitle(
                             '<:verified:869045206857711657> TWOTTER'
                         );
@@ -123,20 +137,26 @@ export = {
                     });
                 }
             );
-        } else if(interaction.options.getSubcommand() === 'set-profile') {
+        } else if (interaction.options.getSubcommand() === 'set-profile') {
             Profile.find(
                 { id: `${interaction.member?.user.id}` },
                 'username pfp discordId',
                 async (err, profileData) => {
-                    if(profileData.length === 0) {
+                    if (profileData.length === 0) {
                         Profile.create({
                             id: `${interaction.member?.user.id}`,
-                            username: interaction.options.getString('username') || interaction.user.username,
-                            //@ts-ignore
-                            pfp: interaction.options.getAttachment('profile-picture') || `https://cdn.discordapp.com/avatars/${interaction.member?.id}/${interaction.member?.user.avatar}.webp?size=256`,
+                            username:
+                                interaction.options.getString('username') ||
+                                interaction.user.username,
+                            pfp:
+                                interaction.options.getAttachment(
+                                    'profile-picture'
+                                ) ||
+                                //@ts-ignore
+                                `https://cdn.discordapp.com/avatars/${interaction.member?.id}/${interaction.member?.user.avatar}.webp?size=256`,
                             verifiedServers: [],
                         });
-                    } 
+                    }
                     if (err) console.log(err);
 
                     Profile.findOneAndRemove(
@@ -147,8 +167,7 @@ export = {
                         }
                     );
                     const profile = new Profile({
-                        discordId:
-                            `${interaction.member?.user.id}`,
+                        discordId: `${interaction.member?.user.id}`,
                         username:
                             interaction.options.getString('username') ||
                             profileData[0].username,
@@ -165,71 +184,110 @@ export = {
                     });
                 }
             );
-        } else if(interaction.options.getSubcommand() === 'verify-profile') {
+        } else if (interaction.options.getSubcommand() === 'verify-profile') {
             //@ts-ignore
-            if(interaction.member?.permissions.bitfield === 2199023255551n) {
-            Profile.find(
-                { id: `${interaction.options.getUser('user')?.id}` },
-                'username pfp discordId verifiedServers',
-                async (err, profileData) => {
+            //get managerRoleId of the server from database
+            Server.find(
+                { serverId: `${interaction.guildId}` },
+                'managerRoleId',
+                async (err, serverData) => {
                     if (err) console.log(err);
-                    if(profileData[0]?.verifiedServers.includes(interaction.guild?.id as string)) {
-                        await interaction.reply({
-                            content: 'Already Verified!',
-                            ephemeral: true,
-                        });
-                    } else {
-                        Profile.findOneAndUpdate(
+                    if (
+                        //@ts-ignore
+                        interaction.member?.roles.cache.has(
+                            serverData[0].managerRoleId
+                        )
+                    ) {
+                        Profile.find(
                             { discordId: `${interaction.member?.user.id}` },
-                            { $push: { verifiedServers: interaction.guild?.id as string } },
-                            (err: any) => {
+                            'verifiedServers',
+                            async (err, profileData) => {
                                 if (err) console.log(err);
+                                if (
+                                    !profileData[0].verifiedServers.includes(
+                                        interaction.guildId as string
+                                    )
+                                ) {
+                                    Profile.findOneAndUpdate(
+                                        { discordId: `${interaction.member?.user.id}` },
+                                        {
+                                            $push: {
+                                                verifiedServers:
+                                                    interaction.guildId as string,
+                                            },
+                                        },
+                                        { new: true },
+                                        async (err) => {
+                                            if (err) console.log(err);
+                                            await interaction.reply({
+                                                content: 'Verified!',
+                                                ephemeral: true,
+                                            });
+                                        }
+                                    );
+                                } else {
+                                    await interaction.reply({
+                                        content: 'Already Verified!',
+                                        ephemeral: true,
+                                    });
+                                }
                             }
                         );
-                        await interaction.reply({
-                            content: 'Verified!',
-                            ephemeral: true,
-                        });
                     }
                 }
             );
-            } else await interaction.reply({
-                content: 'You do not have permission to do that!',
-                ephemeral: true,
-            });
-
-        } else if(interaction.options.getSubcommand() === 'unverify-profile') {
+        } else if (interaction.options.getSubcommand() === 'unverify-profile') {
             //@ts-ignore
-            if(interaction.member?.permissions.bitfield === 2199023255551n) {
-            Profile.find(
-                { id: `${interaction.options.getUser('user')?.id}` },
-                'username pfp discordId verifiedServers',
-                async (err, profileData) => {
+            //get managerRoleId of the server from database
+            Server.find(
+                { serverId: `${interaction.guildId}` },
+                'managerRoleId',
+                async (err, serverData) => {
                     if (err) console.log(err);
-                    if(!profileData[0]?.verifiedServers.includes(interaction.guild?.id as string)) {
-                        await interaction.reply({
-                            content: 'Not Verified!',
-                            ephemeral: true,
-                        });
-                    } else {
-                        Profile.findOneAndUpdate(
+                    if (
+                        //@ts-ignore
+                        interaction.member?.roles.cache.has(
+                            serverData[0].managerRoleId
+                        )
+                    ) {
+                        Profile.find(
                             { discordId: `${interaction.member?.user.id}` },
-                            { $pull: { verifiedServers: interaction.guild?.id as string } },
-                            (err: any) => {
+                            'verifiedServers',
+                            async (err, profileData) => {
                                 if (err) console.log(err);
+                                if (
+                                    profileData[0].verifiedServers.includes(
+                                        interaction.guildId as string
+                                    )
+                                ) {
+                                    Profile.findOneAndUpdate(
+                                        { discordId: `${interaction.member?.user.id}` },
+                                        {
+                                            $pull: {
+                                                verifiedServers:
+                                                    interaction.guildId as string,
+                                            },
+                                        },
+                                        { new: true },
+                                        async (err) => {
+                                            if (err) console.log(err);
+                                            await interaction.reply({
+                                                content: 'Unverified!',
+                                                ephemeral: true,
+                                            });
+                                        }
+                                    );
+                                } else {
+                                    await interaction.reply({
+                                        content: 'Not Verified!',
+                                        ephemeral: true,
+                                    });
+                                }
                             }
                         );
-                        await interaction.reply({
-                            content: 'Un-verified!',
-                            ephemeral: true,
-                        });
                     }
                 }
             );
-            } else await interaction.reply({
-                content: 'You do not have permission to do that!',
-                ephemeral: true,
-            });
         }
-    },
-};
+    }
+}
