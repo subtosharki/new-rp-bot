@@ -91,15 +91,28 @@ export = {
         if (interaction.options.getSubcommand() === 'text') {
             Phone.find(
                 { number: `${interaction.options.getString('number')}` },
-                'discordId number',
+                'discordId number contacts',
                 async (err, phone) => {
                     if (err) console.log(err);
                     Text.setDescription(
                         `${interaction.options.getString('text')}`
                     );
                     Text.setAuthor({
-                        name: phone[0].number || 'Unknown Number',
+                        name: 'Unknown Number',
                     });
+                    if(phone[0].number) Text.setAuthor({ name: `${phone[0].number}` });
+                    if(phone[0].contacts.length > 0) {
+                        phone[0].contacts.forEach(contact => {
+                            //@ts-ignore
+                            if(contact.number === interaction.options.getString('number')) {
+                                //@ts-ignore
+                                Text.setAuthor({
+                                    name: contact.name,
+                                });
+                            }
+                        }
+                        )
+                    }
                     if (interaction.options.getAttachment('image')) {
                         Text.setImage(
                             `${
@@ -108,6 +121,7 @@ export = {
                             }`
                         );
                     }
+                    
 
                     await interaction.client.users.cache
                         .get(phone[0].discordId)
@@ -182,14 +196,14 @@ export = {
                 'contacts',
                 async (err, phone) => {
                     if (err) console.log(err);
-                    //@ts-ignore
                     const contact = phone[0].contacts.find(
                         (contact) =>
+                        //@ts-ignore
                             contact.number ===
                             interaction.options.getString('number')
                     );
-                    //@ts-ignore
                     phone[0].contacts.splice(
+                        //@ts-ignore
                         phone[0].contacts.indexOf(contact),
                         1
                     );

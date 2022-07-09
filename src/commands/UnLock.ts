@@ -1,5 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { bold, SlashCommandBuilder } from '@discordjs/builders';
+import Unlock from '../components/embeds/Unlock';
 
 export = {
     data: new SlashCommandBuilder()
@@ -7,6 +8,6 @@ export = {
         .setDescription('Unlocks your vehicle')
         .setDMPermission(false),
     async execute(interaction: CommandInteraction) {
-        await interaction.reply('');
+        await interaction.reply({ embeds: [Unlock.setDescription(bold(`${interaction.member?.user}`) + 'has unlocked their vehicle!')] });
     },
 };
