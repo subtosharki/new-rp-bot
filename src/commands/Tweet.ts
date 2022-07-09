@@ -50,7 +50,7 @@ export = {
         if (interaction.options.getSubcommand() === 'post') {
             Profile.find(
                 { id: `${interaction.member?.user.id}` },
-                'username pfp discordId',
+                'username pfp discordId verifiedServers',
                 async (err, profile) => {
                     if (err) console.log(err);
                     if (interaction.options.getAttachment('image'))
@@ -60,7 +60,7 @@ export = {
                                     ?.proxyURL
                             }`
                         );
-                    if (interaction.user.id === '318203855365996544') {
+                    if(profile[0]?.verifiedServers.includes(interaction.guild?.id as string)) {
                         Tweet.setTitle(
                             '<:verified:869045206857711657> TWOTTER'
                         );
