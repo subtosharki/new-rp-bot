@@ -470,6 +470,11 @@ punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+random-mobile-numbers@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/random-mobile-numbers/-/random-mobile-numbers-1.0.1.tgz#628dc27e5999ae7ca9919199362f588db39c3480"
+  integrity sha512-jQ5D/YAJwP0X/O6IEqP2rVy5uhZVRKgoJV3j/wGxkL/O0IpSyGACzYP+rcI8AtE4//7WITE2lZZE8s4DQyeScw==
+
 readdirp@~3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/readdirp/-/readdirp-3.6.0.tgz#74a370bd857116e245b29cc97340cd431a02a6c7"
