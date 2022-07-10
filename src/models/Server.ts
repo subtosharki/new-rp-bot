@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-interface IServer {
+interface IServer extends Document {
     serverId: string;
     managerRoleId: string;
 }

@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-interface IGas {
+interface IGas extends Document {
     discordId: string;
     gasLevel: number;
 }

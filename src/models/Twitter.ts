@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-interface ITwitter {
+interface ITwitter extends Document {
     discordId: string;
     username: string;
     pfp?: string;

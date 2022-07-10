@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-export interface IVehicle {
+export interface IVehicle extends Document {
     discordId: string;
     locked: boolean;
     engine: boolean;

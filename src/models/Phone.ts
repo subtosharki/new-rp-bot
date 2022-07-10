@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-interface IPhone {
+interface IPhone extends Document {
     discordId: string;
     number: string;
     contacts: [{

@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-interface IEmail {
+interface IEmail extends Document {
     discordId: string;
     email: string;
 }
