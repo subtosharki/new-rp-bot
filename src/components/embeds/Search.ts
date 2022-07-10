@@ -1,6 +1,3 @@
 import { MessageEmbed } from 'discord.js';
 
-export default new MessageEmbed()
-    .setColor('#004cff')
-    .setTimestamp()
-    .setDescription(`Searching `);
+export default new MessageEmbed().setTimestamp().setDescription(`Searching `);

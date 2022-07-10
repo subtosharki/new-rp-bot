@@ -1,4 +1,5 @@
 import { Schema, model, Document } from 'mongoose';
+import Gas from './Gas';
 
 interface IGas extends Document {
     discordId: string;
@@ -12,3 +13,7 @@ export default model<IGas>(
         gasLevel: { type: Number, required: true },
     })
 );
+
+export const GetGas = (discordId: string): Promise<IGas> => {
+    return Gas.findOne({ discordId }).exec() as Promise<IGas>;
+};

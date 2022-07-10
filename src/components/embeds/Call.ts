@@ -1,8 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 
-export const Calling: MessageEmbed = new MessageEmbed()
-    .setColor('#004cff')
-    .setTimestamp();
+export const Calling: MessageEmbed = new MessageEmbed().setTimestamp();
 
 export const Accepted: MessageEmbed = new MessageEmbed()
     .setColor('#3BA55C')
