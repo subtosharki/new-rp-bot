@@ -2,6 +2,7 @@ import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Phone from '../models/Phone';
 import Text from '../components/embeds/Text';
+//@ts-ignore
 import createMobilePhoneNumber from 'random-mobile-numbers';
 
 export = {
@@ -100,18 +101,21 @@ export = {
                     Text.setAuthor({
                         name: 'Unknown Number',
                     });
-                    if(phone[0].number) Text.setAuthor({ name: `${phone[0].number}` });
-                    if(phone[0].contacts.length > 0) {
-                        phone[0].contacts.forEach(contact => {
-                            //@ts-ignore
-                            if(contact.number === interaction.options.getString('number')) {
+                    if (phone[0].number)
+                        Text.setAuthor({ name: `${phone[0].number}` });
+                    if (phone[0].contacts.length > 0) {
+                        phone[0].contacts.forEach((contact) => {
+                            if (
+                                //@ts-ignore
+                                contact.number ===
+                                interaction.options.getString('number')
+                            ) {
                                 //@ts-ignore
                                 Text.setAuthor({
                                     name: contact.name,
                                 });
                             }
-                        }
-                        )
+                        });
                     }
                     if (interaction.options.getAttachment('image')) {
                         Text.setImage(
@@ -121,7 +125,6 @@ export = {
                             }`
                         );
                     }
-                    
 
                     await interaction.client.users.cache
                         .get(phone[0].discordId)
@@ -198,7 +201,7 @@ export = {
                     if (err) console.log(err);
                     const contact = phone[0].contacts.find(
                         (contact) =>
-                        //@ts-ignore
+                            //@ts-ignore
                             contact.number ===
                             interaction.options.getString('number')
                     );

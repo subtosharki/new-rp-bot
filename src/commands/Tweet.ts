@@ -1,7 +1,7 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Tweet from '../components/embeds/Tweet';
-import Profile from '../models/Profile';
+import Profile from '../models/Twitter';
 import Server from '../models/Server';
 
 export = {
@@ -104,7 +104,7 @@ export = {
                             '<:verified:869045206857711657> TWOTTER'
                         );
                     }
-                    await interaction.channel?.send({
+                    const message = await interaction.channel?.send({
                         embeds: [
                             Tweet.setDescription(
                                 `${interaction.options.getString('content')}`
@@ -119,6 +119,10 @@ export = {
                             }),
                         ],
                     });
+
+                    // message?.react('<:retweet:995421485063745706>');
+                    message?.react('<:like:995422257600016414>');
+
                     if (
                         interaction.options.getString('content')?.includes('<@')
                     ) {

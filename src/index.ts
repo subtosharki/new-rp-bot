@@ -12,7 +12,10 @@ connection.once('open', () => {
 });
 
 const intents: Intents = new Intents(32767);
-const client: Client | any = new Client({ intents });
+const client: Client | any = new Client({
+    intents,
+    partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
+});
 
 client.commands = new Collection();
 const commandFolders: any = fs.readdirSync('dist/commands');

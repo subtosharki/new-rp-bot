@@ -8,6 +8,13 @@ export = {
         .setDescription('Unlocks your vehicle')
         .setDMPermission(false),
     async execute(interaction: CommandInteraction) {
-        await interaction.reply({ embeds: [Unlock.setDescription(bold(`${interaction.member?.user}`) + 'has unlocked their vehicle!')] });
+        await interaction.reply({
+            embeds: [
+                Unlock.setDescription(
+                    bold(`${interaction.member?.user}`) +
+                        'has unlocked their vehicle!'
+                ),
+            ],
+        });
     },
 };

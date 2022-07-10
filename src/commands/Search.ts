@@ -1,5 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { SlashCommandBuilder, bold } from '@discordjs/builders';
+import Search from '../components/embeds/Search';
 
 export = {
     data: new SlashCommandBuilder()
@@ -13,6 +14,10 @@ export = {
                 .setRequired(true)
         ),
     async execute(interaction: CommandInteraction) {
-        await interaction.reply('');
+        //@ts-ignore
+        Search.description += bold(interaction.options.getMember('user'));
+        await interaction.reply({ embeds: [Search] });
+
+        //gotta do more on this
     },
 };
