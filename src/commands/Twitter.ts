@@ -1,8 +1,7 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Tweet from '../components/embeds/Tweet';
-import Server, { GetServer } from '../models/Server';
-import type { Error } from 'mongoose';
+import { GetServer } from '../models/Server';
 import { GetTwitter } from '../models/Twitter';
 
 export = {
@@ -64,11 +63,12 @@ export = {
                 }
             });
 
-            //still working
+            //get username and pfp and set it 
             await interaction.channel?.send({
                 embeds: [
                     Tweet.setDescription(
                         `${interaction.options.getString('content')}`
+                        //@ts-ignore
                     ).setAuthor({name: `${(await GetTwitter(interaction.guild?.id as string)).username || interaction.member?.user.username}`, iconURL: `${(await GetTwitter(interaction.guild?.id as string)).pfp || interaction.member?.user.avatarURL()}`}),
                 ],
             });
