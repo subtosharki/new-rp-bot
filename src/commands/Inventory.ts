@@ -126,9 +126,9 @@ export = {
                 'items',
                 async (err, inventory) => {
                     if (err) console.log(err);
-                    if (inventory) {
+                    if (inventory!.items.length > 0) {
                         Found.description = '';
-                        inventory.items.forEach((item) => {
+                        inventory!.items.forEach((item) => {
                             Found.description += `\n${item}, `;
                         });
                         await interaction.reply({
@@ -137,7 +137,7 @@ export = {
                         });
                     } else {
                         await interaction.reply({
-                            content: `You don't have an inventory set`,
+                            embeds: [Found.setDescription(`No items Found`)],
                             ephemeral: true,
                         });
                     }
