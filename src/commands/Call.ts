@@ -27,7 +27,7 @@ export = {
             });
         }
         //@ts-ignore
-        if (!interaction.options.getMember('user').voice) {
+        if (!interaction.options.getMember('user').voice.channelId) {
             return await interaction.reply({
                 content:
                     'Both users must be in a voice channel before using this command.',
@@ -69,37 +69,26 @@ export = {
 
         collector?.on('collect', (i) => {
             if (i.customId === 'accept') {
-                if (
-                    i.user.id === //@ts-ignore
-                    (interaction.options.getMember('user').id as string)
-                ) {
+                //@ts-ignore
+                if(i.user.id === interaction.options.getMember('user')?.id) {
+                //@ts-ignore
+                interaction.options.getMember('user').voice.setChannel(
                     //@ts-ignore
-                    if (interaction.options.getMember('user').voice) {
-                        //@ts-ignore
-                        if (
-                            //@ts-ignore
-                            interaction.options.getMember('user').voice
-                                .channelId ===
-                            //@ts-ignore
-                            interaction.member.voice.channelId
-                        )
-                            //@ts-ignore
-                            interaction.member?.voice.setChannel(
-                                `${
-                                    //@ts-ignore
-                                    interaction.options.getMember('user')?.voice
-                                        .id
-                                }`
-                            );
-                    }
+                    interaction.member?.voice.channel
+                )
+                } else {
+                    interaction.followUp({content: 'You cannot accept this call.', ephemeral: true});
                 }
             } else {
                 if (
                     i.user.id ===
-                    (interaction.options.getMember('user') as unknown as string)
+                    //@ts-ignore
+                    (interaction.options.getMember('user')?.id)
                 ) {
                     //@ts-ignore
-                    interaction.editReply({ embeds: Declined });
+                    interaction.editReply({ embeds: [Declined] });
+                } else {
+                    interaction.followUp({content: 'You cannot decline this call.', ephemeral: true});
                 }
             }
         });
@@ -107,7 +96,7 @@ export = {
         collector?.on('end', (collected) => {
             if (collected.size === 0) {
                 //@ts-ignore
-                interaction.editReply({ embeds: Declined });
+                interaction.editReply({ embeds: [Declined] });
             }
         });
     },

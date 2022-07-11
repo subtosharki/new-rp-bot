@@ -10,7 +10,7 @@ export = {
         .setDMPermission(false)
         .addSubcommand((subcommand) =>
             subcommand
-                .setName('add-item')
+                .setName('add')
                 .setDescription('Add an item to your inventory')
                 .addStringOption((option) =>
                     option
@@ -21,7 +21,7 @@ export = {
         )
         .addSubcommand((subcommand) =>
             subcommand
-                .setName('remove-item')
+                .setName('remove')
                 .setDescription('Remove an item to your inventory')
                 .addStringOption((option) =>
                     option
@@ -34,12 +34,12 @@ export = {
         )
         .addSubcommand((subcommand) =>
             subcommand
-                .setName('get-inventory')
+                .setName('list')
                 .setDescription('Get your current inventory')
         )
         .addSubcommand((subcommand) =>
             subcommand
-                .setName('reset-inventory')
+                .setName('reset')
                 .setDescription('Reset your inventory')
         ),
 

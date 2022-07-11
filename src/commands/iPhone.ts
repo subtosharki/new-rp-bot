@@ -40,17 +40,17 @@ export = {
 
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('new-number')
+                        .setName('new')
                         .setDescription('Get a new phone number')
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('remove-number')
+                        .setName('remove')
                         .setDescription('Remove your phone number')
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('get-number')
+                        .setName('get')
                         .setDescription('Get your current phone number')
                 )
         )
@@ -60,7 +60,7 @@ export = {
                 .setDescription('Contacts Commands')
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('add-contact')
+                        .setName('add')
                         .setDescription('Add a contact')
                         .addStringOption((option) =>
                             option
@@ -77,7 +77,7 @@ export = {
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('remove-contact')
+                        .setName('remove')
                         .setDescription('Remove a contact')
                         .addStringOption((option) =>
                             option
@@ -88,7 +88,7 @@ export = {
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('list-contacts')
+                        .setName('list')
                         .setDescription('List your contacts')
                 )
         ),
