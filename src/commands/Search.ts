@@ -41,6 +41,6 @@ export = {
                 }
             }
         );
-        Search.description = '';
+        Search.description = 'Searching ';
     },
 };
