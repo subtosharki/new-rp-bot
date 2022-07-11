@@ -146,13 +146,13 @@ export = {
                 { discordId: `${interaction.member?.id}` },
                 'number',
                 async (err, phone) => {
-                    if(phone) {
+                    if (phone) {
                         await interaction.reply({
                             content: 'You already have a phone number!',
                             ephemeral: true,
                         });
                     } else {
-                    if (err) console.log(err);
+                        if (err) console.log(err);
                         const number = createMobilePhoneNumber('USA');
                         const newPhone = new Phone({
                             //@ts-ignore
@@ -249,7 +249,7 @@ export = {
                     }
                 }
             );
-        } else if(interaction.options.getSubcommand() === 'get-number') {
+        } else if (interaction.options.getSubcommand() === 'get-number') {
             Phone.findOne(
                 { discordId: `${interaction.member?.user.id}` },
                 'number',
@@ -261,7 +261,6 @@ export = {
                     });
                 }
             );
-
         }
     },
 };

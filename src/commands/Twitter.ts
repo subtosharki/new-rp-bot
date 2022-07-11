@@ -148,8 +148,11 @@ export = {
                     } else if (!server) {
                         const newTwitter = new Twitter({
                             discordId: interaction.user.id,
-                            //@ts-ignore
-                            username: username || interaction.member?.nickname || interaction.user.username,
+                            username:
+                                username ||
+                                //@ts-ignore
+                                interaction.member?.nickname ||
+                                interaction.user.username,
                             pfp: pfp?.proxyURL || interaction.user.avatarURL(),
                         });
                         newTwitter.save();

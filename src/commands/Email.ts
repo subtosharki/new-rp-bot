@@ -93,7 +93,9 @@ export = {
                 var re = /\S+@\S+\.\S+/;
                 return re.test(email);
             };
-            if (validateEmail(interaction.options.getString('email') as string)) {
+            if (
+                validateEmail(interaction.options.getString('email') as string)
+            ) {
                 Email.findOneAndRemove(
                     { discordId: `${interaction.member?.user.id}` },
                     null,

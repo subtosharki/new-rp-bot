@@ -2,6 +2,11 @@ import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Server from '../models/Server';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
+import {
+    Verified,
+    VerifiedList,
+    UnVerified,
+} from '../components/embeds/BotSettings';
 
 export = {
     data: new SlashCommandBuilder()
@@ -54,10 +59,9 @@ export = {
             await server?.save();
             await interaction.reply({
                 embeds: [
-                    {
-                        title: 'User Verified',
-                        description: `${user?.username} has been verified`,
-                    },
+                    Verified.setDescription(
+                        `${user?.username} has been verified`
+                    ),
                 ],
                 ephemeral: true,
             });
@@ -75,10 +79,9 @@ export = {
             await server?.save();
             await interaction.reply({
                 embeds: [
-                    {
-                        title: 'User Unverified',
-                        description: `${user?.username} has been unverified`,
-                    },
+                    UnVerified.setDescription(
+                        `${user?.username} has been un-verified`
+                    ),
                 ],
                 ephemeral: true,
             });
@@ -90,17 +93,12 @@ export = {
                     id: interaction.guild?.id,
                 },
             });
-            const verifiedUsers = server?.verifiedUsers;
-            const verifiedUsersString = verifiedUsers
+            const verifiedUsers: string[] = server?.verifiedUsers as string[];
+            const verifiedUsersString: string = verifiedUsers
                 ?.map((user) => `<@${user}>`)
                 .join(', ');
             await interaction.reply({
-                embeds: [
-                    {
-                        title: 'Verified Users',
-                        description: verifiedUsersString,
-                    },
-                ],
+                embeds: [VerifiedList.setDescription(verifiedUsersString)],
                 ephemeral: true,
             });
         }
