@@ -71,7 +71,9 @@ const rest: REST = new REST({ version: '9' }).setToken(env.TOKEN!);
     try {
         await rest.put(
             Routes.applicationGuildCommands(env.CLIENTID, env.GUILDID),
-            { body: commands }
+            {
+                body: commands,
+            }
         );
 
         consola.success('Successfully registered application commands.');

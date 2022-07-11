@@ -62,8 +62,8 @@ export = {
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('remove')
-                        .setDescription('Remove your phone number')
+                        .setName('reset')
+                        .setDescription('Reset your phone number')
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
@@ -158,7 +158,7 @@ export = {
                     });
                 }
             );
-        } else if (interaction.options.getSubcommand() === 'new-number') {
+        } else if (interaction.options.getSubcommand() === 'new') {
             Phone.findOne(
                 //@ts-ignore
                 { discordId: `${interaction.member?.id}` },
@@ -185,7 +185,7 @@ export = {
                     }
                 }
             );
-        } else if (interaction.options.getSubcommand() === 'remove-number') {
+        } else if (interaction.options.getSubcommand() === 'reset') {
             Phone.findOneAndRemove(
                 { discordId: `${interaction.member?.user.id}` },
                 null,
@@ -194,10 +194,10 @@ export = {
                 }
             );
             await interaction.reply({
-                content: `Your phone number has been removed`,
+                content: `Your phone number has been reset`,
                 ephemeral: true,
             });
-        } else if (interaction.options.getSubcommand() === 'add-contact') {
+        } else if (interaction.options.getSubcommand() === 'add') {
             Phone.findOne(
                 { discordId: `${interaction.member?.user.id}` },
                 'contacts',
@@ -216,7 +216,7 @@ export = {
                     });
                 }
             );
-        } else if (interaction.options.getSubcommand() === 'remove-contact') {
+        } else if (interaction.options.getSubcommand() === 'remove') {
             Phone.findOne(
                 { discordId: `${interaction.member?.user.id}` },
                 'contacts',
@@ -239,7 +239,7 @@ export = {
                     });
                 }
             );
-        } else if (interaction.options.getSubcommand() === 'list-contacts') {
+        } else if (interaction.options.getSubcommand() === 'list') {
             Phone.findOne(
                 { discordId: `${interaction.member?.user.id}` },
                 'contacts',

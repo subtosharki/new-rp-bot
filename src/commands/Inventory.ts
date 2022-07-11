@@ -42,7 +42,7 @@ export = {
         ),
 
     async execute(interaction: CommandInteraction) {
-        if (interaction.options.getSubcommand() === 'add-item') {
+        if (interaction.options.getSubcommand() === 'add') {
             Inventory.findOne(
                 //@ts-ignore
                 { discordId: `${interaction.member?.id}` },
@@ -77,10 +77,16 @@ export = {
                             discordId: `${interaction.member?.id}`,
                             items: [`${interaction.options.getString('item')}`],
                         });
+                        await interaction.reply({
+                            content: `${interaction.options.getString(
+                                'item'
+                            )} has been added to your inventory`,
+                            ephemeral: true,
+                        });
                     }
                 }
             );
-        } else if (interaction.options.getSubcommand() === 'remove-item') {
+        } else if (interaction.options.getSubcommand() === 'remove') {
             Inventory.findOne(
                 //@ts-ignore
                 { discordId: `${interaction.member?.id}` },
@@ -117,7 +123,7 @@ export = {
                     }
                 }
             );
-        } else if (interaction.options.getSubcommand() === 'get-inventory') {
+        } else if (interaction.options.getSubcommand() === 'get') {
             Inventory.findOne(
                 //@ts-ignore
                 { discordId: `${interaction.member?.id}` },
@@ -141,7 +147,7 @@ export = {
                     }
                 }
             );
-        } else if (interaction.options.getSubcommand() === 'reset-inventory') {
+        } else if (interaction.options.getSubcommand() === 'reset') {
             Inventory.findOneAndDelete(
                 //@ts-ignore
                 { discordId: `${interaction.member?.id}` },
