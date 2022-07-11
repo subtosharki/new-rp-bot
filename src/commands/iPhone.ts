@@ -90,7 +90,7 @@ export = {
 
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'text') {
-            Phone.find(
+            Phone.findOne(
                 { number: `${interaction.options.getString('number')}` },
                 'discordId number contacts',
                 async (err, phone) => {
@@ -101,10 +101,10 @@ export = {
                     Text.setAuthor({
                         name: 'Unknown Number',
                     });
-                    if (phone[0].number)
-                        Text.setAuthor({ name: `${phone[0].number}` });
-                    if (phone[0].contacts.length > 0) {
-                        phone[0].contacts.forEach((contact) => {
+                    if (phone?.number)
+                        Text.setAuthor({ name: `${phone!.number}` });
+                    if (phone!.contacts.length > 0) {
+                        phone!.contacts.forEach((contact) => {
                             if (
                                 //@ts-ignore
                                 contact.number ===
@@ -127,7 +127,7 @@ export = {
                     }
 
                     await interaction.client.users.cache
-                        .get(phone[0].discordId)
+                        .get(phone!.discordId)
                         ?.send({ embeds: [Text] });
                     await interaction.reply({
                         content: 'Text Sent!',
@@ -136,25 +136,25 @@ export = {
                 }
             );
         } else if (interaction.options.getSubcommand() === 'new-number') {
-            Phone.find(
+            Phone.findOne(
                 //@ts-ignore
                 { discordId: `${interaction.member?.id}` },
                 'number',
                 async (err, phone) => {
-                    if (err) console.log(err);
-                    if (phone.length > 0) {
+                    if(phone) {
                         await interaction.reply({
                             content: 'You already have a phone number!',
                             ephemeral: true,
                         });
                     } else {
-                        const number = createMobilePhoneNumber();
+                    if (err) console.log(err);
+                        const number = createMobilePhoneNumber('USA');
                         const newPhone = new Phone({
                             //@ts-ignore
                             discordId: `${interaction.member?.id}`,
                             number: `${number}`,
                         });
-                        await newPhone.save();
+                        newPhone.save();
                         await interaction.reply({
                             content: `Your new phone number is ${number}`,
                             ephemeral: true,
@@ -175,7 +175,7 @@ export = {
                 ephemeral: true,
             });
         } else if (interaction.options.getSubcommand() === 'add-contact') {
-            Phone.find(
+            Phone.findOne(
                 { discordId: `${interaction.member?.user.id}` },
                 'contacts',
                 async (err, phone) => {
@@ -185,8 +185,8 @@ export = {
                         number: interaction.options.getString('number'),
                     };
                     //@ts-ignore
-                    phone[0].contacts.push(newContact);
-                    await phone[0].save();
+                    phone.contacts.push(newContact);
+                    await phone!.save();
                     await interaction.reply({
                         content: `Contact added!`,
                         ephemeral: true,
@@ -194,23 +194,22 @@ export = {
                 }
             );
         } else if (interaction.options.getSubcommand() === 'remove-contact') {
-            Phone.find(
+            Phone.findOne(
                 { discordId: `${interaction.member?.user.id}` },
                 'contacts',
                 async (err, phone) => {
                     if (err) console.log(err);
-                    const contact = phone[0].contacts.find(
+                    const contact = phone!.contacts.find(
                         (contact) =>
                             //@ts-ignore
                             contact.number ===
                             interaction.options.getString('number')
                     );
-                    phone[0].contacts.splice(
+                    phone!.contacts.splice(
                         //@ts-ignore
-                        phone[0].contacts.indexOf(contact),
-                        1
+                        phone.contacts.indexOf(contact)
                     );
-                    await phone[0].save();
+                    await phone!.save();
                     await interaction.reply({
                         content: `Contact removed!`,
                         ephemeral: true,
@@ -218,18 +217,23 @@ export = {
                 }
             );
         } else if (interaction.options.getSubcommand() === 'list-contacts') {
-            Phone.find(
+            Phone.findOne(
                 { discordId: `${interaction.member?.user.id}` },
                 'contacts',
                 async (err, phone) => {
                     if (err) console.log(err);
                     let contacts = '';
-                    if (phone[0].contacts.length > 0) {
-                        phone[0].contacts.forEach((contact) => {
+                    if (phone!.contacts.length > 0) {
+                        phone!.contacts.forEach((contact) => {
                             contacts += `${contact.name}: ${contact.number}\n`;
                         });
                         await interaction.reply({
-                            content: `${contacts}`,
+                            embeds: [
+                                {
+                                    title: 'Contacts',
+                                    description: `${contacts}`,
+                                },
+                            ],
                             ephemeral: true,
                         });
                     } else {

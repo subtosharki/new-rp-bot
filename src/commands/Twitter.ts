@@ -154,8 +154,8 @@ export = {
                         });
                         newTwitter.save();
                     } else {
-                        //@ts-ignore
                         server.username =
+                            //@ts-ignore
                             username || interaction.member?.nickname;
                         server.pfp =
                             pfp?.proxyURL ||
