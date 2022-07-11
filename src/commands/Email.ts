@@ -45,7 +45,7 @@ export = {
 
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() === 'send') {
-            Email.find(
+            Email.findOne(
                 { email: `${interaction.options.getString('to')}` },
                 'discordId email',
                 async (err, email) => {
@@ -54,13 +54,13 @@ export = {
                         `${interaction.options.getString('content')}`
                     );
                     //@ts-ignore
-                    Email.find(
+                    Email.findOne(
                         //@ts-ignore
                         { discordId: `${interaction.member?.id}` },
                         'email',
                         async (err, email) => {
                             if (err) console.log(err);
-                            Gmail.setAuthor({ name: `${email[0].email}` });
+                            Gmail.setAuthor({ name: `${email!.email}` });
                         }
                     );
                     if (interaction.options.getAttachment('image')) {
@@ -72,7 +72,7 @@ export = {
                         );
                     }
                     await interaction.client.users.cache
-                        .get(email[0].discordId)
+                        .get(email!.discordId)
                         ?.send({
                             embeds: [
                                 Gmail.setDescription(
@@ -89,11 +89,11 @@ export = {
                 }
             );
         } else {
-            const validateEmail = (email: any): boolean => {
+            const validateEmail = (email: string): boolean => {
                 var re = /\S+@\S+\.\S+/;
                 return re.test(email);
             };
-            if (validateEmail(interaction.options.getString('email'))) {
+            if (validateEmail(interaction.options.getString('email') as string)) {
                 Email.findOneAndRemove(
                     { discordId: `${interaction.member?.user.id}` },
                     null,
