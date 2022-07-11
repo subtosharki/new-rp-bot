@@ -1,11 +1,13 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Server from '../models/Server';
+import { PermissionFlagsBits } from 'discord-api-types/v9';
 
 export = {
     data: new SlashCommandBuilder()
         .setName('bot-settings')
-        .setDescription('Bot Settings for the server owner only')
+        .setDescription('Bot Settings for the server admins only')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false)
         .addSubcommandGroup((subcommandGroup) =>
             subcommandGroup
@@ -60,7 +62,6 @@ export = {
 
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() == 'set-manager-role') {
-            //perms next
             const role = interaction.options.getRole('role');
             Server.findOne(
                 { serverId: interaction.guild?.id },
@@ -84,7 +85,6 @@ export = {
                 ],
             });
         } else if (interaction.options.getSubcommand() === 'verify-user') {
-            //perms
             const user = interaction.options.getUser('user');
             const server = await Server.findOne({
                 where: {
@@ -103,7 +103,6 @@ export = {
                 ephemeral: true,
             });
         } else if (interaction.options.getSubcommand() === 'unverify-user') {
-            //perms
             const user = interaction.options.getUser('user');
             const server = await Server.findOne({
                 where: {
@@ -127,7 +126,6 @@ export = {
         } else if (
             interaction.options.getSubcommand() === 'get-verified-users'
         ) {
-            //perms
             const server = await Server.findOne({
                 where: {
                     id: interaction.guild?.id,
