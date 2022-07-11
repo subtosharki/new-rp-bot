@@ -11,24 +11,6 @@ export = {
         .setDMPermission(false)
         .addSubcommandGroup((subcommandGroup) =>
             subcommandGroup
-                .setName('general')
-                .setDescription('General Settings')
-                .addSubcommand((subcommand) =>
-                    subcommand
-                        .setName('set-manager-role')
-                        .setDescription(
-                            'Set the role that can manage the bot settings (Defaults to the highest role)'
-                        )
-                        .addRoleOption((option) =>
-                            option
-                                .setName('role')
-                                .setDescription('The role you want to set')
-                                .setRequired(true)
-                        )
-                )
-        )
-        .addSubcommandGroup((subcommandGroup) =>
-            subcommandGroup
                 .setName('twitter-settings')
                 .setDescription('Twitter Settings')
                 .addSubcommand((subcommand) =>
@@ -61,30 +43,7 @@ export = {
         ),
 
     async execute(interaction: CommandInteraction) {
-        if (interaction.options.getSubcommand() == 'set-manager-role') {
-            const role = interaction.options.getRole('role');
-            Server.findOne(
-                { serverId: interaction.guild?.id },
-                'managerRoleId',
-                (err, server) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        //@ts-ignore
-                        server.managerRoleId = role?.id as string;
-                        server?.save();
-                    }
-                }
-            );
-            await interaction.reply({
-                embeds: [
-                    {
-                        title: 'Manager Role Set',
-                        description: `The manager role has been set to ${role?.name}`,
-                    },
-                ],
-            });
-        } else if (interaction.options.getSubcommand() === 'verify-user') {
+        if (interaction.options.getSubcommand() === 'verify-user') {
             const user = interaction.options.getUser('user');
             const server = await Server.findOne({
                 where: {

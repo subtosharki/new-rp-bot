@@ -149,7 +149,7 @@ export = {
                         const newTwitter = new Twitter({
                             discordId: interaction.user.id,
                             //@ts-ignore
-                            username: username || interaction.member?.nickname,
+                            username: username || interaction.member?.nickname || interaction.user.username,
                             pfp: pfp?.proxyURL || interaction.user.avatarURL(),
                         });
                         newTwitter.save();
