@@ -48,6 +48,11 @@ export = {
                         .setName('remove-number')
                         .setDescription('Remove your phone number')
                 )
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('get-number')
+                        .setDescription('Get your current phone number')
+                )
         )
         .addSubcommandGroup((subcommandGroup) =>
             subcommandGroup
@@ -244,6 +249,19 @@ export = {
                     }
                 }
             );
+        } else if(interaction.options.getSubcommand() === 'get-number') {
+            Phone.findOne(
+                { discordId: `${interaction.member?.user.id}` },
+                'number',
+                async (err, phone) => {
+                    if (err) console.log(err);
+                    await interaction.reply({
+                        content: `Your phone number is ${phone!.number}`,
+                        ephemeral: true,
+                    });
+                }
+            );
+
         }
     },
 };
