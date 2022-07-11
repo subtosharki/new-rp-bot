@@ -39,7 +39,7 @@ export = {
                 .addAttachmentOption((option) =>
                     option
                         .setName('image')
-                        .setDescription('Your profilw picture')
+                        .setDescription('Your profile picture')
                         .setRequired(false)
                 )
         ),
@@ -63,7 +63,8 @@ export = {
                 }
             });
 
-            //get username and pfp and set it 
+            //get username and pfp and set it
+            
             await interaction.channel?.send({
                 embeds: [
                     Tweet.setDescription(
