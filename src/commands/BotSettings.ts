@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import Server, { IServer } from '../models/Server';
+import Server from '../models/Server';
 
 export = {
     data: new SlashCommandBuilder()
@@ -60,14 +60,21 @@ export = {
 
     async execute(interaction: CommandInteraction) {
         if (interaction.options.getSubcommand() == 'set-manager-role') {
+            //perms next
             const role = interaction.options.getRole('role');
-            const server: [IServer] | null = (await Server.findOne({
-                where: {
-                    id: interaction.guild?.id,
-                },
-            })) as [IServer];
-            server[0].managerRoleId = role?.id as string;
-            await server[0].save();
+            Server.findOne(
+                { serverId: interaction.guild?.id },
+                'managerRoleId',
+                (err, server) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        //@ts-ignore
+                        server.managerRoleId = role?.id as string;
+                        server?.save();
+                    }
+                }
+            );
             await interaction.reply({
                 embeds: [
                     {
@@ -77,6 +84,7 @@ export = {
                 ],
             });
         } else if (interaction.options.getSubcommand() === 'verify-user') {
+            //perms
             const user = interaction.options.getUser('user');
             const server = await Server.findOne({
                 where: {
@@ -95,6 +103,7 @@ export = {
                 ephemeral: true,
             });
         } else if (interaction.options.getSubcommand() === 'unverify-user') {
+            //perms
             const user = interaction.options.getUser('user');
             const server = await Server.findOne({
                 where: {
@@ -118,6 +127,7 @@ export = {
         } else if (
             interaction.options.getSubcommand() === 'get-verified-users'
         ) {
+            //perms
             const server = await Server.findOne({
                 where: {
                     id: interaction.guild?.id,

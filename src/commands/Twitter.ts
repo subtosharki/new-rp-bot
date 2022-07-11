@@ -1,8 +1,8 @@
-import type { CommandInteraction } from 'discord.js';
+import type { CommandInteraction, EmbedAuthorData } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Tweet from '../components/embeds/Tweet';
-import { GetServer } from '../models/Server';
-import { GetTwitter } from '../models/Twitter';
+import Server from '../models/Server';
+import Twitter from '../models/Twitter';
 
 export = {
     data: new SlashCommandBuilder()
@@ -34,7 +34,7 @@ export = {
                     option
                         .setName('username')
                         .setDescription('Your username you want')
-                        .setRequired(true)
+                        .setRequired(false)
                 )
                 .addAttachmentOption((option) =>
                     option
@@ -54,42 +54,137 @@ export = {
                 Tweet.setImage(
                     `${interaction.options.getAttachment('image')?.proxyURL}`
                 );
-            (
-                await GetServer(interaction.guild?.id as string)
-            ).verifiedUsers.forEach(async (user) => {
-                //@ts-ignore
-                if (user === interaction.member?.id) {
-                    Tweet.setTitle('<:verified:869045206857711657> TWOTTER');
-                }
-            });
+            Twitter.findOne({ discordId: interaction.member?.user.id });
 
-            await GetTwitter(
-                interaction.member?.user.id as string
-            ).then(val => {
-                console.log(val)
-                Tweet.setAuthor({name: val.username || interaction.member?.user.username as string, iconURL: val.pfp || interaction.member?.user.avatar as string});
-            })
-            
-            await interaction.channel?.send({
-                embeds: [
-                    Tweet.setDescription(
-                        `${interaction.options.getString('content')}`
-                        //@ts-ignore
-                    ).setAuthor({name: `${(await GetTwitter(interaction.guild?.id as string)).username || interaction.member?.user.username}`, iconURL: `${(await GetTwitter(interaction.guild?.id as string)).pfp || interaction.member?.user.avatarURL()}`}),
-                ],
-            });
-            await interaction.reply({ content: 'Sent!', ephemeral: true });
-            if (interaction.options.getString('content')?.includes('<@')) {
-                interaction.options
-                    .getString('content')
-                    ?.split(' ')
-                    .forEach((val) => {
-                        /<@!?(\d+)>/.test(val)
-                            ? interaction.channel?.send(`${val}`)
-                            : null;
-                    });
-            }
+            Server.findOne(
+                { serverId: interaction.guild?.id },
+                'verifiedUsers',
+                (err, server) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        server?.verifiedUsers.forEach(async (user) => {
+                            //@ts-ignore
+                            if (user === interaction.member?.id) {
+                                Tweet.setTitle(
+                                    '<:verified:869045206857711657> TWOTTER'
+                                );
+                            }
+                        });
+                    }
+                }
+            );
+            const author: EmbedAuthorData = {
+                name: interaction.user.username,
+                iconURL: interaction.user.avatarURL() as string,
+            };
+            Twitter.findOne(
+                { discordId: interaction.user.id },
+                'username pfp',
+                async (err, server) => {
+                    if (err) {
+                        console.log(err);
+                    } else if (!server) {
+                        const newTwitter = new Twitter({
+                            discordId: interaction.user.id,
+                            //@ts-ignore
+                            username: interaction.member?.nickname,
+                            pfp: interaction.user.avatarURL(),
+                        });
+                        newTwitter.save();
+                    } else {
+                        if (server?.pfp) {
+                            author.iconURL = server?.pfp;
+                        }
+                        if (server?.username) {
+                            author.name = server?.username;
+                        }
+                        await interaction.channel
+                            ?.send({
+                                embeds: [
+                                    Tweet.setDescription(
+                                        `${interaction.options.getString(
+                                            'content'
+                                        )}`
+                                    ).setAuthor(author),
+                                ],
+                            })
+                            .then(async () => {
+                                await interaction.reply({
+                                    content: 'Sent!',
+                                    ephemeral: true,
+                                });
+                            })
+                            .then(async () => {
+                                if (
+                                    interaction.options
+                                        .getString('content')
+                                        ?.includes('<@')
+                                ) {
+                                    interaction.options
+                                        .getString('content')
+                                        ?.split(' ')
+                                        .forEach(async (val) => {
+                                            /<@!?(\d+)>/.test(val)
+                                                ? await interaction.channel?.send(
+                                                      `${val}`
+                                                  )
+                                                : null;
+                                        });
+                                }
+                            });
+                    }
+                }
+            );
         } else if (interaction.options.getSubcommand() === 'set-profile') {
+            const username = interaction.options.getString('username');
+            const pfp = interaction.options.getAttachment('image');
+            Twitter.findOne(
+                { discordId: interaction.user.id },
+                'username pfp',
+                (err, server) => {
+                    if (err) {
+                        console.log(err);
+                    } else if (!server) {
+                        const newTwitter = new Twitter({
+                            discordId: interaction.user.id,
+                            //@ts-ignore
+                            username: username || interaction.member?.nickname,
+                            pfp: pfp?.proxyURL || interaction.user.avatarURL(),
+                        });
+                        newTwitter.save();
+                    } else {
+                        //@ts-ignore
+                        server.username =
+                            username || interaction.member?.nickname;
+                        server.pfp =
+                            pfp?.proxyURL ||
+                            (interaction.user.avatarURL() as string);
+                        server?.save();
+                    }
+                }
+            );
+            if (!username) {
+                await interaction.reply({
+                    embeds: [
+                        {
+                            title: 'Profile reset',
+                            description: `Your profile has been reset `,
+                        },
+                    ],
+                    ephemeral: true,
+                });
+            } else {
+                await interaction.reply({
+                    embeds: [
+                        {
+                            title: 'Profile Set',
+                            description: `Your profile has been set to ${username}`,
+                        },
+                    ],
+                    ephemeral: true,
+                });
+            }
         }
     },
 };

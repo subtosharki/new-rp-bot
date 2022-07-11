@@ -13,4 +13,3 @@ export default model<IServer>(
         verifiedUsers: { type: [String], required: true },
     })
 );
-

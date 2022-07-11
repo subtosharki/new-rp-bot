@@ -18,7 +18,7 @@ const client: Client | any = new Client({
 });
 
 client.commands = new Collection();
-const commandFolders: any = fs.readdirSync('dist/commands');
+const commandFolders: unknown[] = fs.readdirSync('dist/commands');
 
 for (const _folder of commandFolders) {
     const commandFiles = fs
