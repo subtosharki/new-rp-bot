@@ -38,9 +38,7 @@ export = {
                 .setDescription('Get your current inventory')
         )
         .addSubcommand((subcommand) =>
-            subcommand
-                .setName('reset')
-                .setDescription('Reset your inventory')
+            subcommand.setName('reset').setDescription('Reset your inventory')
         ),
 
     async execute(interaction: CommandInteraction) {

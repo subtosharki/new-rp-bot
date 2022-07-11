@@ -28,14 +28,16 @@ export = {
             'items',
             async (err, inventory) => {
                 if (err) console.log(err);
-                if (inventory!.items.length > 0) {
-                    inventory?.items.forEach((item) => {
-                        Found.description += `${item},\n`;
-                    });
-                    await interaction.editReply({ embeds: [Found] });
-                } else {
-                    Found.description = 'No items Found';
-                    await interaction.editReply({ embeds: [Found] });
+                if (inventory) {
+                    if (inventory!.items.length > 0) {
+                        inventory?.items.forEach((item) => {
+                            Found.description += `${item},\n`;
+                        });
+                        await interaction.editReply({ embeds: [Found] });
+                    } else {
+                        Found.description = 'No items Found';
+                        await interaction.editReply({ embeds: [Found] });
+                    }
                 }
             }
         );
