@@ -1,6 +1,4 @@
 import { Schema, model, Document } from 'mongoose';
-import Twitter from './Twitter';
-
 interface ITwitter extends Document {
     discordId: string;
     username: string;
@@ -15,7 +13,3 @@ export default model<ITwitter>(
         pfp: { type: String, required: false },
     })
 );
-
-export const GetTwitter = (discordId: string): Promise<ITwitter> => {
-    return Twitter.findOne({ discordId }).exec() as Promise<ITwitter>;
-};

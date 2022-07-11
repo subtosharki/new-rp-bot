@@ -1,6 +1,4 @@
 import { Schema, model, Document } from 'mongoose';
-import Vehicle from './Vehicle';
-
 interface IVehicle extends Document {
     discordId: string;
     locked: boolean;
@@ -15,7 +13,3 @@ export default model<IVehicle>(
         engine: { type: Boolean, required: true },
     })
 );
-
-export const GetVehicle = (discordId: string): Promise<IVehicle> => {
-    return Vehicle.findOne({ discordId }).exec() as Promise<IVehicle>;
-};

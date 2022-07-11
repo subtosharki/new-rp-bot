@@ -11,7 +11,3 @@ export default model<IEmail>(
         email: { type: String, required: true },
     })
 );
-
-export const GetEmail = (discordId: string): Promise<IEmail> => {
-    return exports.findOne({ discordId }).exec() as Promise<IEmail>;
-};

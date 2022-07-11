@@ -63,7 +63,12 @@ export = {
                 }
             });
 
-            //get username and pfp and set it
+            await GetTwitter(
+                interaction.member?.user.id as string
+            ).then(val => {
+                console.log(val)
+                Tweet.setAuthor({name: val.username || interaction.member?.user.username as string, iconURL: val.pfp || interaction.member?.user.avatar as string});
+            })
             
             await interaction.channel?.send({
                 embeds: [

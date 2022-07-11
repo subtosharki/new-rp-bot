@@ -1,6 +1,4 @@
 import { Schema, model, Document } from 'mongoose';
-import Server from './Server';
-
 interface IServer extends Document {
     serverId: string;
     managerRoleId: string;
@@ -16,6 +14,3 @@ export default model<IServer>(
     })
 );
 
-export const GetServer = (discordId: string): Promise<IServer> => {
-    return Server.findOne({ discordId }).exec() as Promise<IServer>;
-};

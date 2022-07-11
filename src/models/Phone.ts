@@ -1,6 +1,4 @@
 import { Schema, model, Document } from 'mongoose';
-import Phone from './Phone';
-
 interface IPhone extends Document {
     discordId: string;
     number: string;
@@ -25,7 +23,3 @@ export default model<IPhone>(
         ],
     })
 );
-
-export const GetPhone = (discordId: string): Promise<IPhone> => {
-    return Phone.findOne({ discordId }).exec() as Promise<IPhone>;
-};
