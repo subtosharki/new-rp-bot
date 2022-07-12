@@ -109,11 +109,13 @@ export = {
                                     ).setAuthor(author),
                                 ],
                             })
-                            .then(async () => {
+                            .then(async (msg) => {
                                 await interaction.reply({
                                     content: 'Sent!',
                                     ephemeral: true,
                                 });
+                                msg.react('<:like:995422257600016414>')
+                                msg.react('<:retweet:995421485063745706>')
                             })
                             .then(async () => {
                                 if (
