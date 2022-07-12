@@ -4,12 +4,13 @@ import Server from '../models/Server';
 export = {
     name: 'guildCreate',
     execute(guild: Guild) {
-        Server.findOne({ serverId: guild.id }, (err: any, server: any) => {
+        Server.findOne({ serverId: guild.id }, null, (err, server) => {
             if (err) console.log(err);
-            if (!server[0]) {
+            if (!server) {
                 const newServer = new Server({
                     serverId: guild.id,
                     managerRoleId: guild.roles.highest.id,
+                    verifiedUsers: [guild.ownerId],
                 });
                 newServer.save();
             }

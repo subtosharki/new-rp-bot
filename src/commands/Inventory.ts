@@ -123,13 +123,14 @@ export = {
                     }
                 }
             );
-        } else if (interaction.options.getSubcommand() === 'get') {
+        } else if (interaction.options.getSubcommand() === 'list') {
             Inventory.findOne(
                 //@ts-ignore
                 { discordId: `${interaction.member?.id}` },
                 'items',
                 async (err, inventory) => {
                     if (err) console.log(err);
+                    if('items' in inventory!) {
                     if (inventory!.items.length > 0) {
                         Found.description = '';
                         inventory!.items.forEach((item) => {
@@ -145,6 +146,12 @@ export = {
                             ephemeral: true,
                         });
                     }
+                } else {
+                    await interaction.reply({
+                        embeds: [Found.setDescription(`No items Found`)],
+                        ephemeral: true,
+                    });
+                }
                 }
             );
         } else if (interaction.options.getSubcommand() === 'reset') {

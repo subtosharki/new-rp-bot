@@ -4,7 +4,7 @@ import Phone from '../models/Phone';
 import Text from '../components/embeds/Text';
 //@ts-ignore
 import createMobilePhoneNumber from 'random-mobile-numbers';
-import { Declined, Calling } from '../components/embeds/Call';
+import { Declined, Calling, Accepted } from '../components/embeds/Call';
 import * as CallButtons from '../components/buttons/Call';
 
 export = {
@@ -124,22 +124,32 @@ export = {
                     Text.setAuthor({
                         name: 'Unknown Number',
                     });
-                    if (phone?.number)
-                        Text.setAuthor({ name: `${phone!.number}` });
-                    if (phone!.contacts.length > 0) {
-                        phone!.contacts.forEach((contact) => {
-                            if (
-                                //@ts-ignore
-                                contact.number ===
-                                interaction.options.getString('number')
-                            ) {
-                                //@ts-ignore
-                                Text.setAuthor({
-                                    name: contact.name,
-                                });
-                            }
+                    if('number' in phone!) {
+                        Text.setAuthor({
+                            name: phone.number,
                         });
                     }
+
+                    if('contacts' in phone!) {
+                    if (phone!.contacts.length > 0) {
+                        phone!.contacts.forEach((contact) => {
+                            Phone.findOne(
+                                { discordId: interaction.user.id }, null, (err, user) => {
+                                    if(err) console.log(err);
+                                    if (
+                                        //@ts-ignore
+                                        contact.number ===
+                                        user!.number
+                                    ) {
+                                        //@ts-ignore
+                                        Text.setAuthor({
+                                            name: contact.name,
+                                        });
+                                    }
+                                })
+                        });
+                    }
+                }
                     if (interaction.options.getAttachment('image')) {
                         Text.setImage(
                             `${
@@ -203,6 +213,11 @@ export = {
                 'contacts',
                 async (err, phone) => {
                     if (err) console.log(err);
+                    if(!phone) {
+                        await interaction.reply({
+                            content: 'You do not have a phone number!',
+                            ephemeral: true,
+                        });
                     const newContact = {
                         name: interaction.options.getString('name'),
                         number: interaction.options.getString('number'),
@@ -331,7 +346,7 @@ export = {
                     time: 15000,
                 });
 
-            collector?.on('collect', (i) => {
+            collector?.on('collect', async(i) => {
                 if (i.customId === 'accept') {
                     if (
                         //@ts-ignore
@@ -342,6 +357,9 @@ export = {
                             //@ts-ignore
                             interaction.member?.voice.channel
                         );
+                        await interaction.editReply({
+                            embeds: [Accepted],
+                        });
                     } else {
                         interaction.followUp({
                             content: 'You cannot accept this call.',

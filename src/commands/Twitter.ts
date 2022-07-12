@@ -93,11 +93,11 @@ export = {
                         });
                         newTwitter.save();
                     } else {
-                        if (server?.pfp) {
-                            author.iconURL = server?.pfp;
+                        if('pfp' in server) {
+                            author.iconURL = server.pfp;
                         }
-                        if (server?.username) {
-                            author.name = server?.username;
+                        if('username' in server) {
+                            author.name = server.username;
                         }
                         await interaction.channel
                             ?.send({
@@ -169,7 +169,7 @@ export = {
                     }
                 }
             );
-            if (!username) {
+            if (!username && !pfp) {
                 await interaction.reply({
                     embeds: [
                         {

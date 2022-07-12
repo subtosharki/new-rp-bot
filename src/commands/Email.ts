@@ -53,7 +53,15 @@ export = {
                     Gmail.setDescription(
                         `${interaction.options.getString('content')}`
                     );
-                    //@ts-ignore
+                    Email.findOne(
+                        { discordId: interaction.user.id }, null, async (err, user) => {
+                            if (err) console.log(err);
+                            if('email' !in user!) {
+                                await interaction.reply('You have no email set');
+                                return;
+                            }
+                        })
+                            
                     Email.findOne(
                         //@ts-ignore
                         { discordId: `${interaction.member?.id}` },

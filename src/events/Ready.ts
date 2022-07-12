@@ -13,7 +13,7 @@ export = {
         client.user?.setActivity(`Over ${f} Members`, { type: 'WATCHING' });
         consola.success(`Ready! Logged in as ${client.user?.tag}`);
         client.guilds.cache.forEach((guild: Guild) => {
-            Server.findOne({ serverId: guild.id }, '', (err, server) => {
+            Server.findOne({ serverId: guild.id }, null, (err, server) => {
                 if (err) {
                     consola.error(err);
                 } else if (!server) {

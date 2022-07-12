@@ -1,5 +1,6 @@
 import type { CommandInteraction } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { bold, SlashCommandBuilder } from '@discordjs/builders';
+import Ping from '../components/embeds/Ping';
 
 export = {
     data: new SlashCommandBuilder()
@@ -13,6 +14,7 @@ export = {
                 .setRequired(true)
         ),
     async execute(interaction: CommandInteraction) {
-        await interaction.reply('Pong!');
+        //@ts-ignore
+        await interaction.reply({ embeds: [Ping.setDescription(`${bold(interaction.member?.nickname)} has pinged their location to ${bold(interaction.options.getMember('user').nickname as unknown as string)}\n\nYou are now allowed to use your map to locate ${interaction.member?.nicknam}`)] });
     },
 };

@@ -30,7 +30,7 @@ export = {
         });
         if (interaction.options.getString('action')?.includes('<@')) {
             interaction.options
-                .getString('content')
+                .getString('action')
                 ?.split(' ')
                 .forEach((val) => {
                     /<@!?(\d+)>/.test(val)

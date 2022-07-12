@@ -55,6 +55,10 @@ export = {
                     id: interaction.guild?.id,
                 },
             });
+            if(server!.verifiedUsers.includes(user!.id)) {
+                await interaction.reply(`${user!.username} is already verified`);
+                return;
+            }
             server?.verifiedUsers.push(user?.id as string);
             await server?.save();
             await interaction.reply({
@@ -72,6 +76,10 @@ export = {
                     id: interaction.guild?.id,
                 },
             });
+            if(!server!.verifiedUsers.includes(user!.id)) {
+                await interaction.reply(`${user!.username} is not verified`);
+                return;
+            }
             server?.verifiedUsers.splice(
                 server?.verifiedUsers.indexOf(user?.id as string),
                 1
