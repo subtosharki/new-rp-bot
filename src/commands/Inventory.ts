@@ -132,9 +132,12 @@ export = {
                     if (err) console.log(err);
                     if(!inventory) {
                         await interaction.reply({
-                            content: `You don't have any items`,
+                            embeds: [
+                                Found.setDescription(`No items Found`),
+                            ],
                             ephemeral: true,
                         });
+                        return
                     }
                     if ('items' in inventory!) {
                         if (inventory!.items.length > 0) {
@@ -156,7 +159,9 @@ export = {
                         }
                     } else {
                         await interaction.reply({
-                            embeds: [Found.setDescription(`No items Found`)],
+                            embeds: [
+                                Found.setDescription(`No items Found`),
+                            ],
                             ephemeral: true,
                         });
                     }

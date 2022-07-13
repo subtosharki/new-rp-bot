@@ -70,7 +70,7 @@ const rest: REST = new REST({ version: '9' }).setToken(env.TOKEN!);
 (async () => {
     try {
         await rest.put(
-            Routes.applicationGuildCommands(env.CLIENTID, env.GUILDID),
+            Routes.applicationCommands(env.CLIENTID),
             {
                 body: commands,
             }
