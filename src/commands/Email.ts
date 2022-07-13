@@ -1,7 +1,7 @@
 import type { CommandInteraction } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Email from '../models/Email';
-import Gmail from '../components/embeds/Gmail';
+import Gmail from '../components/embeds/Email';
 
 export = {
     data: new SlashCommandBuilder()
@@ -54,14 +54,21 @@ export = {
                         `${interaction.options.getString('content')}`
                     );
                     Email.findOne(
-                        { discordId: interaction.user.id }, null, async (err, user) => {
+                        { discordId: interaction.user.id },
+                        null,
+                        async (err, user) => {
                             if (err) console.log(err);
-                            if('email' !in user!) {
-                                await interaction.reply('You have no email set');
+                            if ('email' in user!) {
+                            } else {
+                                await interaction.reply({
+                                    content: 'You have no email set',
+                                    ephemeral: true,
+                                });
                                 return;
                             }
-                        })
-                            
+                        }
+                    );
+
                     Email.findOne(
                         //@ts-ignore
                         { discordId: `${interaction.member?.id}` },

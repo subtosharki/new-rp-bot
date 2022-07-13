@@ -1,4 +1,3 @@
-import { MessageEmbed } from "discord.js";
+import { MessageEmbed } from 'discord.js';
 
-export default new MessageEmbed()
-    .setTimestamp()
+export default new MessageEmbed().setTimestamp();

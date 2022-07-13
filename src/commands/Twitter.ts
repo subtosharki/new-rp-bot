@@ -93,10 +93,10 @@ export = {
                         });
                         newTwitter.save();
                     } else {
-                        if('pfp' in server) {
+                        if ('pfp' in server) {
                             author.iconURL = server.pfp;
                         }
-                        if('username' in server) {
+                        if ('username' in server) {
                             author.name = server.username;
                         }
                         await interaction.channel
@@ -114,8 +114,8 @@ export = {
                                     content: 'Sent!',
                                     ephemeral: true,
                                 });
-                                msg.react('<:like:995422257600016414>')
-                                msg.react('<:retweet:995421485063745706>')
+                                msg.react('<:like:995422257600016414>');
+                                msg.react('<:retweet:995421485063745706>');
                             })
                             .then(async () => {
                                 if (

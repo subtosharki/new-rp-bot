@@ -6,9 +6,9 @@ export = {
     execute(guild: Guild) {
         Server.findOne({ serverId: guild.id }, null, (err) => {
             if (err) console.log(err);
-                Server.deleteOne({ serverId: guild.id }, (err: any) => {
-                    if (err) console.log(err);
-                });
+            Server.deleteOne({ serverId: guild.id }, (err: any) => {
+                if (err) console.log(err);
+            });
         });
     },
 };

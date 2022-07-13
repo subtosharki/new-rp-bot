@@ -124,32 +124,34 @@ export = {
                     Text.setAuthor({
                         name: 'Unknown Number',
                     });
-                    if('number' in phone!) {
+                    if ('number' in phone!) {
                         Text.setAuthor({
                             name: phone.number,
                         });
                     }
 
-                    if('contacts' in phone!) {
-                    if (phone!.contacts.length > 0) {
-                        phone!.contacts.forEach((contact) => {
-                            Phone.findOne(
-                                { discordId: interaction.user.id }, null, (err, user) => {
-                                    if(err) console.log(err);
-                                    if (
-                                        //@ts-ignore
-                                        contact.number ===
-                                        user!.number
-                                    ) {
-                                        //@ts-ignore
-                                        Text.setAuthor({
-                                            name: contact.name,
-                                        });
+                    if ('contacts' in phone!) {
+                        if (phone!.contacts.length > 0) {
+                            phone!.contacts.forEach((contact) => {
+                                Phone.findOne(
+                                    { discordId: interaction.user.id },
+                                    null,
+                                    (err, user) => {
+                                        if (err) console.log(err);
+                                        if (
+                                            //@ts-ignore
+                                            contact.number === user!.number
+                                        ) {
+                                            //@ts-ignore
+                                            Text.setAuthor({
+                                                name: contact.name,
+                                            });
+                                        }
                                     }
-                                })
-                        });
+                                );
+                            });
+                        }
                     }
-                }
                     if (interaction.options.getAttachment('image')) {
                         Text.setImage(
                             `${
@@ -213,22 +215,23 @@ export = {
                 'contacts',
                 async (err, phone) => {
                     if (err) console.log(err);
-                    if(!phone) {
+                    if (!phone) {
                         await interaction.reply({
                             content: 'You do not have a phone number!',
                             ephemeral: true,
                         });
-                    const newContact = {
-                        name: interaction.options.getString('name'),
-                        number: interaction.options.getString('number'),
-                    };
-                    //@ts-ignore
-                    phone.contacts.push(newContact);
-                    await phone!.save();
-                    await interaction.reply({
-                        content: `Contact added!`,
-                        ephemeral: true,
-                    });
+                        const newContact = {
+                            name: interaction.options.getString('name'),
+                            number: interaction.options.getString('number'),
+                        };
+                        //@ts-ignore
+                        phone.contacts.push(newContact);
+                        await phone!.save();
+                        await interaction.reply({
+                            content: `Contact added!`,
+                            ephemeral: true,
+                        });
+                    }
                 }
             );
         } else if (interaction.options.getSubcommand() === 'remove') {
@@ -346,7 +349,7 @@ export = {
                     time: 15000,
                 });
 
-            collector?.on('collect', async(i) => {
+            collector?.on('collect', async (i) => {
                 if (i.customId === 'accept') {
                     if (
                         //@ts-ignore

@@ -130,28 +130,36 @@ export = {
                 'items',
                 async (err, inventory) => {
                     if (err) console.log(err);
-                    if('items' in inventory!) {
-                    if (inventory!.items.length > 0) {
-                        Found.description = '';
-                        inventory!.items.forEach((item) => {
-                            Found.description += `\n${item}, `;
-                        });
+                    if(!inventory) {
                         await interaction.reply({
-                            embeds: [Found],
+                            content: `You don't have any items`,
                             ephemeral: true,
                         });
+                    }
+                    if ('items' in inventory!) {
+                        if (inventory!.items.length > 0) {
+                            Found.description = '';
+                            inventory!.items.forEach((item) => {
+                                Found.description += `\n${item}, `;
+                            });
+                            await interaction.reply({
+                                embeds: [Found],
+                                ephemeral: true,
+                            });
+                        } else {
+                            await interaction.reply({
+                                embeds: [
+                                    Found.setDescription(`No items Found`),
+                                ],
+                                ephemeral: true,
+                            });
+                        }
                     } else {
                         await interaction.reply({
                             embeds: [Found.setDescription(`No items Found`)],
                             ephemeral: true,
                         });
                     }
-                } else {
-                    await interaction.reply({
-                        embeds: [Found.setDescription(`No items Found`)],
-                        ephemeral: true,
-                    });
-                }
                 }
             );
         } else if (interaction.options.getSubcommand() === 'reset') {
